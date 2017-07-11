@@ -11,8 +11,9 @@ namespace LmsTool.Models.DbModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        [DataType(DataType.DateTime)]
-        public DateTime StartDate { get; set; } 
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/mm/yyyy}")]
+        [DataType(DataType.Date)]
+        public DateTime StartDate { get; set; } = DateTime.Now;
         public ICollection<ApplicationUser> Students { get; set; }
         public ICollection<ModulModel> Moduls { get; set; }
     }

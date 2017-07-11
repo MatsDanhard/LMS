@@ -38,10 +38,12 @@ namespace LmsTool.Controllers
         }
 
         // GET: Modul/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name");
-            return View();
+            //ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name");
+            ModulModel model = new ModulModel{CourseId = id};
+
+            return PartialView(model);
         }
 
         // POST: Modul/Create
@@ -51,14 +53,16 @@ namespace LmsTool.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Description,StartDate,EndDate,CourseId")] ModulModel modulModel)
         {
+            
+
             if (ModelState.IsValid)
             {
                 db.Models.Add(modulModel);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
 
-            ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", modulModel.CourseId);
+            //ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", modulModel.CourseId);
             return View(modulModel);
         }
 
@@ -75,7 +79,7 @@ namespace LmsTool.Controllers
                 return HttpNotFound();
             }
             ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", modulModel.CourseId);
-            return View(modulModel);
+             return PartialView(modulModel); 
         }
 
         // POST: Modul/Edit/5
@@ -89,7 +93,7 @@ namespace LmsTool.Controllers
             {
                 db.Entry(modulModel).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", modulModel.CourseId);
             return View(modulModel);

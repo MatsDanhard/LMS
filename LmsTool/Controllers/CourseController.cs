@@ -39,7 +39,9 @@ namespace LmsTool.Controllers
         // GET: Course/Create
         public ActionResult Create()
         {
-            return PartialView();
+            CourseModel model = new CourseModel();
+
+            return PartialView(model);
         }
 
         // POST: Course/Create
@@ -77,7 +79,7 @@ namespace LmsTool.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView();
+            return PartialView(courseModel);
         }
 
         // POST: Course/Edit/5
@@ -91,7 +93,7 @@ namespace LmsTool.Controllers
             {
                 db.Entry(courseModel).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
             return View(courseModel);
         }
@@ -119,7 +121,7 @@ namespace LmsTool.Controllers
             CourseModel courseModel = db.Courses.Find(id);
             db.Courses.Remove(courseModel);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
 
         protected override void Dispose(bool disposing)

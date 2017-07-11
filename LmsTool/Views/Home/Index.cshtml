@@ -1,5 +1,7 @@
-﻿@using System.Web.UI.WebControls
+﻿@using System.Activities.Statements
+@using System.Web.UI.WebControls
 @using LmsTool.Models.DbModels
+@using Microsoft.Ajax.Utilities
 @model IEnumerable<LmsTool.Models.DbModels.CourseModel>
 
 
@@ -18,7 +20,7 @@
 </p>
 
 <!-- Modal -->
-<div class="modal fade" id="CreateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="ModalContainer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -26,7 +28,7 @@
                 <h4 class="modal-title" id="myModalLabel">Modal title</h4>
             </div>
             <div class="modal-body">
-                @Html.Partial("Create", new CourseModel {})
+                @*@Html.Partial("Create", new CourseModel {})*@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -45,7 +47,7 @@
                 <h4 class="modal-title" id="myModalLabel">Modal title</h4>
             </div>
             <div class="modal-body">
-                @Html.Partial("Edit", new CourseModel {Id = })
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -55,8 +57,8 @@
     </div>
 </div>*@
 
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#CreateModal">
-    Launch demo modal
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer"href="@Url.Action("Create","Course")">
+    Skapa ny kurs
 </button>
 
 
@@ -66,10 +68,13 @@
 {
     <div class="panel panel-success" >
         
-        <div class="panel-heading"><a style="font-size: 20px">@course.Name</a><span style="float: right">@*@Html.ActionLink("Skapa Ny kurs", "Create", "Course")*@</span>
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#EditModal">
+        <div class="panel-heading"><a style="font-size: 20px">@course.Name</a><span style="float: right"><button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Create","Modul", new {id = course.Id})">
+    Lägg till ny Modul
+</button></span>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Edit","Course", new {id = course.Id})">
                 Edit
             </button>
+
 
         </div>
         
@@ -91,7 +96,7 @@
         </tr>
 
         @foreach (var modul in course.Moduls) {
-            <tr>
+            <tr> 
                 <td>
                     @Html.DisplayFor(modelItem => modul.Name)
                 </td>
@@ -101,12 +106,33 @@
                 <td>
                     @Html.DisplayFor(modelItem => modul.EndDate)
                 </td>
-                <td>@if (User.IsInRole("Teacher"))
-                    {
-                        @*@Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
-                        @Html.ActionLink("Details", "Details", new {id = item.Id}) |
-                        @Html.ActionLink("Delete", "Delete", new {id = item.Id})*@
-                    }
+                
+                <td>@*@if (User.IsInRole("Teacher"))*@
+                    
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Edit","Modul", new {id = modul.Id})">
+                        Edit
+                    </button>
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Index","Activity", new {id = modul.Id})">
+                        Aktiviteter( @{
+
+                                        if (modul.Activities != null)
+                                        {
+                                            @modul.Activities.Count;
+                                        }
+                                        else
+                                        {
+                                            int a = 0;
+                                         @a
+
+
+                                        }
+
+
+                                    } )
+                        
+                        
+                    </button>
+                    
 
 
                 </td>
@@ -117,5 +143,8 @@
 
 
 }
-
-
+<script>
+    $('.modal').on('hidden.bs.modal', function () {
+        $(this).removeData('bs.modal').children('.modal-content').html('');
+    });
+</script>

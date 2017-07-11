@@ -14,12 +14,18 @@ namespace LmsTool.Controllers
     public class ActivityController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        
 
         // GET: Activity
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            var activities = db.Activities.Include(a => a.Modul);
-            return View(activities.ToList());
+
+            ViewBag.currentModul = id;
+
+
+
+            var activities = db.Activities.Include(a => a.Modul).Where(a => a.ModulId == id);
+            return PartialView(activities.ToList());
         }
 
         // GET: Activity/Details/5
@@ -38,10 +44,14 @@ namespace LmsTool.Controllers
         }
 
         // GET: Activity/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.ModulId = new SelectList(db.Models, "Id", "Name");
-            return View();
+
+            
+            //ViewBag.ModulId = new SelectList(db.Models, "Id", "Name");
+            ActivityModel model = new ActivityModel{ModulId = id};
+
+            return PartialView(model);
         }
 
         // POST: Activity/Create
@@ -51,6 +61,11 @@ namespace LmsTool.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,TypeOfActivity,Name,Description,Submission,StartDate,EndDate,ModulId")] ActivityModel activityModel)
         {
+
+
+
+            
+
             if (ModelState.IsValid)
             {
                 db.Activities.Add(activityModel);
@@ -58,8 +73,8 @@ namespace LmsTool.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ModulId = new SelectList(db.Models, "Id", "Name", activityModel.ModulId);
-            return View(activityModel);
+            //ViewBag.ModulId = new SelectList(db.Models, "Id", "Name", activityModel.ModulId);
+            return PartialView(activityModel);
         }
 
         // GET: Activity/Edit/5
