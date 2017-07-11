@@ -2,6 +2,7 @@
 @using LmsTool.Models.DbModels
 @model IEnumerable<LmsTool.Models.DbModels.CourseModel>
 
+
 @{
     ViewBag.Title = "Index";
 }
@@ -15,11 +16,61 @@
     }
    
 </p>
+
+<!-- Modal -->
+<div class="modal fade" id="CreateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("Create", new CourseModel {})
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+@*<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("Edit", new CourseModel {Id = })
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#CreateModal">
+    Launch demo modal
+</button>
+
+
+
+
 @foreach (CourseModel course in Model)
 {
     <div class="panel panel-success" >
         
-        <div class="panel-heading"><a style="font-size: 20px">@course.Name</a><span style="float: right">@Html.ActionLink("Skapa Ny kurs", "About")</span>
+        <div class="panel-heading"><a style="font-size: 20px">@course.Name</a><span style="float: right">@*@Html.ActionLink("Skapa Ny kurs", "Create", "Course")*@</span>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#EditModal">
+                Edit
+            </button>
+
         </div>
         
     </div>

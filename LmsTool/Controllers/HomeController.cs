@@ -20,13 +20,14 @@ namespace LmsTool.Controllers
             List<CourseModel> model = _db.Courses.Include(m => m.Moduls).ToList();
 
 
+
+
+
+
             return View(model);
         }
-        [HttpPost]
-        public ActionResult Index(CourseModel model)
-        {
-            return Content("Thanks", "text/html");
-        }
+        
+        
 
         public ActionResult About()
         {
