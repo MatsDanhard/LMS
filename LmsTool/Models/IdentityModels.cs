@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using LmsTool.Models.DbModels;
@@ -11,6 +13,9 @@ namespace LmsTool.Models
     public class ApplicationUser : IdentityUser
     {
         public string FullName { get; set; }
+        public int? CourseId { get; set; }
+        public virtual CourseModel Course{ get; set; }
+        public virtual ICollection<AssignmentModel> Assignments { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -27,11 +32,19 @@ namespace LmsTool.Models
         {
         }
         public DbSet<CourseModel> Courses { get; set; }
-        public DbSet<ModulModel> Models { get; set; }
+        public DbSet<ModulModel> Moduls { get; set; }
         public DbSet<ActivityModel> Activities { get; set; }
+        public DbSet<AssignmentModel> Assignments { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<LmsTool.Models.Viewmodels.ViewStudents> ViewStudents { get; set; }
+
+
+        //public System.Data.Entity.DbSet<LmsTool.Models.ApplicationUser> ApplicationUsers { get; set; }
+
+
     }
 }

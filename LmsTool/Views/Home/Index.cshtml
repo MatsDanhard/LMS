@@ -1,31 +1,178 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@using System.Activities.Statements
+@using System.Web.UI.WebControls
+@using LmsTool.Models.DbModels
+@using Microsoft.Ajax.Utilities
+@model IEnumerable<LmsTool.Models.DbModels.CourseModel>
+
+
+@{
+    ViewBag.Title = "Index";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<h2>Index</h2>
+<h2>@ViewBag.dateFailure</h2>
+
+<p>
+    @if (User.IsInRole("Teacher"))
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+   
+</p>
+
+<!-- Modal -->
+<div class="modal fade" id="ModalContainer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+              
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalContainerLarge" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<!-- Modal -->
+@*<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+</div>*@
+
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer"href="@Url.Action("Create","Course")">
+    Skapa ny kurs
+</button>
+
+
+
+
+@foreach (CourseModel course in Model)
+{
+    <div class="panel panel-success" >
+        
+        <div class="panel-heading"><a style="font-size: 20px">@course.Name</a><span style="float: right"><button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Create","Modul", new {id = course.Id})">
+    Lägg till ny Modul
+</button></span>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Edit","Course", new {id = course.Id})">
+                Edit
+            </button>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Index","Course", new {id = course.Id})">
+                Se Elever
+            </button>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Delete","Course", new {id = course.Id})">
+                Tabort
+            </button>
+
+
+
+        </div>
+        
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+
+    <table class="table">
+        <tr>
+            <th>
+               Modulnamn
+            </th>
+            <th>
+                Start datum
+            </th>
+            <th>
+                Slut datum
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var modul in course.Moduls) {
+            <tr> 
+                <td>
+                    @Html.DisplayFor(modelItem => modul.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modul.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modul.EndDate)
+                </td>
+                
+                <td>@*@if (User.IsInRole("Teacher"))*@
+                    
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Edit","Modul", new {id = modul.Id})">
+                        Edit
+                    </button>
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainerLarge" href="@Url.Action("Index","Activity", new {id = modul.Id})">
+                        Aktiviteter( @{
+
+                                         if (modul.Activities != null)
+                                         {
+                                             @modul.Activities.Count;
+                                         }
+                                         else
+                                         {
+                                             int a = 0;
+                                             @a
+
+
+                                         }
+
+
+                                     } )
+                        
+                        
+                    </button>
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Delete","Modul", new {id = modul.Id})">
+                        Tabort
+                    </button>
+                    
+
+
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+}
+<script>
+    $('.modal').on('hidden.bs.modal', function () {
+        $(this).removeData('bs.modal').children('.modal-content').html('');
+    });
+</script>

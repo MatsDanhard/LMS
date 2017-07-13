@@ -8,9 +8,13 @@ namespace LmsTool.Models.DbModels
     public class AssignmentModel
     {
         public int Id { get; set; }
-        public bool Submitted { get; set; }
-        public string Email { get; set; }
-        public int ActivityId { get; set; } 
-        public ActivityModel Activity { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public DateTime? Submitted { get; set; }
+        public DateTime Deadline { get; set; }
+        public int ActivityId { get; set; }
+        public int AssignmentId { get; set; }
+        public virtual ActivityModel Activity { get; set; }
+        public virtual AssignmentModel Assignment { get; set; }
     }
 }
