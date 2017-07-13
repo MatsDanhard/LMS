@@ -4,10 +4,13 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
 using LmsTool.Models;
 using LmsTool.Models.DbModels;
+using LmsTool.Models.Viewmodels;
 
 namespace LmsTool.Controllers
 {
@@ -47,11 +50,15 @@ namespace LmsTool.Controllers
         public ActionResult Create(int id)
         {
 
-            
-            //ViewBag.ModulId = new SelectList(db.Models, "Id", "Name");
-            ActivityModel model = new ActivityModel{ModulId = id};
+            var query = db.Moduls.Find(id);
 
-            return PartialView(model);
+
+
+            //ViewBag.ModulId = new SelectList(db.Models, "Id", "Name");
+            //ActivityModel model = new ActivityModel{ ModulId = id };
+            CreateActivity model = new CreateActivity{ ModulId = id, DisplayModulStart = query.StartDate.ToShortDateString(),
+                DisplayModulEnd = query.EndDate.ToShortDateString(), ModulName = query.Name, ModulStart = query.StartDate,ModulEnd = query.EndDate};
+            return View(model);
         }
 
         // POST: Activity/Create
@@ -59,22 +66,51 @@ namespace LmsTool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TypeOfActivity,Name,Description,Submission,StartDate,EndDate,ModulId")] ActivityModel activityModel)
+        public ActionResult Create([Bind(Include = "Id,TypeOfActivity,Name,Description,Submission,ActivityStart,ActivityEnd,ModulId,ModulStart,ModulEnd")] CreateActivity createActivity)
         {
-
-
-
             
+
+
 
             if (ModelState.IsValid)
             {
-                db.Activities.Add(activityModel);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+               
+                {
+                    if (createActivity.ActivityStart > createActivity.ModulStart && createActivity.ActivityEnd < createActivity.ModulEnd)
+                    {
+
+                       
+                        ActivityModel model = new ActivityModel
+                        {
+                            Name = createActivity.Name,
+                            Description = createActivity.Description,
+                            StartDate = createActivity.ActivityStart,
+                            EndDate = createActivity.ActivityEnd,
+                            ModulId = createActivity.ModulId,
+                            TypeOfActivity = createActivity.TypeOfActivity,
+                            Submission = createActivity.Submission,
+
+                        };
+
+                        db.Activities.Add(model);
+                        db.SaveChanges();
+
+                        
+                        return RedirectToAction("Index", "Home");
+                    }
+                    
+                }
+
+                
+
             }
+            ViewBag.dateFailure = "Gick inte att skapa en aktvitet";
+
+            return View(createActivity);
+           
 
             //ViewBag.ModulId = new SelectList(db.Models, "Id", "Name", activityModel.ModulId);
-            return PartialView(activityModel);
+
         }
 
         // GET: Activity/Edit/5
@@ -89,7 +125,7 @@ namespace LmsTool.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ModulId = new SelectList(db.Models, "Id", "Name", activityModel.ModulId);
+            ViewBag.ModulId = new SelectList(db.Moduls, "Id", "Name", activityModel.ModulId);
             return View(activityModel);
         }
 
@@ -106,7 +142,7 @@ namespace LmsTool.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ModulId = new SelectList(db.Models, "Id", "Name", activityModel.ModulId);
+            ViewBag.ModulId = new SelectList(db.Moduls, "Id", "Name", activityModel.ModulId);
             return View(activityModel);
         }
 

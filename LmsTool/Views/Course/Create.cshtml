@@ -2,6 +2,7 @@
 @model LmsTool.Models.DbModels.CourseModel
 
 
+
 @using (Html.BeginForm("Create","Course")) 
 {
     @Html.AntiForgeryToken()
@@ -42,9 +43,10 @@
     </div>
 }
 
-<div>
+
+@*<div>
     @Html.ActionLink("Back to List", "Index", "Home")
-</div>
+</div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

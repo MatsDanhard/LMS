@@ -6,19 +6,36 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using LmsTool.Models;
 using LmsTool.Models.DbModels;
+using LmsTool.Models.Viewmodels;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LmsTool.Controllers
 {
     public class CourseController : Controller
     {
+       
         private ApplicationDbContext db = new ApplicationDbContext();
+       
 
         // GET: Course
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View(db.Courses.ToList());
+            ViewBag.currentModul = id;
+            var Students = db.Users.Include(model => model.Assignments).Where(model => model.CourseId == id).ToList();
+
+            List<ViewStudents> listStudents = new List<ViewStudents>();
+
+            foreach (var user in Students)
+            {
+                listStudents.Add( new ViewStudents{Id = user.Id,Email = user.Email, FullName = user.FullName, Assignments = user.Assignments.ToList()});
+            }
+
+            return PartialView(listStudents);
         }
 
         // GET: Course/Details/5
@@ -42,6 +59,8 @@ namespace LmsTool.Controllers
             CourseModel model = new CourseModel();
 
             return PartialView(model);
+            
+            
         }
 
         // POST: Course/Create
@@ -110,7 +129,7 @@ namespace LmsTool.Controllers
             {
                 return HttpNotFound();
             }
-            return View(courseModel);
+            return PartialView(courseModel);
         }
 
         // POST: Course/Delete/5
@@ -123,6 +142,36 @@ namespace LmsTool.Controllers
             db.SaveChanges();
             return RedirectToAction("Index","Home");
         }
+
+        //public ActionResult AddStudent(int id)
+        //{
+
+
+
+        //    AddStudent model = new AddStudent{CourseId = id};
+
+
+        //    return PartialView(model);
+
+
+        //}
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult AddStudent([Bind(Include = "CourseId,FullName,Email")] AddStudent model)
+        //{
+        //    UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(db);
+        //    UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(userStore);
+
+        //    var query = db.ApplicationUsers.ToList().FirstOrDefault(u => u.Email == model.Email);
+
+        //    if (query != null)
+        //    {
+        //        return RedirectToAction("AddStudent", model);
+        //    }
+
+            
+        //    return View("");
+        //}
 
         protected override void Dispose(bool disposing)
         {

@@ -1,7 +1,11 @@
 ﻿@model IEnumerable<LmsTool.Models.DbModels.ActivityModel>
 
 <p>
+    @*@Html.ActionLink("Create New", "Create", new {id = ViewBag.currentModul})*@
+    @*<input type="submit" value="Create" class="btn btn-default" data-dismiss="modal" href="@Url.Action("Create",new {id = ViewBag.currentModul})" />*@
+
     @Html.ActionLink("Create New", "Create", new {id = ViewBag.currentModul})
+    @*data-target="#ModalContainer"data-toggle="modal"*@
 </p>
 <table class="table">
     <tr>

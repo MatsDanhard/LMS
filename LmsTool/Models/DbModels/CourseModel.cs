@@ -9,6 +9,7 @@ namespace LmsTool.Models.DbModels
     public class CourseModel
     {
         public int Id { get; set; }
+        [Display(Name = "Kursnamn")]
         public string Name { get; set; }
         public string Description { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/mm/yyyy}")]

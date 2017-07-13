@@ -51,7 +51,7 @@ namespace LmsTool.Migrations
             }
             UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(context);
             UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(userStore);
-            string[] emails = new[] {"teacher@teacher.se"};
+            string[] emails = new[] {"teacher@teacher.se" };
             string[] fullName = new[] {"Läraren Lärarsson"};
             int i = 0;
             foreach (string email in emails)
@@ -71,12 +71,15 @@ namespace LmsTool.Migrations
             }
             ApplicationUser adminUser = userManager.FindByName("teacher@teacher.se");
             userManager.AddToRole(adminUser.Id, "Teacher");
-
+            
+            
 
             CourseModel course = new CourseModel{Name = "kursnamn", Description = "beskrivning", StartDate = DateTime.Now, Moduls = new List<ModulModel>()};
-
+            
             ModulModel modulModel = new ModulModel{Name = "modulnamn", Description = "beskrivning", StartDate = DateTime.Now, EndDate = DateTime.Now };
+            
             course.Moduls.Add(modulModel);
+            
             context.Courses.Add(course);
             //adminUser = userManager.FindByName("admin@Gymbokning.se");
             //userManager.AddToRole(adminUser.Id, "Admin");

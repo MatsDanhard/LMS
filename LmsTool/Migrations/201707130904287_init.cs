@@ -29,13 +29,21 @@ namespace LmsTool.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Submitted = c.Boolean(nullable: false),
-                        Email = c.String(),
+                        Name = c.String(),
+                        Description = c.String(),
+                        Submitted = c.DateTime(),
+                        Deadline = c.DateTime(nullable: false),
                         ActivityId = c.Int(nullable: false),
+                        AssignmentId = c.Int(nullable: false),
+                        ApplicationUser_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.ActivityModels", t => t.ActivityId, cascadeDelete: true)
-                .Index(t => t.ActivityId);
+                .ForeignKey("dbo.AssignmentModels", t => t.AssignmentId)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .Index(t => t.ActivityId)
+                .Index(t => t.AssignmentId)
+                .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
                 "dbo.ModulModels",
@@ -69,6 +77,7 @@ namespace LmsTool.Migrations
                     {
                         Id = c.String(nullable: false, maxLength: 128),
                         FullName = c.String(),
+                        CourseId = c.Int(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -80,12 +89,11 @@ namespace LmsTool.Migrations
                         LockoutEnabled = c.Boolean(nullable: false),
                         AccessFailedCount = c.Int(nullable: false),
                         UserName = c.String(nullable: false, maxLength: 256),
-                        CourseModel_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.CourseModels", t => t.CourseModel_Id)
-                .Index(t => t.UserName, unique: true, name: "UserNameIndex")
-                .Index(t => t.CourseModel_Id);
+                .ForeignKey("dbo.CourseModels", t => t.CourseId)
+                .Index(t => t.CourseId)
+                .Index(t => t.UserName, unique: true, name: "UserNameIndex");
             
             CreateTable(
                 "dbo.AspNetUserClaims",
@@ -140,21 +148,25 @@ namespace LmsTool.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.AspNetUsers", "CourseModel_Id", "dbo.CourseModels");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUsers", "CourseId", "dbo.CourseModels");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AssignmentModels", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.ModulModels", "CourseId", "dbo.CourseModels");
             DropForeignKey("dbo.ActivityModels", "ModulId", "dbo.ModulModels");
+            DropForeignKey("dbo.AssignmentModels", "AssignmentId", "dbo.AssignmentModels");
             DropForeignKey("dbo.AssignmentModels", "ActivityId", "dbo.ActivityModels");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
-            DropIndex("dbo.AspNetUsers", new[] { "CourseModel_Id" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.AspNetUsers", new[] { "CourseId" });
             DropIndex("dbo.ModulModels", new[] { "CourseId" });
+            DropIndex("dbo.AssignmentModels", new[] { "ApplicationUser_Id" });
+            DropIndex("dbo.AssignmentModels", new[] { "AssignmentId" });
             DropIndex("dbo.AssignmentModels", new[] { "ActivityId" });
             DropIndex("dbo.ActivityModels", new[] { "ModulId" });
             DropTable("dbo.AspNetRoles");

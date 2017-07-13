@@ -18,8 +18,8 @@ namespace LmsTool.Controllers
         // GET: Modul
         public ActionResult Index()
         {
-            var models = db.Models.Include(m => m.Course);
-            return View(models.ToList());
+            var moduls = db.Moduls.Include(m => m.Course);
+            return View(moduls.ToList());
         }
 
         // GET: Modul/Details/5
@@ -29,7 +29,7 @@ namespace LmsTool.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ModulModel modulModel = db.Models.Find(id);
+            ModulModel modulModel = db.Moduls.Find(id);
             if (modulModel == null)
             {
                 return HttpNotFound();
@@ -57,7 +57,7 @@ namespace LmsTool.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Models.Add(modulModel);
+                db.Moduls.Add(modulModel);
                 db.SaveChanges();
                 return RedirectToAction("Index","Home");
             }
@@ -73,7 +73,7 @@ namespace LmsTool.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ModulModel modulModel = db.Models.Find(id);
+            ModulModel modulModel = db.Moduls.Find(id);
             if (modulModel == null)
             {
                 return HttpNotFound();
@@ -106,12 +106,13 @@ namespace LmsTool.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ModulModel modulModel = db.Models.Find(id);
+            ModulModel modulModel = db.Moduls.Find(id);
+            modulModel.Course = db.Courses.Find(modulModel.CourseId);
             if (modulModel == null)
             {
                 return HttpNotFound();
             }
-            return View(modulModel);
+            return PartialView(modulModel);
         }
 
         // POST: Modul/Delete/5
@@ -119,10 +120,10 @@ namespace LmsTool.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ModulModel modulModel = db.Models.Find(id);
-            db.Models.Remove(modulModel);
+            ModulModel modulModel = db.Moduls.Find(id);
+            db.Moduls.Remove(modulModel);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
 
         protected override void Dispose(bool disposing)
