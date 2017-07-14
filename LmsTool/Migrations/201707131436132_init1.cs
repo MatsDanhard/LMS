@@ -3,7 +3,7 @@ namespace LmsTool.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init : DbMigration
+    public partial class init1 : DbMigration
     {
         public override void Up()
         {
@@ -36,14 +36,17 @@ namespace LmsTool.Migrations
                         ActivityId = c.Int(nullable: false),
                         AssignmentId = c.Int(nullable: false),
                         ApplicationUser_Id = c.String(maxLength: 128),
+                        ViewStudents_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.ActivityModels", t => t.ActivityId, cascadeDelete: true)
                 .ForeignKey("dbo.AssignmentModels", t => t.AssignmentId)
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .ForeignKey("dbo.ViewStudents", t => t.ViewStudents_Id)
                 .Index(t => t.ActivityId)
                 .Index(t => t.AssignmentId)
-                .Index(t => t.ApplicationUser_Id);
+                .Index(t => t.ApplicationUser_Id)
+                .Index(t => t.ViewStudents_Id);
             
             CreateTable(
                 "dbo.ModulModels",
@@ -143,10 +146,21 @@ namespace LmsTool.Migrations
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
+            CreateTable(
+                "dbo.ViewStudents",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        FullName = c.String(),
+                        Email = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.AssignmentModels", "ViewStudents_Id", "dbo.ViewStudents");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
@@ -165,10 +179,12 @@ namespace LmsTool.Migrations
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUsers", new[] { "CourseId" });
             DropIndex("dbo.ModulModels", new[] { "CourseId" });
+            DropIndex("dbo.AssignmentModels", new[] { "ViewStudents_Id" });
             DropIndex("dbo.AssignmentModels", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.AssignmentModels", new[] { "AssignmentId" });
             DropIndex("dbo.AssignmentModels", new[] { "ActivityId" });
             DropIndex("dbo.ActivityModels", new[] { "ModulId" });
+            DropTable("dbo.ViewStudents");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
