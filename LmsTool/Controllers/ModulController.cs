@@ -57,6 +57,15 @@ namespace LmsTool.Controllers
 
             if (ModelState.IsValid)
             {
+                var query = db.Courses.Find(modulModel.CourseId);
+
+
+                if (query.StartDate > modulModel.StartDate)
+                {
+                    return PartialView("Create", modulModel);
+                }
+
+
                 db.Moduls.Add(modulModel);
                 db.SaveChanges();
                 return RedirectToAction("Index","Home");

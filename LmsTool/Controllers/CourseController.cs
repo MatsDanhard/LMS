@@ -138,6 +138,19 @@ namespace LmsTool.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             CourseModel courseModel = db.Courses.Find(id);
+            UserStore<ApplicationUser> store = new UserStore<ApplicationUser>(db);
+            ApplicationUserManager manager = new ApplicationUserManager(store);
+            var query = manager.Users.Where(u => u.CourseId == id).ToList();
+            
+            
+            
+
+            foreach (var user in query)
+            {
+               var delete =  db.Users.Find(user.Id);
+                manager.Delete(delete);
+            }
+
             db.Courses.Remove(courseModel);
             db.SaveChanges();
             return RedirectToAction("Index","Home");

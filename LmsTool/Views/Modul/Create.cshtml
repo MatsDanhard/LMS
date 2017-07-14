@@ -49,6 +49,10 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
+                
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Create","Modul", new {id = Model.CourseId})">
+                    Skapa
+                </button>
             </div>
         </div>
     </div>
