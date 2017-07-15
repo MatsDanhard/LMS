@@ -1,18 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using LmsTool.Models;
+using LmsTool.Models.DbModels;
 
 namespace LmsTool.Controllers
 {
-    [Authorize]
+    
     public class HomeController : Controller
     {
+        ApplicationDbContext _db = new ApplicationDbContext();
+
         public ActionResult Index()
         {
-            return View();
+
+            List<CourseModel> model = _db.Courses.Include(m => m.Moduls).ToList();
+
+
+
+
+
+
+            return View(model);
         }
+        
+        
 
         public ActionResult About()
         {

@@ -1,0 +1,43 @@
+﻿@using LmsTool.Controllers
+@model IEnumerable<LmsTool.Models.Viewmodels.ViewStudents>
+
+<p>
+    @Html.ActionLink("Skapa ny elev", "Register", "Account", new { id = ViewBag.currentModul }, null)
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Editera", "Edit","Account", new { id=item.Id },null) |
+                
+                @Html.ActionLink("Detaljer", "Details", "Account", new { id = item.Id }, null) |
+                
+                @Html.ActionLink("Tabort", "Delete","Account", new { id=item.Id },null)
+            </td>
+        </tr>
+    }
+
+</table>
+<script>
+    $('.modal').on('hidden.bs.modal', function () {
+        $(this).removeData('bs.modal').children('.modal-content').html('');
+    });
+</script>

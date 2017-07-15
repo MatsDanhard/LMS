@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -9,15 +12,18 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LmsTool.Models;
+using LmsTool.Models.DbModels;
+using LmsTool.Models.Viewmodels;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LmsTool.Controllers
 {
-    [Authorize]
+    
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private ApplicationDbContext db = new ApplicationDbContext();
         public AccountController()
         {
         }
@@ -137,9 +143,11 @@ namespace LmsTool.Controllers
         //
         // GET: /Account/Register
         
-        public ActionResult Register()
+        public ActionResult Register(int id)
         {
-            return View();
+            RegisterViewModel model = new RegisterViewModel{CourseId = id};
+
+            return View(model);
         }
 
         //
@@ -147,27 +155,26 @@ namespace LmsTool.Controllers
         [HttpPost]
         
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public /*async Task<*/ActionResult/*>*/ Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                
+                var store = new UserStore<ApplicationUser>(db);
+                var manager = new ApplicationUserManager(store);
+                var user = new ApplicationUser() { Email = model.Email, UserName = model.Email, CourseId = model.CourseId, FullName = model.FullName,};
+                manager.Create(user, "password");
 
-                    return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
+                ApplicationUser studenUser = manager.FindByName(model.Email);
+                manager.AddToRole(studenUser.Id, "Student");
+
+                ViewBag.Succes = "Elev skapad";
+
+                return RedirectToAction("Register");
+                
+               
             }
-
+            ViewBag.EmailExist = "Eposten du försöker lägga till existerar redan";
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -402,6 +409,94 @@ namespace LmsTool.Controllers
         {
             return View();
         }
+
+        // GET: Course/Edit/5
+        public ActionResult Edit(string id)
+        {
+           
+            var query = db.Users.Find(id);
+            ViewStudents model = new ViewStudents{FullName = query.FullName,Email = query.Email, Id = query.Id};
+            return PartialView(model);
+        }
+
+        // POST: Course/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,FullName,Email")] ViewStudents model)
+        {
+            if (ModelState.IsValid)
+            {
+                var store = new UserStore<ApplicationUser>(db);
+                var manager = new ApplicationUserManager(store);
+
+                var user = manager.FindById(model.Id);
+
+                user.FullName = model.FullName;
+                user.Email = model.Email;
+                user.UserName = model.Email;
+
+                manager.Update(user);
+
+                //db.SaveChanges();
+
+                return RedirectToAction("Index", "Home");
+            }
+            return PartialView(model);
+        }
+
+        // GET: /Account/ResetPasswordConfirmation
+
+        public ActionResult Delete(string id)
+        {
+
+            var student = db.Users.Find(id);
+            ViewStudents model = new ViewStudents{Id = student.Id, Email = student.Email, FullName = student.FullName, Assignments = student.Assignments.ToList()};
+
+            return PartialView(model);
+        }
+
+
+        // POST: /Users/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public /*async Task<*/ActionResult/*>*/ DeleteConfimed(string id)
+        {
+            if (ModelState.IsValid)
+            {
+                var store = new UserStore<ApplicationUser>(db);
+                var manager = new ApplicationUserManager(store);
+
+                
+                var user = manager.FindById(id);
+
+                var rolesForUser =  manager.GetRoles(id);
+
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    
+                    if (rolesForUser.Count() > 0)
+                    {
+                        foreach (var item in rolesForUser.ToList())
+                        {
+                            // item should be the name of the role
+                            var result = manager.RemoveFromRole(user.Id, item);
+                        }
+                    }
+
+                    manager.Delete(user);
+                    transaction.Commit();
+                }
+
+                return RedirectToAction("Index", "home");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
 
         protected override void Dispose(bool disposing)
         {
