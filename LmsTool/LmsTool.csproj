@@ -239,6 +239,15 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Dokumentation\untitled %287%29 %281%2920170714.erdplus" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Resources\logo-access-16x9-580.gif" />
+    <Content Include="Resources\logo-grafik.gif" />
+    <Content Include="Resources\logo-kommande-utbud-16x9-580.gif" />
+    <Content Include="Resources\logo-lexicon%402x.gif" />
+    <Content Include="Resources\logo-powerpoint-16x9-580.gif" />
+    <Content Include="Resources\logo-webb.gif" />
+    <Content Include="Resources\logo-windows-16x9-580.gif" />
+    <Content Include="Resources\logo-word-16x9-580.gif" />
+    <Content Include="Resources\parallax-section-background-04.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
