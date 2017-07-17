@@ -16,9 +16,9 @@ namespace LmsTool.Models.DbModels
         [Display(Name = "Beskrivning")]
         public string Description { get; set; }
         [Display(Name = "Startdatum")]
-        public DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.Now;
         [Display(Name = "Slutdatum")]
-        public DateTime EndDate { get; set; }
+        public DateTime EndDate { get; set; } = DateTime.Now.AddDays(7);
         public int CourseId { get; set; }   
         public CourseModel Course { get; set; }
         public ICollection<ActivityModel> Activities { get; set; }

@@ -27,11 +27,11 @@ namespace LmsTool.Models.Viewmodels
         public string Description { get; set; }
         [Display(Name = "Startdatum")]
         //[Range(typeof(DateTime), ms, DisplayModulEnd, ErrorMessage ="Datumet måste vara mellan {1} {2}")]
-        public DateTime ActivityStart { get; set; } 
+        public DateTime ActivityStart { get; set; } = DateTime.Now;
         [Display(Name = "Slutdatum")]
-        public DateTime ActivityEnd { get; set; }
-        public DateTime ModulStart { get; set; }
-        public DateTime ModulEnd { get; set; }  
+        public DateTime ActivityEnd { get; set; }= DateTime.Now.AddDays(1);
+        public DateTime ModulStart { get; set; } 
+        public DateTime ModulEnd { get; set; } 
         public string DisplayModulStart { get; set; }
         public string DisplayModulEnd { get; set; }
         public int ModulId { get; set; }

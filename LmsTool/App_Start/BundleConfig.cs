@@ -16,18 +16,29 @@ namespace LmsTool
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
+
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/jquery-ui.css",
+                "~/Content/jquery-ui.css"
+                ));
+            bundles.Add(new ScriptBundle("~/Scripts/jqueryUI").Include(
+                        "~/Scripts/jquery-ui.min.js",
+                        "~/Scripts/jquery-ui.js"
+                        ));
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js," +
-                      "~/Content/index.js"));
-
+                      "~/Scripts/respond.js", 
+                      "~/Content/index.js",
+                      "~/Scripts/jquery-1.10.2.*"));
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"
                       ));
+
+
         }
     }
 }
