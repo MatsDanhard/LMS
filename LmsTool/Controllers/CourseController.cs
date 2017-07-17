@@ -35,7 +35,7 @@ namespace LmsTool.Controllers
                 listStudents.Add( new ViewStudents{Id = user.Id,Email = user.Email, FullName = user.FullName, Assignments = user.Assignments.ToList()});
             }
 
-            return PartialView(listStudents);
+            return View(listStudents);
         }
 
         // GET: Course/Details/5
@@ -83,7 +83,7 @@ namespace LmsTool.Controllers
                 return RedirectToAction("Index","Home");
             }
 
-            return View(courseModel);
+             return PartialView(courseModel); 
         }
 
         // GET: Course/Edit/5
@@ -114,7 +114,7 @@ namespace LmsTool.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index","Home");
             }
-            return View(courseModel);
+            return PartialView(courseModel);
         }
 
         // GET: Course/Delete/5
@@ -138,6 +138,19 @@ namespace LmsTool.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             CourseModel courseModel = db.Courses.Find(id);
+            UserStore<ApplicationUser> store = new UserStore<ApplicationUser>(db);
+            ApplicationUserManager manager = new ApplicationUserManager(store);
+            var query = manager.Users.Where(u => u.CourseId == id).ToList();
+            
+            
+            
+
+            foreach (var user in query)
+            {
+               var delete =  db.Users.Find(user.Id);
+                manager.Delete(delete);
+            }
+
             db.Courses.Remove(courseModel);
             db.SaveChanges();
             return RedirectToAction("Index","Home");

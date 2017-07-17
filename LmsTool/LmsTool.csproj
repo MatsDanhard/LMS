@@ -197,13 +197,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707130904287_init.cs" />
-    <Compile Include="Migrations\201707130904287_init.Designer.cs">
-      <DependentUpon>201707130904287_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707131126512_init4.cs" />
-    <Compile Include="Migrations\201707131126512_init4.Designer.cs">
-      <DependentUpon>201707131126512_init4.cs</DependentUpon>
+    <Compile Include="Migrations\201707131436132_init1.cs" />
+    <Compile Include="Migrations\201707131436132_init1.Designer.cs">
+      <DependentUpon>201707131436132_init1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -224,6 +220,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\index.js" />
+    <Content Include="Dokumentation\Backlog 20170705.txt" />
+    <Content Include="Dokumentation\erdplus-diagram20170714.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -239,12 +237,24 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Dokumentation\untitled %287%29 %281%2920170714.erdplus" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Resources\logo-access-16x9-580.gif" />
+    <Content Include="Resources\logo-grafik.gif" />
+    <Content Include="Resources\logo-kommande-utbud-16x9-580.gif" />
+    <Content Include="Resources\logo-lexicon%402x.gif" />
+    <Content Include="Resources\logo-powerpoint-16x9-580.gif" />
+    <Content Include="Resources\logo-webb.gif" />
+    <Content Include="Resources\logo-windows-16x9-580.gif" />
+    <Content Include="Resources\logo-word-16x9-580.gif" />
+    <Content Include="Resources\parallax-section-background-04.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -292,9 +302,11 @@
     <Content Include="Views\Course\Delete.cshtml" />
     <Content Include="Views\Modul\Delete.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Course\Index.cshtml" />
     <Content Include="Views\Account\Delete.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Home\IndexStudent.cshtml" />
+    <Content Include="Views\Course\Index.cshtml" />
+    <Content Include="Views\Modul\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -306,11 +318,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707130904287_init.resx">
-      <DependentUpon>201707130904287_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707131126512_init4.resx">
-      <DependentUpon>201707131126512_init4.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707131436132_init1.resx">
+      <DependentUpon>201707131436132_init1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

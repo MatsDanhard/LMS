@@ -15,7 +15,7 @@
 <p>
     @if (User.IsInRole("Teacher"))
     {
-        @Html.ActionLink("Create New", "Create")
+        
     }
    
 </p>
@@ -86,15 +86,15 @@
 {
     <div class="panel panel-success" >
         
-        <div class="panel-heading"><a style="font-size: 20px">@course.Name</a><span style="float: right"><button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Create","Modul", new {id = course.Id})">
-    Lägg till ny Modul
-</button></span>
+        <div class="panel-heading"><a style="font-size: 20px">@course.Name</a><span style="float: right">
+                @Html.ActionLink("Elever","Index","Course",  new {id = course.Id}, new {@class= "btn btn-primary btn-lg" })
+                     
+                @Html.ActionLink("Moduler","Index","Modul",  new {id = course.Id}, new {@class= "btn btn-primary btn-lg" })
+            </span>
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Edit","Course", new {id = course.Id})">
                 Edit
             </button>
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Index","Course", new {id = course.Id})">
-                Se Elever
-            </button>
+           
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Delete","Course", new {id = course.Id})">
                 Tabort
             </button>
@@ -106,68 +106,31 @@
     </div>
 
 
-    <table class="table">
-        <tr>
-            <th>
-               Modulnamn
-            </th>
-            <th>
-                Start datum
-            </th>
-            <th>
-                Slut datum
-            </th>
-            <th></th>
-        </tr>
+    <div class="container" id="CourseDescription">
+        @course.Description
+        
 
-        @foreach (var modul in course.Moduls) {
-            <tr> 
-                <td>
-                    @Html.DisplayFor(modelItem => modul.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => modul.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => modul.EndDate)
-                </td>
-                
-                <td>@*@if (User.IsInRole("Teacher"))*@
+    </div>
+
+       
                     
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Edit","Modul", new {id = modul.Id})">
+                    @*<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Edit","Modul", new {id = modul.Id})">
                         Edit
                     </button>
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainerLarge" href="@Url.Action("Index","Activity", new {id = modul.Id})">
-                        Aktiviteter( @{
+                        Aktiviteter( @{*@
 
-                                         if (modul.Activities != null)
-                                         {
-                                             @modul.Activities.Count;
-                                         }
-                                         else
-                                         {
-                                             int a = 0;
-                                             @a
-
-
-                                         }
-
-
-                                     } )
+                                        
                         
                         
-                    </button>
+                    @*</button>
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Delete","Modul", new {id = modul.Id})">
                         Tabort
-                    </button>
+                    </button>*@
                     
 
 
-                </td>
-            </tr>
-        }
-
-    </table>
+       
 
 
 }
