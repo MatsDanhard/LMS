@@ -35,7 +35,7 @@ namespace LmsTool.Controllers
                 listStudents.Add( new ViewStudents{Id = user.Id,Email = user.Email, FullName = user.FullName, Assignments = user.Assignments.ToList()});
             }
 
-            return PartialView(listStudents);
+            return View(listStudents);
         }
 
         // GET: Course/Details/5
@@ -83,7 +83,7 @@ namespace LmsTool.Controllers
                 return RedirectToAction("Index","Home");
             }
 
-            return View(courseModel);
+             return PartialView(courseModel); 
         }
 
         // GET: Course/Edit/5
@@ -114,7 +114,7 @@ namespace LmsTool.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index","Home");
             }
-            return View(courseModel);
+            return PartialView(courseModel);
         }
 
         // GET: Course/Delete/5
