@@ -15,7 +15,7 @@
 <p>
     @if (User.IsInRole("Teacher"))
     {
-        @Html.ActionLink("Create New", "Create")
+        
     }
    
 </p>
@@ -86,13 +86,14 @@
 {
     <div class="panel panel-success" >
         
-        <div class="panel-heading"><a style="font-size: 20px">@course.Name</a><span style="float: right"><button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Create","Modul", new {id = course.Id})">
-    Lägg till ny Modul
+        <div class="panel-heading"><a style="font-size: 20px">@course.Name</a><span style="float: right"><button type="button" class="btn btn-primary btn-lg" @*data-toggle="modal" data-target="#ModalContainer"*@
+                                                                                                                 href="@Url.Action("Index","Modul", new {id = course.Id})">
+    Moduler
 </button></span>
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Edit","Course", new {id = course.Id})">
                 Edit
             </button>
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Index","Course", new {id = course.Id})">
+            <button type="button" class="btn btn-primary btn-lg" @*data-toggle="modal" data-target="#ModalContainer"*@ href="@Url.Action("Index","Course", new {id = course.Id})">
                 Se Elever
             </button>
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Delete","Course", new {id = course.Id})">
