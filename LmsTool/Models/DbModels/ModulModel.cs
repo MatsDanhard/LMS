@@ -12,7 +12,9 @@ namespace LmsTool.Models.DbModels
         [Display(Name = "Modul namn")]
         public string Name { get; set; }
         public string Description { get; set; }
+        
         public DateTime StartDate { get; set; }
+        
         public DateTime EndDate { get; set; }
         public int CourseId { get; set; }   
         public CourseModel Course { get; set; }
