@@ -1,13 +1,13 @@
 ﻿@model LmsTool.Models.DbModels.CourseModel
 
 
-@using (Html.BeginForm())
+@using (Ajax.BeginForm("Edit", "Course", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ModalEdit", OnSuccess = "$('close').click()" }, new { id = Model.Id }))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
        
-        <hr />
+        
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
@@ -44,9 +44,7 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
