@@ -11,6 +11,8 @@ namespace LmsTool.Models.DbModels
     {
         public int Id { get; set; }
         [Display(Name = "Namn")]
+        [Required]
+        [StringLength(50, MinimumLength = 3 ,ErrorMessage = "Namnet behöver vara minst tre tecken långt")]
         public string Name { get; set; }
         [Display(Name = "Beskrivning")]
         public string Description { get; set; }

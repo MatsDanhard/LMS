@@ -72,6 +72,7 @@ namespace LmsTool.Models
         public string Email { get; set; }
         [Required]
         [Display(Name = "Förnamn och efternamn")]
+        [RegularExpression(@"([\w]+[\s]+[\w]+.*)", ErrorMessage = "Namnet måste innehålla ett mellanslag")]
         public string FullName { get; set; }
 
         //[Required]
