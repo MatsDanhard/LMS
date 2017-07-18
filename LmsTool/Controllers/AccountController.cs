@@ -147,7 +147,7 @@ namespace LmsTool.Controllers
         {
             RegisterViewModel model = new RegisterViewModel{CourseId = id};
 
-            return View(model);
+            return PartialView(model);
         }
 
         //
@@ -170,7 +170,7 @@ namespace LmsTool.Controllers
 
                 ViewBag.Succes = "Elev skapad";
 
-                return RedirectToAction("Register");
+                return RedirectToAction("index","Course", new {id = model.CourseId});
                 
                
             }

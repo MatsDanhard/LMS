@@ -64,7 +64,8 @@ namespace LmsTool.Models
 
     public class RegisterViewModel
     {
-        
+
+        public int Id { get; set; }
         public int CourseId { get; set; }
         [Required]
         [EmailAddress]

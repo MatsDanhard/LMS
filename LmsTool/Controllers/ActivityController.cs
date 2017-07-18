@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.EnterpriseServices;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -28,7 +29,18 @@ namespace LmsTool.Controllers
 
 
             var activities = db.Activities.Include(a => a.Modul).Where(a => a.ModulId == id);
-            return PartialView(activities.ToList());
+
+            if (!activities.Any())
+            {
+                var modul = db.Moduls.Find(id);
+
+                ViewBag.ModulName = modul.Name;
+                ViewBag.ModulStart = modul.StartDate.ToShortDateString();
+                ViewBag.ModulEnd = modul.EndDate.ToShortDateString();
+
+            }
+
+            return View(activities.ToList());
         }
 
         // GET: Activity/Details/5
@@ -52,13 +64,24 @@ namespace LmsTool.Controllers
 
             var query = db.Moduls.Find(id);
 
+            //Todo:1 Partial
+
+
+            //if (query.Activities.Any())
+            //{
+            //    var activityStart = query.Activities.OrderBy(a => a.EndDate).Last().EndDate;
+
+            //    CreateActivity model = new CreateActivity{DisplayModulStart = activityStart.ToShortDateString(), ModulId = id, ActivityStart = activityStart, ActivityEnd = activityStart.AddDays(1)};
+
+
+            //}
 
 
             //ViewBag.ModulId = new SelectList(db.Models, "Id", "Name");
             //ActivityModel model = new ActivityModel{ ModulId = id };
             CreateActivity model = new CreateActivity{ ModulId = id, DisplayModulStart = query.StartDate.ToShortDateString(),
                 DisplayModulEnd = query.EndDate.ToShortDateString(), ModulName = query.Name, ModulStart = query.StartDate,ModulEnd = query.EndDate};
-            return View(model);
+            return PartialView(model);
         }
 
         // POST: Activity/Create
@@ -125,8 +148,8 @@ namespace LmsTool.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ModulId = new SelectList(db.Moduls, "Id", "Name", activityModel.ModulId);
-            return View(activityModel);
+            
+            return PartialView(activityModel);
         }
 
         // POST: Activity/Edit/5
@@ -140,9 +163,9 @@ namespace LmsTool.Controllers
             {
                 db.Entry(activityModel).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new {id = activityModel.ModulId});
             }
-            ViewBag.ModulId = new SelectList(db.Moduls, "Id", "Name", activityModel.ModulId);
+            
             return View(activityModel);
         }
 
@@ -158,7 +181,7 @@ namespace LmsTool.Controllers
             {
                 return HttpNotFound();
             }
-            return View(activityModel);
+            return PartialView(activityModel);
         }
 
         // POST: Activity/Delete/5
