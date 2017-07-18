@@ -16,9 +16,13 @@ namespace LmsTool.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Modul
-        public ActionResult Index()
+        public ActionResult Index(int id, string info, string error)
         {
-            var moduls = db.Moduls.Include(m => m.Course);
+
+            ViewBag.InfoModul = info;
+            ViewBag.ErrorModul = error;
+            var moduls = db.Moduls.Include(m => m.Course).Where(c  => c.CourseId == id);
+            ViewBag.CurrentCourse = id;
             return View(moduls.ToList());
         }
 
@@ -62,13 +66,20 @@ namespace LmsTool.Controllers
 
                 if (query.StartDate > modulModel.StartDate)
                 {
-                    return PartialView("Create", modulModel);
+                    modulModel.StartDate = query.StartDate;
+
+                    db.Moduls.Add(modulModel);
+                    db.SaveChanges();
+                    
+                        
+                    return RedirectToAction("Index", new {id = modulModel.CourseId, error = "Din modul hade ett start datum som var tidgare än kursens, modulens start fick samma värde som kursens"
+                    });
                 }
 
 
                 db.Moduls.Add(modulModel);
                 db.SaveChanges();
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index","Modul", new {id = modulModel.CourseId, info = modulModel.Name + " Är nu skapad"});
             }
 
             //ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", modulModel.CourseId);
@@ -87,7 +98,7 @@ namespace LmsTool.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", modulModel.CourseId);
+            
              return PartialView(modulModel); 
         }
 

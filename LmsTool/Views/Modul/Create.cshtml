@@ -5,14 +5,16 @@
 <script src="~/Scripts/jquery-ui.min.js"></script>
 <script src="~/Scripts/jquery-ui.js"></script>
 
-@using (Html.BeginForm())
+
+@using (Ajax.BeginForm("create","modul", new AjaxOptions{HttpMethod = "POST", UpdateTargetId = "ModalCreate", OnSuccess = "$('close').click()"}, new{id = ViewBag.CurrentCourse})) 
+
 {
 
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>ModulModel</h4>
-        <hr />
+        
+        
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -54,6 +56,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
+
 
 
             </div>
@@ -111,6 +114,7 @@
             });
 
         </script>
+
 
 
 

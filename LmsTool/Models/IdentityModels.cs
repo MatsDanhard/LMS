@@ -42,6 +42,8 @@ namespace LmsTool.Models
 
         public System.Data.Entity.DbSet<LmsTool.Models.Viewmodels.ViewStudents> ViewStudents { get; set; }
 
+        public System.Data.Entity.DbSet<LmsTool.Models.RegisterViewModel> RegisterViewModels { get; set; }
+
 
         //public System.Data.Entity.DbSet<LmsTool.Models.ApplicationUser> ApplicationUsers { get; set; }
 
