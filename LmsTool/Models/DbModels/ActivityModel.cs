@@ -19,9 +19,9 @@ namespace LmsTool.Models.DbModels
         [Display(Name = "Inlämningsuppgift")]
         public bool Submission { get; set; }
         [Display(Name = "Startdatum")]
-        public DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.Now;
         [Display(Name = "Slutdatum")]
-        public DateTime EndDate { get; set; }
+        public DateTime EndDate { get; set; } = DateTime.Now.AddDays(1);
         public int ModulId { get; set; }    
         public ModulModel Modul { get; set; }
         public ICollection<AssignmentModel> Assignments { get; set; }

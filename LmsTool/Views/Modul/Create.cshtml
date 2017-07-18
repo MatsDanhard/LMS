@@ -1,10 +1,17 @@
 ﻿@model LmsTool.Models.DbModels.ModulModel
 
+<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+
 
 @using (Ajax.BeginForm("create","modul", new AjaxOptions{HttpMethod = "POST", UpdateTargetId = "ModalCreate", OnSuccess = "$('close').click()"}, new{id = ViewBag.CurrentCourse})) 
+
 {
+
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         
         
@@ -28,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @id = "dt1", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -36,7 +43,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @id = "dt2", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -50,20 +57,71 @@
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
 
-                
-                
+
+
             </div>
         </div>
-    </div>
-}
+</div>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+        @section Scripts {
+            @Scripts.Render("~/bundles/bootstrap")
+            @Styles.Render("~/Content/JqueryUI-css")
+            @Scripts.Render("~/Scripts/jqueryUI")
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+        <script>
+            $(document).ready(function () {
+
+                //var test = $('#dt1').getDate;
+                //$("#dt1").val($.format.date(new Date(), 'yy mm dd'));
+
+
+                $("#dt1").datepicker({
+                    dateFormat: "yy-mm-dd",
+                    minDate: 0,
+                    onSelect: function () {
+                        var date2 = $('#dt1').datepicker('getDate');
+                        date2.setHours(8);
+                        alert(date2);
+                        date2.setDate(date2.getDate() + 1);
+                        $('#dt2').datepicker('setDate', date2);
+                        //sets minDate to dt1 date + 1
+                        $('#dt2').datepicker('option', 'minDate', date2);
+                        alert("i script");
+                        
+                        
+                    }
+                });
+                $('#dt2').datepicker({
+                    dateFormat: "yy-mm-dd",
+                    onClose: function () {
+                        var dt1 = $('#dt1').datepicker('getDate');
+                        console.log(dt1);
+                        var dt2 = $('#dt2').datepicker('getDate');
+                        dt2.setHours(17);
+                        alert(dt2);
+                        if (dt2 <= dt1) {
+                            var minDate = $('#dt2').datepicker('option', 'minDate');
+                            $('#dt2').datepicker('setDate', minDate);
+                            alert("i script");
+                        }
+                    }
+                });
+            });
+
+        </script>
 
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
-<script>
-    $('.modal').on('hidden.bs.modal', function () {
-        $(this).removeData('bs.modal').children('.modal-content').html('');
-    });
-</script>
+
+        @*<script>
+            $('.modal').on('hidden.bs.modal', function () {
+                $(this).data('.modal'), null removeData('bs.modal').children('.modal-content').html('');
+                $(this).
+                alert("i script");
+            });
+        </script>*@
