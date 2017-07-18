@@ -1,5 +1,11 @@
 ﻿@model LmsTool.Models.RegisterViewModel
 
+@{
+    ViewBag.Title = "Registrera elev";
+}
+
+<h2>Registrera elev</h2>
+
 
 @using (Ajax.BeginForm("Register", "Account", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ModalCreate", OnSuccess = "$('close').click()" }, new { id = ViewBag.CurrentCourse }))
 
@@ -7,8 +13,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-       
-        
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.CourseId)
 
@@ -30,7 +35,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Lägg till" class="btn btn-default" />
             </div>
         </div>
     </div>

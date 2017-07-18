@@ -57,7 +57,6 @@ namespace LmsTool.Models
         [DataType(DataType.Password)]
         [Display(Name = "Lösenord")]
         public string Password { get; set; }
-
         [Display(Name = "Kom ihåg mig")]
         public bool RememberMe { get; set; }
     }
@@ -73,6 +72,7 @@ namespace LmsTool.Models
         public string Email { get; set; }
         [Required]
         [Display(Name = "Förnamn och efternamn")]
+        [RegularExpression(@"([\w]+[\s]+[\w]+.*)", ErrorMessage = "Namnet måste innehålla ett mellanslag")]
         public string FullName { get; set; }
 
         //[Required]

@@ -130,20 +130,6 @@ namespace LmsTool.Migrations
 
             course.Moduls.Add(modulModel);
 
-            ApplicationUser student = new ApplicationUser
-            {
-                UserName = "LenaK@google.com",
-                Email = "LenaK@google.com",
-                FullName = "Lena Karlsson",
-                CourseId = course.Id
-            };
-            if (!context.Users.Where(g => g.UserName == student.UserName).Any())
-            {
-                userManager.Create(student, "password");
-                userManager.AddToRole(student.Id, "Student");
-                course.Students.Add(student);
-            }
-
             context.Courses.AddOrUpdate(p => p.Name, course);
 
             course = new CourseModel { Name = ".NET", Description = "C#, HTML, CSS, Javascript, jQuery, MVC", StartDate = DateTime.Now, Moduls = new List<ModulModel>(), Students = new List<ApplicationUser>() };
@@ -193,22 +179,91 @@ namespace LmsTool.Migrations
             modulModel.Activities.Add(activity);
 
             course.Moduls.Add(modulModel);
+           
+            context.Courses.AddOrUpdate(p => p.Name, course);
 
-            student = new ApplicationUser
+            // Lägger till studenter
+            course = context.Courses.Where(g => g.Name == "Python").First();
+
+            ApplicationUser student;
+            emails = new[] { "KlaraPersson@google.se", "Tussilago@live.se", "Peter23@outlook.com", "LenaEriksson@google.com", "LenaP@google.com", "Frans@yahoo.com" };
+            fullName = new[] { "Klara Persson", "Petra Eriksson", "Peter Johnsson", "Lena Eriksson", "Lena Eriksson", "Fredrik Karlsson" };
+            i = 0;
+            foreach (string email in emails)
             {
-                UserName = "LenaP@google.com",
-                Email = "LenaP@google.com",
-                FullName = "Lena Karlsson",
-                CourseId = course.Id
-            };
-            if (!context.Users.Where(g => g.UserName == student.UserName).Any())
-            {
-                userManager.Create(student, "password");
-                userManager.AddToRole(student.Id, "Student");
-                course.Students.Add(student);
+                if (!context.Users.Any(u => u.UserName == email))
+                {
+                    student = new ApplicationUser
+                    {
+                        UserName = email,
+                        Email = email,
+                        FullName = fullName[i],
+                        CourseId = course.Id
+                    };
+                    var result = userManager.Create(student, "password");
+                    if (!result.Succeeded)
+                    {
+                        throw new Exception(string.Join("\n", result.Errors));
+                    }
+                    userManager.AddToRole(student.Id, "Student");
+                    course.Students.Add(student);
+                }
+                i++;
             }
 
-            context.Courses.AddOrUpdate(p => p.Name, course);
+            course = context.Courses.Where(g => g.Name == ".Net").First();
+
+            emails = new[] { "ErikEriksson@google.se", "Smultron89@live.se", "Peter2012@outlook.com" };
+            fullName = new[] { "Erik Eriksson", "Jan Svensson", "Peter Johnsson" };
+            i = 0;
+            foreach (string email in emails)
+            {
+                if (!context.Users.Any(u => u.UserName == email))
+                {
+                    student = new ApplicationUser
+                    {
+                        UserName = email,
+                        Email = email,
+                        FullName = fullName[i],
+                        CourseId = course.Id
+                    };
+                    var result = userManager.Create(student, "password");
+                    if (!result.Succeeded)
+                    {
+                        throw new Exception(string.Join("\n", result.Errors));
+                    }
+                    userManager.AddToRole(student.Id, "Student");
+                    course.Students.Add(student);
+                }
+                i++;
+            }
+
+            course = context.Courses.Where(g => g.Name == "kursnamn").First();
+
+            emails = new[] { "ErikEriksson1@google.se", "Smultron891@live.se", "Peter20121@outlook.com" };
+            fullName = new[] { "Erik Eriksson", "Jan Svensson", "Peter Johnsson" };
+            i = 0;
+            foreach (string email in emails)
+            {
+                if (!context.Users.Any(u => u.UserName == email))
+                {
+                    student = new ApplicationUser
+                    {
+                        UserName = email,
+                        Email = email,
+                        FullName = fullName[i],
+                        CourseId = course.Id
+                    };
+                    var result = userManager.Create(student, "password");
+                    if (!result.Succeeded)
+                    {
+                        throw new Exception(string.Join("\n", result.Errors));
+                    }
+                    userManager.AddToRole(student.Id, "Student");
+                    course.Students.Add(student);
+                }
+                i++;
+            }
 
             //adminUser = userManager.FindByName("admin@Gymbokning.se");
             //userManager.AddToRole(adminUser.Id, "Admin");

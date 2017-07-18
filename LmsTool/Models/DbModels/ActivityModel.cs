@@ -13,6 +13,8 @@ namespace LmsTool.Models.DbModels
         [Display(Name="Typ av aktivitet")]
         public string TypeOfActivity { get; set; }
         [Display(Name = "Aktivitetens namn")]
+        [Required]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Namnet behöver vara minst tre tecken långt")]
         public string Name { get; set; }
         [Display(Name = "Beskrivning")]
         public string Description { get; set; }
