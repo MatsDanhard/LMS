@@ -1,16 +1,23 @@
-﻿@model LmsTool.Models.DbModels.ModulModel
+﻿@model LmsTool.Models.DbModels.ActivityModel
 
-<h3>Vill du tabort @Html.DisplayFor(model => model.Name) i kursen @Html.DisplayFor(model => model.Course.Name) ?</h3>
+<h3>Vill du tabort @Model.Name?</h3>
 <div>
-    
-  
+   
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Course.Name)
+            @Html.DisplayNameFor(model => model.Modul.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Course.Name)
+            @Html.DisplayFor(model => model.Modul.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeOfActivity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeOfActivity)
         </dd>
 
         <dt>
@@ -27,6 +34,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Submission)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Submission)
         </dd>
 
         <dt>
@@ -51,7 +66,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> 
+            <input type="submit" value="Tabort" class="btn btn-default" /> 
+           
         </div>
     }
 </div>

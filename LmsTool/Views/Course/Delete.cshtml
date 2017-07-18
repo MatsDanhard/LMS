@@ -3,7 +3,7 @@
 <h3>Vill du tabort kursen @Html.DisplayFor(model => model.Name) ?</h3>
 <div>
     
-    <hr />
+    
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -35,8 +35,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Delete" class="btn btn-default" /> 
+           
         </div>
     }
 </div>

@@ -1,14 +1,23 @@
-﻿@model LmsTool.Models.DbModels.ModulModel
+﻿@model LmsTool.Models.DbModels.ActivityModel
 
 
-@using (Ajax.BeginForm("create","modul", new AjaxOptions{HttpMethod = "POST", UpdateTargetId = "ModalCreate", OnSuccess = "$('close').click()"}, new{id = ViewBag.CurrentCourse})) 
+@using (Ajax.BeginForm("Edit", "activity", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ModalEdit", OnSuccess = "$('close').click()" }, new { id = Model.Id }))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        
-        
+       
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TypeOfActivity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TypeOfActivity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TypeOfActivity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -22,6 +31,16 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Submission, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Submission)
+                    @Html.ValidationMessageFor(model => model.Submission, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
@@ -41,17 +60,11 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.HiddenFor(model => model.CourseId)
-            @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
-        </div>
+        @Html.HiddenFor(model => model.ModulId)
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-
-                
-                
+                <input type="submit" value="Spara" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -62,8 +75,3 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-<script>
-    $('.modal').on('hidden.bs.modal', function () {
-        $(this).removeData('bs.modal').children('.modal-content').html('');
-    });
-</script>

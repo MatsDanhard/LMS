@@ -23,9 +23,9 @@ namespace LmsTool.Controllers
        
 
         // GET: Course
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? id) // För elevlistan
         {
-            ViewBag.currentModul = id;
+            ViewBag.CurrentCourse = id;
             var Students = db.Users.Include(model => model.Assignments).Where(model => model.CourseId == id).ToList();
 
             List<ViewStudents> listStudents = new List<ViewStudents>();

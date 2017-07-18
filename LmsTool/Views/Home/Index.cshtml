@@ -19,31 +19,19 @@
     }
    
 </p>
-
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
 <!-- Modal -->
-<div class="modal fade" id="ModalContainer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="ModalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-            </div>
-            <div class="modal-body">
-              
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="ModalContainerLarge" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title" id="myModalLabel">Skapa Modul</h4>
             </div>
             <div class="modal-body">
 
@@ -55,29 +43,44 @@
         </div>
     </div>
 </div>
-
-<!-- Modal -->
-@*<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title" id="myModalLabel1">Editera Modul</h4>
             </div>
             <div class="modal-body">
-                
+
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
 
             </div>
         </div>
     </div>
-</div>*@
+</div>
+<div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">Tabort Modul</h4>
+            </div>
+            <div class="modal-body">
 
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer"href="@Url.Action("Create","Course")">
-    Skapa ny kurs
-</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<a href="@Url.Action("Create","course", null)"  class = "btn btn-primary Create" >Skapa ny kurs</a>
 
 
 
@@ -91,13 +94,9 @@
                      
                 @Html.ActionLink("Moduler","Index","Modul",  new {id = course.Id}, new {@class= "btn btn-primary btn-lg" })
             </span>
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Edit","Course", new {id = course.Id})">
-                Edit
-            </button>
+            <a href="@Url.Action("Edit","course", new {id = course.Id})"  class="btn btn-primary Edit">Editera</a>
            
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Delete","Course", new {id = course.Id})">
-                Tabort
-            </button>
+            <a href="@Url.Action("Delete","course", new {id = course.Id})"  class="btn btn-primary Delete">Tabort</a>
 
 
 
@@ -135,7 +134,33 @@
 
 }
 <script>
-    $('.modal').on('hidden.bs.modal', function () {
-        $(this).removeData('bs.modal').children('.modal-content').html('');
+    $(document).ready(function () {
+        $('.Create').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('.modal-body').html(response);
+            });
+            $('#ModalCreate').modal({
+                backdrop: 'static',
+            }, 'show');
+        });
+        $('.Edit').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('.modal-body').html(response);
+            });
+            $('#ModalEdit').modal({
+                backdrop: 'static',
+            }, 'show');
+        });
+        $('.Delete').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('.modal-body').html(response);
+            });
+            $('#ModalDelete').modal({
+                backdrop: 'static',
+            }, 'show');
+        });
     });
 </script>

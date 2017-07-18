@@ -8,7 +8,7 @@
 <h3>Som pågår mellan @Html.DisplayFor(model => model.DisplayModulStart) - @Html.DisplayFor(model => model.DisplayModulEnd)</h3>
 
 
-@using (Html.BeginForm()) 
+@using (Ajax.BeginForm("Create", "activity", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ModalCreate", OnSuccess = "$('close').click()" }, new { id = Model.ModulId }))
 {
     @Html.AntiForgeryToken()
     
@@ -78,15 +78,13 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Skapa" class="btn btn-default" />
             </div>
         </div>
     
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

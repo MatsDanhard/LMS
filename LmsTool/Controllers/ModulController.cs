@@ -98,7 +98,7 @@ namespace LmsTool.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", modulModel.CourseId);
+            
              return PartialView(modulModel); 
         }
 
