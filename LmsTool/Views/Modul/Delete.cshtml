@@ -4,7 +4,7 @@
 <div>
     
   
-    <dl class="dl-horizontal">
+    <dl class="">
         <dt>
             @Html.DisplayNameFor(model => model.Course.Name)
         </dt>
@@ -50,8 +50,8 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> 
+        <div @*class="form-actions no-color"*@>
+            <input type="submit" value="Delete" class="btn btn-danger btn-block" /> 
         </div>
     }
 </div>

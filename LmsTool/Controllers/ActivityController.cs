@@ -21,7 +21,7 @@ namespace LmsTool.Controllers
         
 
         // GET: Activity
-        public ActionResult Index(int? id)
+        public ActionResult Index(int id)
         {
 
             ViewBag.currentModul = id;
