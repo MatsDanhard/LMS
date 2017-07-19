@@ -16,7 +16,7 @@
 
 </head>
 <body>
-
+@RenderSection("Scripts", required: false)
 
 
 
@@ -54,6 +54,6 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    
 </body>
 </html>
