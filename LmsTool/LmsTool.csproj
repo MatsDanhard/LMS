@@ -197,13 +197,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707180959050_init.cs" />
-    <Compile Include="Migrations\201707180959050_init.Designer.cs">
-      <DependentUpon>201707180959050_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707180959090_AddedMinLength.cs" />
-    <Compile Include="Migrations\201707180959090_AddedMinLength.Designer.cs">
-      <DependentUpon>201707180959090_AddedMinLength.cs</DependentUpon>
+    <Compile Include="Migrations\201707181333172_init.cs" />
+    <Compile Include="Migrations\201707181333172_init.Designer.cs">
+      <DependentUpon>201707181333172_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -261,10 +257,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
-
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
-
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -332,11 +326,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707180959050_init.resx">
-      <DependentUpon>201707180959050_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707180959090_AddedMinLength.resx">
-      <DependentUpon>201707180959090_AddedMinLength.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707181333172_init.resx">
+      <DependentUpon>201707181333172_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
