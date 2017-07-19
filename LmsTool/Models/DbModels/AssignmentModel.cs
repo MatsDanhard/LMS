@@ -11,6 +11,8 @@ namespace LmsTool.Models.DbModels
     {
         public int Id { get; set; }
         [Display(Name = "Namn")]
+        [Required]
+        [StringLength(50, MinimumLength = 3 ,ErrorMessage = "Namnet behöver vara minst tre tecken långt")]
         public string Name { get; set; }
         [Display(Name = "Beskrivning")]
         public string Description { get; set; }
@@ -19,8 +21,8 @@ namespace LmsTool.Models.DbModels
         [Display(Name = "Senaste inlämningsdatum")]
         public DateTime Deadline { get; set; }
         public int ActivityId { get; set; }
-        public int AssignmentId { get; set; }
+        public string UserId { get; set; } 
         public virtual ActivityModel Activity { get; set; }
-        public virtual AssignmentModel Assignment { get; set; }
+        
     }
 }

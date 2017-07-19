@@ -6,6 +6,7 @@
 <script src="~/Scripts/jquery-ui.js"></script>
 
 
+
 @{
     ViewBag.Title = "Create";
 }
@@ -83,8 +84,10 @@
         </div>
 
         <div class="form-group">
+
             <div @*class="col-md-offset-2 col-md-10"*@>
                 <input type="submit" value="Skapa" class="btn btn-success btn-block" />
+
             </div>
         </div>
     
@@ -100,37 +103,38 @@
 }
 <script>
     //$(document).ready(function () {
-        alert("i script");
-        $("#dt1").datepicker({
-            dateFormat: "yy-mm-dd",
-            minDate: 0,
-            onSelect: function () {
-                var date2 = $('#dt1').datepicker('getDate');
-                date2.setHours(8);
-                date2.setDate(date2.getDate() + 1);
-                $('#dt2').datepicker('setDate', date2);
-                //sets minDate to dt1 date + 1
-                $('#dt2').datepicker('option', 'minDate', date2);
-                alert(dt1);
+    alert("i script");
+    $("#dt1").datepicker({
+        dateFormat: "yy-mm-dd",
+        minDate: 0,
+        onSelect: function () {
+            var date2 = $('#dt1').datepicker('getDate');
+            date2.setHours(8);
+            date2.setDate(date2.getDate() + 1);
+            $('#dt2').datepicker('setDate', date2);
+            //sets minDate to dt1 date + 1
+            $('#dt2').datepicker('option', 'minDate', date2);
+            alert(dt1);
+        }
+    });
+    $('#dt2').datepicker({
+        dateFormat: "yy-mm-dd",
+        onClose: function () {
+            var dt1 = $('#dt1').datepicker('getDate');
+            console.log(dt1);
+            var dt2 = $('#dt2').datepicker('getDate');
+            dt2.setHours(17);
+            alert(dt2);
+            if (dt2 <= dt1) {
+                var minDate = $('#dt2').datepicker('option', 'minDate');
+                $('#dt2').datepicker('setDate', minDate);
             }
-        });
-        $('#dt2').datepicker({
-            dateFormat: "yy-mm-dd",
-            onClose: function () {
-                var dt1 = $('#dt1').datepicker('getDate');
-                console.log(dt1);
-                var dt2 = $('#dt2').datepicker('getDate');
-                dt2.setHours(17);
-                alert(dt2);
-                if (dt2 <= dt1) {
-                    var minDate = $('#dt2').datepicker('option', 'minDate');
-                    $('#dt2').datepicker('setDate', minDate);
-                }
-            }
-        });
+        }
+    });
     //});
 
 </script>
+
 
 
 @*<script>

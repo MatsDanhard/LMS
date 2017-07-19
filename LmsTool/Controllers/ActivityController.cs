@@ -27,20 +27,61 @@ namespace LmsTool.Controllers
             ViewBag.currentModul = id;
 
 
+            var modul = db.Moduls.Find(id);
+            var activities = db.Activities.Include(a => a.Assignments).Where(a => a.ModulId == id);
 
-            var activities = db.Activities.Include(a => a.Modul).Where(a => a.ModulId == id);
-
-            if (!activities.Any())
+            List<ViewActivitys> model = new List<ViewActivitys>();
+            if (activities.Any())
             {
-                var modul = db.Moduls.Find(id);
 
-                ViewBag.ModulName = modul.Name;
-                ViewBag.ModulStart = modul.StartDate.ToShortDateString();
-                ViewBag.ModulEnd = modul.EndDate.ToShortDateString();
+                foreach (var activity in activities)
+                {
+                    model.Add(new ViewActivitys
+                    {
+                        TypeOfActivity = activity.TypeOfActivity,
+                        Assignments = activity.Assignments.ToList(),
+                        Description = activity.Description,
+                        EndDate = activity.EndDate,
+                        Id = activity.Id,
+                        ModulId = activity.ModulId,
+                        Name = activity.Name,
+                        StartDate = activity.StartDate,
+                        ModulName = modul.Name,
+                        ModulStartStr = modul.StartDate.ToShortDateString(),
+                        ModulEndStr = modul.EndDate.ToShortDateString()
 
+                    });
+                }
+            }
+            else
+            {
+                model.Add(new ViewActivitys{
+                    ModulName = modul.Name,
+                    ModulStartStr = modul.StartDate.ToShortDateString(),
+                    ModulEndStr = modul.EndDate.ToShortDateString()
+                });
             }
 
-            return View(activities.ToList());
+
+            //ViewBag.ModulName = modul.Name;
+                //ViewBag.ModulStart = modul.StartDate.ToShortDateString();
+                //ViewBag.ModulEnd = modul.EndDate.ToShortDateString();
+
+            
+
+            return View(model);
+        }
+
+        // GET: Activity
+        public ActionResult IndexAssignment(int id)
+        {
+            var query = db.Assignments.Where(a => a.ActivityId == id);
+          
+
+
+
+
+            return View(query.ToList());
         }
 
         // GET: Activity/Details/5
@@ -56,6 +97,71 @@ namespace LmsTool.Controllers
                 return HttpNotFound();
             }
             return View(activityModel);
+        }
+
+
+        // GET: Activity/CreateAssignment
+        public ActionResult CreateAssignment(int id)
+        {
+
+            var query = db.Activities.Find(id);
+
+            //var users = db.Users.Where(user => user.Course.Moduls.Contains(query.Modul));
+            //List<AssignmentModel> model = new List<AssignmentModel>();
+            //foreach (var user in users)
+            //{
+            //    model.Add(new AssignmentModel{});
+            //}
+
+            AssignmentModel model = new AssignmentModel{Activity = query, ActivityId = id};
+            
+
+
+            
+           
+            return PartialView(model);
+        }
+
+        // POST: Activity/CreateAssignment
+        [HttpPost]
+        public ActionResult CreateAssignment([Bind(Include = "Name,Description,Deadline,ActivityId,Activity")] AssignmentModel assignmentModel)
+        {
+
+            
+            
+
+            if (ModelState.IsValid)
+            {
+                var activities = db.Activities.Find(assignmentModel.ActivityId).ModulId;
+                var modul = db.Moduls.Find(activities).CourseId;
+                var users = db.Users.Where(u => u.Course.Id == modul);
+                
+                foreach (var user in users)
+                {
+                    AssignmentModel model = new AssignmentModel
+                    {
+                        ActivityId = assignmentModel.ActivityId,
+                        Activity = assignmentModel.Activity,
+                        Deadline = assignmentModel.Deadline,
+                        Description = assignmentModel.Description,
+                        Name = assignmentModel.Name,
+                        UserId = user.UserName
+
+
+                    };
+
+                    db.Assignments.Add(model);
+                    
+                }
+                db.SaveChanges();
+
+            }
+
+
+
+
+
+            return RedirectToAction("IndexAssignment","Activity", new {id = assignmentModel.ActivityId});
         }
 
         // GET: Activity/Create
@@ -117,9 +223,7 @@ namespace LmsTool.Controllers
 
                         db.Activities.Add(model);
                         db.SaveChanges();
-
-                        
-                        return RedirectToAction("Index", "Home");
+                        return model.Submission ? RedirectToAction("CreateAssignment", new {id = model.Id}) : RedirectToAction("Index", "Home");
                     }
                     
                 }
@@ -192,7 +296,7 @@ namespace LmsTool.Controllers
             ActivityModel activityModel = db.Activities.Find(id);
             db.Activities.Remove(activityModel);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new {id = activityModel.ModulId});
         }
 
         protected override void Dispose(bool disposing)

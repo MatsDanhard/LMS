@@ -1,0 +1,52 @@
+﻿@model IEnumerable<LmsTool.Models.DbModels.AssignmentModel>
+
+@{
+    ViewBag.Title = "IndexAssignment";
+}
+
+<h2>@Model.FirstOrDefault().Name i @Model.FirstOrDefault().Activity.Name</h2>
+<h3>Deadline @Model.FirstOrDefault().Deadline</h3>
+<div class="text-center">
+    <div>
+        <h4>Beskrivning för uppgiften</h4>
+        @Model.FirstOrDefault().Description
+    </div>
+    <div>Typ av aktivitet @Model.FirstOrDefault().Activity.TypeOfActivity</div>
+    
+    
+</div>
+
+<table class="table">
+    <tr>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Submitted)
+        </th>
+        
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Submitted)
+        </td>
+        
+       
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

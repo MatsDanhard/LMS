@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
@@ -56,7 +57,7 @@ namespace LmsTool.Controllers
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                message == ManageMessageId.ChangePasswordSuccess ? "Lösenordet har ändrats."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
@@ -241,6 +242,11 @@ namespace LmsTool.Controllers
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
+
+            
+            
+            
+
             AddErrors(result);
             return View(model);
         }

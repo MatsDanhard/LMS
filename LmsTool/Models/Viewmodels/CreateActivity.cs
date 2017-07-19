@@ -18,6 +18,8 @@ namespace LmsTool.Models.Viewmodels
         //private string ms = "";
 
         [Display(Name = "Aktivitetens namn")]
+        [Required]
+        [StringLength(30, MinimumLength = 3, ErrorMessage = "Namnet behöver vara minst tre tecken långt")]
         public string Name { get; set; }
         [Display(Name = "Modulens namn")]
         public string ModulName { get; set; }
