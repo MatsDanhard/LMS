@@ -5,19 +5,24 @@
 @model IEnumerable<LmsTool.Models.DbModels.CourseModel>
 
 
+<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Kurs</h2>
 <h2>@ViewBag.dateFailure</h2>
 
 <p>
     @if (User.IsInRole("Teacher"))
     {
-        
+
     }
-   
+    <a href="@Url.Action("Create","course", null)" class="btn btn-success Create">Skapa kurs</a>
 </p>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
@@ -31,13 +36,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Skapa Modul</h4>
+                <h4 class="modal-title" id="myModalLabel">Skapa Kurs</h4>
             </div>
             <div class="modal-body">
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <div class="@*modal-footer*@">
+                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
 
             </div>
         </div>
@@ -48,13 +53,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel1">Editera Modul</h4>
+                <h4 class="modal-title" id="myModalLabel1">Redigera Kurs</h4>
             </div>
             <div class="modal-body">
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+            <div class="">
+                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
 
             </div>
         </div>
@@ -65,13 +70,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel2">Tabort Modul</h4>
+                <h4 class="modal-title" id="myModalLabel2">Radera Kurs</h4>
             </div>
             <div class="modal-body">
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+            <div class="">
+                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
 
             </div>
         </div>
@@ -80,59 +85,55 @@
 
 
 
-<a href="@Url.Action("Create","course", null)"  class = "btn btn-primary Create" >Skapa ny kurs</a>
+
 
 
 
 
 @foreach (CourseModel course in Model)
 {
-    <div class="panel panel-success" >
-        
-        <div class="panel-heading"><a style="font-size: 20px">@course.Name</a><span style="float: right">
-                @Html.ActionLink("Elever","Index","Course",  new {id = course.Id}, new {@class= "btn btn-primary btn-lg" })
-                     
-                @Html.ActionLink("Moduler","Index","Modul",  new {id = course.Id}, new {@class= "btn btn-primary btn-lg" })
+    <div class="panel panel-info">
+
+        <div class="panel-heading">
+            <p class="glyphicon glyphicon-menu-down">&nbsp;</p><a style="font-size: 30px">@course.Name</a><span style="float: right">
+                @Html.ActionLink("Elever", "Index", "Course", new { id = course.Id }, new { @class = "btn btn-primary btn-lg" })
+
+                @Html.ActionLink("Moduler", "Index", "Modul", new { id = course.Id }, new { @class = "btn btn-primary btn-lg" })
             </span>
-            <a href="@Url.Action("Edit","course", new {id = course.Id})"  class="btn btn-primary Edit">Editera</a>
-           
-            <a href="@Url.Action("Delete","course", new {id = course.Id})"  class="btn btn-primary Delete">Tabort</a>
+            <a href="@Url.Action("Edit","course", new {id = course.Id})" class="btn btn-primary Edit">Redigera</a>
 
-
-
+            <a href="@Url.Action("Delete","course", new {id = course.Id})" class="btn btn-danger Delete">Radera</a>
         </div>
-        
-    </div>
 
-
-    <div class="container" id="CourseDescription">
-        @course.Description
-        
+        <div class="container panel-body Expandable">
+            @course.Description
+        </div>
 
     </div>
+    @*<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Edit","Modul", new {id = modul.Id})">
+            Edit
+        </button>
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainerLarge" href="@Url.Action("Index","Activity", new {id = modul.Id})">
+            Aktiviteter( @{*@
 
-       
-                    
-                    @*<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Edit","Modul", new {id = modul.Id})">
-                        Edit
-                    </button>
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainerLarge" href="@Url.Action("Index","Activity", new {id = modul.Id})">
-                        Aktiviteter( @{*@
-
-                                        
-                        
-                        
-                    @*</button>
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Delete","Modul", new {id = modul.Id})">
-                        Tabort
-                    </button>*@
-                    
-
-
-       
-
-
+    @*</button>
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Delete","Modul", new {id = modul.Id})">
+            Tabort
+        </button>*@
 }
+
+
+
+
+<script>$('.Expandable').hide();</script>
+<script>
+    $(document).ready(
+        $(document).on('click', '.glyphicon-menu-down', function () {
+            $(this).closest('.panel').find(".Expandable").toggle("fast", "swing");
+        }));
+</script>
+
+
 <script>
     $(document).ready(function () {
         $('.Create').click(function (event) {
