@@ -195,7 +195,7 @@ namespace LmsTool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TypeOfActivity,Name,Description,Submission,ActivityStart,ActivityEnd,ModulId,ModulStart,ModulEnd")] CreateActivity createActivity)
+        public ActionResult Create([Bind(Include = "Id,TypeOfActivity,Name,Description,ActivityStart,ActivityEnd,ModulId,ModulStart,ModulEnd")] CreateActivity createActivity)
         {
             
 
