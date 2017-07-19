@@ -93,7 +93,11 @@ namespace LmsTool.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+           
+
             ModulModel modulModel = db.Moduls.Find(id);
+            var course = db.Courses.Find(modulModel.CourseId);
+            modulModel.Course = course;
             if (modulModel == null)
             {
                 return HttpNotFound();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
@@ -241,6 +242,11 @@ namespace LmsTool.Controllers
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
+
+            
+            
+            
+
             AddErrors(result);
             return View(model);
         }
