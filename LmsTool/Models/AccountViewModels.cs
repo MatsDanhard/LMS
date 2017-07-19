@@ -92,6 +92,36 @@ namespace LmsTool.Models
         //public string ConfirmPassword { get; set; }
     }
 
+    public class RegisterViewModelTeacher
+    {
+
+        public int Id { get; set; }
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Epost")]
+        public string Email { get; set; }
+        [Required]
+        [Display(Name = "Förnamn och efternamn")]
+        [RegularExpression(@"([\w]+[\s]+[\w]+.*)", ErrorMessage = "Namnet måste innehålla ett mellanslag")]
+        public string FullName { get; set; }
+
+        //[Required]
+        //[EmailAddress]
+        //[Display(Name = "Email")]
+        //public string Email { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "Lösenordet måste vara minst {2} tecken långt.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Lösenord")]
+        public string Password { get; set; }
+
+        //[DataType(DataType.Password)]
+        //[Display(Name = "Confirm password")]
+        //[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        //public string ConfirmPassword { get; set; }
+    }
+
     public class ResetPasswordViewModel
     {
         [Required]
