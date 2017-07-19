@@ -15,7 +15,7 @@ namespace LmsTool.Models
         public string FullName { get; set; }
         public int? CourseId { get; set; }
         public virtual CourseModel Course{ get; set; }
-        public virtual ICollection<AssignmentModel> Assignments { get; set; }
+        
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

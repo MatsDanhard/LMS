@@ -26,13 +26,13 @@ namespace LmsTool.Controllers
         public ActionResult Index(int? id) // För elevlistan
         {
             ViewBag.CurrentCourse = id;
-            var Students = db.Users.Include(model => model.Assignments).Where(model => model.CourseId == id).ToList();
+            var Students = db.Users.Where(model => model.CourseId == id).ToList();
 
             List<ViewStudents> listStudents = new List<ViewStudents>();
 
             foreach (var user in Students)
             {
-                listStudents.Add( new ViewStudents{Id = user.Id,Email = user.Email, FullName = user.FullName, Assignments = user.Assignments.ToList()});
+                listStudents.Add( new ViewStudents{Id = user.Id,Email = user.Email, FullName = user.FullName, Assignments = db.Assignments.Where(a => a.UserId == user.Email).ToList()});
             }
 
             return View(listStudents);

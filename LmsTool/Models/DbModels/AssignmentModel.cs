@@ -21,8 +21,8 @@ namespace LmsTool.Models.DbModels
         [Display(Name = "Senaste inlämningsdatum")]
         public DateTime Deadline { get; set; }
         public int ActivityId { get; set; }
-        public int AssignmentId { get; set; }
+        public string UserId { get; set; } 
         public virtual ActivityModel Activity { get; set; }
-        public virtual AssignmentModel Assignment { get; set; }
+        
     }
 }
