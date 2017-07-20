@@ -228,6 +228,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CustomStyle\Login.css" />
     <Content Include="Content\Images\LoginLogo.png" />
+    <Content Include="Content\Images\LoginLogoBlue.png" />
     <Content Include="Content\index.js" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.min.css" />
@@ -322,9 +323,13 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Activity\Edit.cshtml" />
     <Content Include="Views\Activity\Delete.cshtml" />
+
+    <Content Include="Views\Account\RegisterTeacher.cshtml" />
+
     <Content Include="Views\Activity\CreateAssignment.cshtml" />
     <Content Include="Views\Activity\IndexAssignment.cshtml" />
     <Content Include="Views\Activity\DetailsAssignment.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

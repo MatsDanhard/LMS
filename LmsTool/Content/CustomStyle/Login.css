@@ -37,3 +37,11 @@ h2 {
     margin: 0 auto;
     float: none;
 }
+
+footer {
+    display: none;
+}
+
+hr {
+    display: none;
+}
