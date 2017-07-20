@@ -221,6 +221,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CustomStyle\Login.css" />
     <Content Include="Content\Images\LoginLogo.png" />
+    <Content Include="Content\Images\LoginLogoBlue.png" />
     <Content Include="Content\index.js" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.min.css" />
