@@ -37,6 +37,7 @@
         <td>
             <a href="@Url.Action("Edit","Account", new {id = item.Id})"  class="btn btn-primary Edit">Redigera</a>
             <a href="@Url.Action("Delete","Account", new {id = item.Id})"  class="btn btn-primary Delete">Tabort</a>
+            <a href="@Url.Action("AllAssignmentsForStudent","Activity", new {id = item.Id})" class="btn btn-primary">Inlämningsuppgifter</a>
             
         </td>
     </tr>
