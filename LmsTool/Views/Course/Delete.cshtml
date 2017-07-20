@@ -30,17 +30,14 @@
         </dd>*@
 
     </dl>
-
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
-        
-            <div @*class="form-actions no-color"*@>
-                <input type="submit" value="Ta bort" class="btn btn-danger btn-block" />
 
-            </div>
-           
-            }
+        <div @*class="form-actions no-color"*@>
+            <input type="submit" value="Ta bort" class="btn btn-danger btn-block" />
         </div>
+    }
+ </div>     
 <script>
     $('.modal').on('hidden.bs.modal', function () {
         $(this).removeData('bs.modal').children('.modal-content').html('');
