@@ -1,0 +1,65 @@
+﻿@model LmsTool.Models.DbModels.AssignmentModel
+
+<div>
+    <h4>AssignmentModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.TypeOfActivity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity.TypeOfActivity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Submitted)
+        </dt>
+        @if (Model.Submitted == null)
+        {
+            <dd>
+                Nej
+            </dd>
+        }
+
+        @if (Model.Submitted != null)
+        {
+            @Html.DisplayFor(model => model.Submitted)
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Deadline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Deadline)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Document)
+        </dt>
+
+        <dd>
+            @Html.TextAreaFor(model => model.Document, new { @readonly = true })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Godkänt", "DetailsAssignment", "Activity", new { id = Model.Id, approved = true }, new { @class = "btn btn-primary alert-success" })
+    @Html.ActionLink("Underkänt", "DetailsAssignment", "Activity", new { id = Model.Id, approved = false }, new { @class = "btn btn-primary alert-danger" })
+</p>

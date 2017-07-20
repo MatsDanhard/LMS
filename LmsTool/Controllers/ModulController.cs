@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using LmsTool.Models;
 using LmsTool.Models.DbModels;
+using LmsTool.Models.Viewmodels;
 
 namespace LmsTool.Controllers
 {
@@ -18,12 +19,36 @@ namespace LmsTool.Controllers
         // GET: Modul
         public ActionResult Index(int id, string info, string error)
         {
-
+            var course = db.Courses.Find(id);
             ViewBag.InfoModul = info;
             ViewBag.ErrorModul = error;
-            var moduls = db.Moduls.Include(m => m.Course).Where(c  => c.CourseId == id);
-            ViewBag.CurrentCourse = id;
-            return View(moduls.ToList());
+            var moduls = db.Moduls.Include(m => m.Activities).Where(c  => c.CourseId == id);
+            ViewBag.CourseName = course.Name;
+
+
+            List<ViewModuls> model = new List<ViewModuls>();
+            if (moduls.Any())
+            {
+
+                foreach (var modul in moduls)
+                {
+                    model.Add(new ViewModuls
+                    {
+                        NrOfActivitys = modul.Activities.Count,
+                        CourseId = modul.CourseId,
+                        Description = modul.Description,
+                        EndDate = modul.EndDate,
+                        StartDate = modul.StartDate,
+                        Id = modul.Id,
+                        Name = modul.Name
+
+                    });
+                }
+            }
+
+
+
+            return View(model);
         }
 
         // GET: Modul/Details/5

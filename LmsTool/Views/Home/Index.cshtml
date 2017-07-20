@@ -1,8 +1,9 @@
 ﻿@using System.Activities.Statements
 @using System.Web.UI.WebControls
 @using LmsTool.Models.DbModels
+@using LmsTool.Models.Viewmodels
 @using Microsoft.Ajax.Utilities
-@model IEnumerable<LmsTool.Models.DbModels.CourseModel>
+@model List<LmsTool.Models.Viewmodels.ViewCourses>
 
 
 <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
@@ -94,15 +95,15 @@
 
 
 
-@foreach (CourseModel course in Model)
+@foreach (ViewCourses course in Model)
 {
     <div class="panel panel-info">
 
         <div class="panel-heading">
             <p class="glyphicon glyphicon-menu-down">&nbsp;</p><a style="font-size: 30px">@course.Name</a><span style="float: right">
-                @Html.ActionLink("Elever", "Index", "Course", new { id = course.Id }, new { @class = "btn btn-primary btn-lg" })
+                @Html.ActionLink("Elever "+ " ("+course.NrOfStudents+")", "Index", "Course", new { id = course.Id }, new { @class = "btn btn-primary btn-lg" })
 
-                @Html.ActionLink("Moduler", "Index", "Modul", new { id = course.Id }, new { @class = "btn btn-primary btn-lg" })
+                @Html.ActionLink("Moduler"+ " ("+course.NrOfModuls+")", "Index", "Modul", new { id = course.Id }, new { @class = "btn btn-primary btn-lg" })
             </span>
             <a href="@Url.Action("Edit","course", new {id = course.Id})" class="btn btn-primary Edit">Redigera</a>
 

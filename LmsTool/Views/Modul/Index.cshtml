@@ -1,11 +1,12 @@
 ﻿@using LmsTool.Models.DbModels
-@model IEnumerable<LmsTool.Models.DbModels.ModulModel>
+@using LmsTool.Models.Viewmodels
+@model IEnumerable<LmsTool.Models.Viewmodels.ViewModuls>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>@Html.DisplayFor(model => model.First().Course.Name)</h2>
+<h2>@ViewBag.CourseName</h2>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -25,14 +26,14 @@
     <a href="@Url.Action("Create","Modul", new {id = ViewBag.CurrentCourse})" class="btn btn-primary Create">Skapa modul</a>
 </p>
 
-@foreach (ModulModel modul in Model)
+@foreach (ViewModuls modul in Model)
 {
     <div class="panel panel-info">
 
         <div class="panel-heading">
             <p class="glyphicon glyphicon-menu-down">&nbsp;</p><a style="font-size: 32px">@modul.Name</a><span style="float: right">
                 <a href="@Url.Action("Edit","Modul", new {id = modul.Id})"  class="btn btn-primary btn-lg Edit">Redigera</a>
-                @Html.ActionLink("Aktiviter", "Index", "Activity", new {id = modul.Id}, new {@class = "btn btn-primary btn-lg"})
+                @Html.ActionLink("Aktiviter" + " ("+modul.NrOfActivitys+")", "Index", "Activity", new {id = modul.Id}, new {@class = "btn btn-primary btn-lg"})
                 <a href="@Url.Action("Delete","Modul", new {id = modul.Id})"  class="btn btn-primary btn-lg Delete">Radera</a>
             </span>
            
