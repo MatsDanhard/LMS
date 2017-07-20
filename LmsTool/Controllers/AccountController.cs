@@ -180,6 +180,45 @@ namespace LmsTool.Controllers
         }
 
         //
+        // GET: /Account/Register
+
+        public ActionResult RegisterTeacher()
+        {
+            RegisterViewModelTeacher model = new RegisterViewModelTeacher();
+
+            return PartialView(model);
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+
+        [ValidateAntiForgeryToken]
+        public /*async Task<*/ActionResult/*>*/ RegisterTeacher(RegisterViewModelTeacher model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var store = new UserStore<ApplicationUser>(db);
+                var manager = new ApplicationUserManager(store);
+                var user = new ApplicationUser() { Email = model.Email, UserName = model.Email, FullName = model.FullName };
+                manager.Create(user, model.Password);
+
+                ApplicationUser studenUser = manager.FindByName(model.Email);
+                manager.AddToRole(studenUser.Id, "Teacher");
+
+                ViewBag.Succes = "Lärare skapad";
+
+                return RedirectToAction("index", "Home");
+
+
+            }
+            ViewBag.EmailExist = "Eposten du försöker lägga till existerar redan";
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
@@ -441,7 +480,7 @@ namespace LmsTool.Controllers
 
                 //db.SaveChanges();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Course", new {id =user.CourseId});
             }
             return PartialView(model);
         }
@@ -489,7 +528,7 @@ namespace LmsTool.Controllers
                     transaction.Commit();
                 }
 
-                return RedirectToAction("Index", "home");
+                return RedirectToAction("Index", "Course", new {id = user.CourseId});
             }
             else
             {

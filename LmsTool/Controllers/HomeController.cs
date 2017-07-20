@@ -6,10 +6,11 @@ using System.Web;
 using System.Web.Mvc;
 using LmsTool.Models;
 using LmsTool.Models.DbModels;
+using LmsTool.Models.Viewmodels;
 
 namespace LmsTool.Controllers
 {
-    
+
     public class HomeController : Controller
     {
         ApplicationDbContext _db = new ApplicationDbContext();
@@ -17,8 +18,24 @@ namespace LmsTool.Controllers
         public ActionResult Index()
         {
 
-            List<CourseModel> model = _db.Courses.Include(m => m.Moduls).ToList();
+            var courses = _db.Courses.Include(m => m.Moduls).Include(s => s.Students).ToList();
 
+
+            List<ViewCourses> model = new List<ViewCourses>();
+
+            foreach (var course in courses)
+            {
+                model.Add(new ViewCourses
+                {
+                    Name = course.Name,
+                    Description = course.Description,
+                    Id = course.Id,
+                    NrOfModuls = course.Moduls.Count,
+                    NrOfStudents = course.Students.Count,
+                    StartDate = course.StartDate
+
+                });
+            }
 
 
 
@@ -26,8 +43,8 @@ namespace LmsTool.Controllers
 
             return View(model);
         }
-        
-        
+
+
 
         public ActionResult About()
         {

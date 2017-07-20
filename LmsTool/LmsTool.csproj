@@ -197,9 +197,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+
     <Compile Include="Migrations\201707191339239_init3.cs" />
     <Compile Include="Migrations\201707191339239_init3.Designer.cs">
       <DependentUpon>201707191339239_init3.cs</DependentUpon>
+
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -211,6 +213,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Viewmodels\CreateActivity.cs" />
     <Compile Include="Models\Viewmodels\ViewActivitys.cs" />
+    <Compile Include="Models\Viewmodels\ViewCourses.cs" />
+    <Compile Include="Models\Viewmodels\ViewModuls.cs" />
     <Compile Include="Models\Viewmodels\ViewStudents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -222,6 +226,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CustomStyle\Login.css" />
     <Content Include="Content\Images\LoginLogo.png" />
+    <Content Include="Content\Images\LoginLogoBlue.png" />
     <Content Include="Content\index.js" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.min.css" />
@@ -316,8 +321,15 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Activity\Edit.cshtml" />
     <Content Include="Views\Activity\Delete.cshtml" />
+
+    <Content Include="Views\Account\RegisterTeacher.cshtml" />
+
     <Content Include="Views\Activity\CreateAssignment.cshtml" />
     <Content Include="Views\Activity\IndexAssignment.cshtml" />
+    <Content Include="Views\Activity\DetailsAssignment.cshtml" />
+
+    <Content Include="Views\Activity\AllAssignmentsForStudent.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -329,8 +341,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+
     <EmbeddedResource Include="Migrations\201707191339239_init3.resx">
       <DependentUpon>201707191339239_init3.cs</DependentUpon>
+
+
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

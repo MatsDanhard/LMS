@@ -1,8 +1,9 @@
 ﻿@using System.Activities.Statements
 @using System.Web.UI.WebControls
 @using LmsTool.Models.DbModels
+@using LmsTool.Models.Viewmodels
 @using Microsoft.Ajax.Utilities
-@model IEnumerable<LmsTool.Models.DbModels.CourseModel>
+@model List<LmsTool.Models.Viewmodels.ViewCourses>
 
 
 <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
@@ -94,9 +95,10 @@
 
 
 
-@foreach (CourseModel course in Model)
+@foreach (ViewCourses course in Model)
 {
     <div class="panel panel-info">
+
 
         <div class="panel-heading Icon-Fontsize">
             <p class="glyphicon glyphicon-menu-down">&nbsp;</p><div class="btn-group btn-group-lg Settings">
@@ -105,7 +107,8 @@
             </div>&nbsp;<p class="glyphicon glyphicon-pencil  Icon_toggle">&nbsp;</p><a >@course.Name</a><span class="pull-right">
                 @Html.ActionLink("Elever", "Index", "Course", new { id = course.Id }, new { @class = "btn btn-primary btn-lg" })
 
-                @Html.ActionLink("Moduler", "Index", "Modul", new { id = course.Id }, new { @class = "btn btn-primary btn-lg" })
+
+                @Html.ActionLink("Moduler"+ " ("+course.NrOfModuls+")", "Index", "Modul", new { id = course.Id }, new { @class = "btn btn-primary btn-lg" })
             </span>
 
         </div>

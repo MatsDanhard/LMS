@@ -3,13 +3,17 @@
     ViewBag.Title = "Användarinställningar";
 }
 
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
 <h2>@ViewBag.Title.</h2>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
     <h4>Ändra ditt lösenord</h4>
     <hr />
-    <dl class="dl-horizontal">
+
+    <a href="/Manage/ChangePassword" class="btn btn-primary">Byt lösenord</a>
+    @*<dl class="dl-horizontal">
         <dt>Lösenord:</dt>
         <dd>
             [
@@ -22,7 +26,7 @@
                 @Html.ActionLink("Create", "SetPassword")
             }
             ]
-        </dd>
+        </dd>*@
         @*<dt>External Logins:</dt>
         <dd>
             @Model.Logins.Count [
@@ -83,5 +87,45 @@
                     }
                 }*@
         @*</dd>*@
-    </dl>
+    @*</dl>*@
 </div>
+@if (User.IsInRole("Teacher"))
+{
+<br />
+<div>
+    <p>
+        <a href="@Url.Action("RegisterTeacher", "Account")" class="btn btn-primary Create">Skapa ny lärare</a>
+    </p>
+</div>
+}
+
+<div class="modal fade" id="ModalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Registrera ny Lärare</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Avbryt</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.Create').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('.modal-body').html(response);
+            });
+            $('#ModalCreate').modal({
+                backdrop: 'static',
+            }, 'show');
+        });
+    });
+</script>
