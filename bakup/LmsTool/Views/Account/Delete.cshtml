@@ -1,0 +1,40 @@
+﻿@model LmsTool.Models.Viewmodels.ViewStudents
+
+<h3>Vill du tabort @Model.FullName?</h3>
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        @Html.HiddenFor(model => model.Id)
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Tabort elev" class="btn btn-default" />
+            
+        </div>
+    }
+</div>
+<script>
+    $('.modal').on('hidden.bs.modal', function () {
+        $(this).removeData('bs.modal').children('.modal-content').html('');
+    });
+</script>

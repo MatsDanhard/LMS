@@ -1,0 +1,106 @@
+Som lärare vill jag kunna inte kunna fylla i fel uppgifter.
+Som lärare vill jag INTE kunna Ta bort den sista läraren eller (SU) 
+Som lärare vill jag kunna skapa en kurs.
+Som lärare vill jag kunna skapa en modul.
+Som lärare vill jag kunna skapa en aktivitet.
+Som lärare vill jag kunna redigera Kurs.
+Som lärare vill jag kunna redigera Modul.
+Som lärare vill jag kunna lägga till elever till kurs.
+Som lärare vill jag kunna lägga till modul till kurs.
+Som lärare vill jag kunna lägga till aktivitet till modul.
+Som lärare vill jag kunna Ta bort en kurs.
+Som lärare vill jag kunna Ta bort en modul.
+Som lärare vill jag kunna Ta bort en aktivitet.
+Som lärare vill jag kunna redigera Aktivitet för att lägga till en inlämningsuppgift.
+Som lärare vill jag kunna Skapa en användare som har behörighet Lärare (Admin)
+Som lärare vill jag kunna redigera användare (redigera samtliga fält)
+Som lärare vill jag kunna ta bort användare.
+Som lärare vill jag kunna se alla KURSER, MODULER och AKTIVITETER i indexvyn.
+Som lärare vill jag kunna ta emot inlämningsuppgifter.
+Som lärare vill jag kunna ladda upp fil till elever.
+Som lärare vill jag kunna ta bort filer som är felaktigt uppladdade.
+Som lärare vill jag kunna ta del av kursdokument för modulen.
+
+
+
+
+
+
+
+Som elev vill jag kunna se schema för närmsta veckan.(Som elev vill jag kunna se kommande aktiviteter.)
+Som elev vill jag kunna se vilken kurs jag läser.
+Som elev vill jag kunna se vilka mina kurskamrater är så jag kan skicka epost till dom (kontakta dom).
+Som elev vill jag kunna se pågående inlämningsuppgifter.
+Som elev vill jag kunna se och mina inlämnade uppgifter.
+Som elev vill jag kunna se slutdatum för inlämningsuppgift.
+Som elev vill jag kunna se om inlämningsuppgiften är försenad.
+Som elev vill jag kunna se moduler i kursen.
+Som elev vill jag kunna lämna in uppgift.
+Som elev vill jag kunna visa alla aktiviteter som ingår i vald modul.
+Som elev vill jag kunna ta del av kursdokument för modulen.
+ 
+
+Skapa ny kurs &nbsp&nbsp<span class="glyphicon">&#x2b;</span>
+Edit &nbsp&nbsp <span class="glyphicon">&#x270f;</span>
+
+
+
+
+Som elev vill jag kunna se Dokument kopplade till aktivitet och ladda ner domfrån, kurs och modul och aktivitet??
+Som lärare vill jag kunna Ladda upp dokument för kurser/moduler/aktiviteter???
+Som lärare vill jag kunna lämna feedback på elevs inlämningsuppgift??
+Som elev vill jag kunna se feedback på min inlämnade uppgift??
+
+
+
+
+? Logga in
+* Glömt lösenord
+
+En elev skall kunna:
+? Se vilken kurs denne läser och vilka de andra kursdeltagarna är
+? Se vilka moduler denne läser
+? Se aktiviteterna för en specifik modul (modulschema).
+? Se om en specifik modul eller aktivitet har några dokument kopplade till sig och i
+sådant fall ladda ned dessa.
+? Se vilka övningsuppgifter denne har fått; om den redan är inlämnad, när den
+senast skall lämnas in och om den är försenad.
+? Kunna ladda upp filer som övningsinlämningar.
+
+---------------
+
+En lärare skall kunna:
+? Se alla kurser
+? Se alla moduler som ingår i en kurs
+? Se alla aktiviteter och dokument en modul innehåller
+? Skapa och redigera användare (lärare och elever)
+? Skapa och redigera kurser
+? Skapa och redigera moduler
+? Skapa och redigera aktiviteter
+? Ladda upp dokument för kurser/moduler/aktiviteter
+? Ta emot inlämningsuppgifter
+
+
+------------
+
+
+Schema vy
+? Se alla kurser
+? Se alla moduler som ingår i en kurs
+
+Skapa vy
+? Skapa och redigera användare elever
+? Skapa och redigera kurser
+? Skapa och redigera moduler
+? Skapa och redigera aktiviteter
+? Se alla aktiviteter och dokument en modul innehåller
+
+? Ta emot inlämningsuppgifter
+
+
+Navigation bar
+? Skapa och redigera lärare
+? Logga ut
+* inställningar
+
+? Ladda upp dokument för kurser/moduler/aktiviteter

@@ -17,7 +17,7 @@
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <script src="~/Scripts/bootstrap.min.js"></script>
 <p>
-    <a href="@Url.Action("Create","Activity", new {id = ViewBag.CurrentModul})" class="btn btn-primary Create">Skapa ny aktivitet</a>
+    <a href="@Url.Action("Create","Activity", new {id = ViewBag.CurrentModul})" class="btn btn-success Create">Skapa aktivitet</a>
 </p>
 <table class="table">
     <tr>
@@ -67,16 +67,19 @@
                 @item.EndDate.ToShortDateString()  @item.EndDate.Hour:@item.EndDate.Minute
             </td>
             <td>
-                <a href="@Url.Action("Edit", "Activity", new {id = item.Id})" class="btn btn-primary Edit">Redigera</a>
+
+                <a href="@Url.Action("Edit", "Activity", new {id = item.Id})" class="btn btn-primary btn-md Edit">Redigera</a>
+                <a href="@Url.Action("Delete", "Activity", new {id = item.Id})" class="btn btn-danger btn-md Delete">Ta bort</a>
                 @if (item.Assignments != null && item.Assignments.Count > 0)
                 {
-                    @Html.ActionLink("Inlämningsuppgifter", "IndexAssignment", "Activity", new {id = item.Id}, new {@class = "btn btn-primary"})
+                    @Html.ActionLink("Inlämningsuppgifter", "IndexAssignment", "Activity", new {id = item.Id}, new {@class = "btn btn-primary btn-md"})
                 }
                 @if (item.Assignments != null && item.Assignments.Count < 1)
                 {
-                    <a href="@Url.Action("CreateAssignment", "Activity", new {id = item.Id})" class="btn btn-primary CreateAssignment">Skapa Inlämning</a>
+                    <a href="@Url.Action("CreateAssignment", "Activity", new {id = item.Id})" class="btn btn-success btn-md Create">Skapa Inlämning</a>
                 }
-                <a href="@Url.Action("Delete", "Activity", new {id = item.Id})" class="btn btn-primary Delete">Tabort</a>
+                
+
             </td>
         </tr>
     }
@@ -122,7 +125,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel2">Tabort Aktivitet</h4>
+                <h4 class="modal-title" id="myModalLabel2">Ta bort Aktivitet</h4>
             </div>
             <div class="modal-body">
 

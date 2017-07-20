@@ -13,7 +13,7 @@
 <script src="~/Scripts/bootstrap.min.js"></script>
 
 <p>
-    <a href="@Url.Action("register","Account", new {id = ViewBag.CurrentCourse})"  class = "btn btn-primary Create" >Skapa ny elev</a>
+    <a href="@Url.Action("register","Account", new {id = ViewBag.CurrentCourse})"  class = "btn btn-success Create btn-md" >Skapa elev</a>
 </p>
 <table class="table">
     <tr>
@@ -36,8 +36,10 @@
         </td>
         <td>
             <a href="@Url.Action("Edit","Account", new {id = item.Id})"  class="btn btn-primary Edit">Redigera</a>
+
             <a href="@Url.Action("Delete","Account", new {id = item.Id})"  class="btn btn-primary Delete">Tabort</a>
             <a href="@Url.Action("AllAssignmentsForStudent","Activity", new {id = item.Id})" class="btn btn-primary">Inlämningsuppgifter</a>
+
             
         </td>
     </tr>
@@ -55,7 +57,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
 
             </div>
         </div>
@@ -66,13 +68,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel1">Editera Elev</h4>
+                <h4 class="modal-title" id="myModalLabel1">Redigera Elev</h4>
             </div>
             <div class="modal-body">
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
 
             </div>
         </div>
@@ -83,18 +85,38 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel2">Tabort Elev</h4>
+                <h4 class="modal-title" id="myModalLabel2">Ta bort Elev</h4>
             </div>
             <div class="modal-body">
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
 
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $('.Expandable').hide();
+    $('.Settings').hide();
+</script>
+<script>
+    $(document).ready(
+
+        $(document).on('click', '.glyphicon-pencil', function () {
+            $(this).closest('.panel').find(".Settings").toggle("fast", "swing");
+            $(this).closest('p.glyphicon-pencil').toggleClass('Icon_toggle glyphicon-menu-left');
+        }));
+</script>
+<script>
+    $(document).ready(
+        $(document).on('click', '.glyphicon-menu-down', function () {
+            $(this).closest('.panel').find(".Expandable").toggle("fast", "swing");
+        }));
+</script>
+
 <script>
     $(document).ready(function () {
         $('.Create').click(function (event) {
