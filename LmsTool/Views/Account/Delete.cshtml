@@ -4,7 +4,7 @@
 <div>
     
     <hr />
-    <dl class="dl-horizontal">
+    <dl @*class="dl-horizontal"*@>
         <dt>
             @Html.DisplayNameFor(model => model.FullName)
         </dt>
@@ -27,8 +27,8 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Tabort elev" class="btn btn-default" />
+        <div @*class="form-actions no-color"*@>
+            <input type="submit" value="Ta bort" class="btn btn-danger btn-block" />
             
         </div>
     }

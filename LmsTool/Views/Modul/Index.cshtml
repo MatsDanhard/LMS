@@ -29,21 +29,27 @@
 {
     <div class="panel panel-info">
 
-        <div class="panel-heading">
-            <p class="glyphicon glyphicon-menu-down">&nbsp;</p><a style="font-size: 32px">@modul.Name</a><span style="float: right">
-                <a href="@Url.Action("Edit","Modul", new {id = modul.Id})"  class="btn btn-primary btn-lg Edit">Redigera</a>
-                @Html.ActionLink("Aktiviter", "Index", "Activity", new {id = modul.Id}, new {@class = "btn btn-primary btn-lg"})
-                <a href="@Url.Action("Delete","Modul", new {id = modul.Id})"  class="btn btn-primary btn-lg Delete">Radera</a>
+        <div class="panel-heading Icon-Fontsize">
+            <p class="glyphicon glyphicon-menu-down">&nbsp;</p><div class="btn-group btn-group-lg Settings">
+            <a href="@Url.Action("Edit","Modul", new {id = modul.Id})" class="btn btn-primary btn-lg Edit">Redigera</a>
+            <a href="@Url.Action("Delete","Modul", new {id = modul.Id})" class="btn btn-danger btn-lg Delete">Ta bort</a>
+            </div>&nbsp;<p class="glyphicon glyphicon-pencil  Icon_toggle">&nbsp;</p><a>@modul.Name</a><span class="pull-right">
+             @Html.ActionLink("Aktiviter", "Index", "Activity", new { id = modul.Id }, new { @class = "btn btn-primary btn-lg" })
             </span>
-           
 
         </div>
-        <div class="container panel-body Expandable">
-            @modul.Description
+
+
+        <div class=" panel-body Expandable">
+            <div>
+                <section class="text-columns">
+                    @modul.Description
+                </section>
+            </div>
+
         </div>
+
     </div>
-
-
 
  }
 
@@ -87,7 +93,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel2">Radera Modul</h4>
+                <h4 class="modal-title" id="myModalLabel2">Ta bort modul</h4>
             </div>
             <div class="modal-body">
 
@@ -100,7 +106,18 @@
     </div>
 </div>
 
-<script>$('.Expandable').hide();</script>
+<script>
+    $('.Expandable').hide();
+    $('.Settings').hide();
+</script>
+<script>
+    $(document).ready(
+
+        $(document).on('click', '.glyphicon-pencil', function () {
+            $(this).closest('.panel').find(".Settings").toggle("fast", "swing");
+            $(this).closest('p.glyphicon-pencil').toggleClass('Icon_toggle glyphicon-menu-left');
+        }));
+</script>
 <script>
     $(document).ready(
         $(document).on('click', '.glyphicon-menu-down', function () {
