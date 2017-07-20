@@ -1,0 +1,76 @@
+﻿@model IEnumerable<LmsTool.Models.DbModels.AssignmentModel>
+
+@{
+    ViewBag.Title = "AllAssignmentsForStudent";
+}
+
+<h2>@ViewBag.StudentName</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Activity.TypeOfActivity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Submitted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Approved)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Deadline)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Document)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+       
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Activity.TypeOfActivity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        @if (item.Submitted != null)
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.Submitted)
+            </td>
+        }
+        @if (item.Submitted == null)
+        {
+            <td>Nej</td>
+        }
+        <td>
+            @Html.DisplayFor(modelItem => item.Approved)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Deadline)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Document)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+       
+    </tr>
+}
+
+</table>
