@@ -1,0 +1,127 @@
+﻿@model IEnumerable<LmsTool.Models.Viewmodels.ViewStudents>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<p>
+    <a href="@Url.Action("register","Account", new {id = ViewBag.CurrentCourse})"  class = "btn btn-primary Create" >Skapa ny elev</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            <a href="mailto:@item.Email" class="glyphicon glyphicon-envelope"></a>&nbsp;@Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            <a href="@Url.Action("Edit","Account", new {id = item.Id})"  class="btn btn-primary Edit">Redigera</a>
+            <a href="@Url.Action("Delete","Account", new {id = item.Id})"  class="btn btn-primary Delete">Tabort</a>
+            
+        </td>
+    </tr>
+}
+
+</table>
+<div class="modal fade" id="ModalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Skapa Elev</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel1">Editera Elev</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">Tabort Elev</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.Create').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('.modal-body').html(response);
+            });
+            $('#ModalCreate').modal({
+                backdrop: 'static',
+            }, 'show');
+        });
+        $('.Edit').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('.modal-body').html(response);
+            });
+            $('#ModalEdit').modal({
+                backdrop: 'static',
+            }, 'show');
+        });
+        $('.Delete').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('.modal-body').html(response);
+            });
+            $('#ModalDelete').modal({
+                backdrop: 'static',
+            }, 'show');
+        });
+    });
+</script>

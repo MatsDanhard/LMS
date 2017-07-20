@@ -22,6 +22,24 @@ select,
 textarea {
     max-width: 280px;
 }
+.Icon-Fontsize {
+    font-size: 28px;
+}
+.text-columns {
+    column-count: 3;
+    column-rule: 1px solid #bce8f1
+}
+@media (max-width:800px) {
+    .text-columns {
+        column-count: 1;
+        column-rule: none;
+    }
+
+}
+
+.Icon_toggle {
+font-size:20px;
+}
 .LMS-login-text {
     font-size:16px;
     font-family:'Arial Narrow', Arial, sans-serif;
