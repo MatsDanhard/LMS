@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.EnterpriseServices;
 using System.Linq;
 using System.Net;
@@ -99,6 +100,44 @@ namespace LmsTool.Controllers
             return View(activityModel);
         }
 
+        // GET: Activity/Details/5
+        public ActionResult DetailsAssignment(int? id)
+        {
+            
+            AssignmentModel model = db.Assignments.Find(id);
+
+            
+
+            return PartialView(model);
+        }
+
+
+        [HttpPost]
+        public ActionResult DetailsAssignment(int id, bool approved)  // To approve assignments for teacher
+        {
+
+            AssignmentModel model = db.Assignments.Find(id);
+
+            if (approved)
+            {
+                model.Approved = true;
+                
+                db.Assignments.AddOrUpdate(model);
+                db.SaveChanges();
+            }
+            if (!approved)
+            {
+                model.Approved = false;
+
+                db.Assignments.AddOrUpdate(model);
+                db.SaveChanges();
+            }
+
+            
+
+
+            return RedirectToAction("IndexAssignment", new {id = model.ActivityId});
+        }
 
         // GET: Activity/CreateAssignment
         public ActionResult CreateAssignment(int id)

@@ -73,7 +73,7 @@
                 }
                 @if (item.Assignments != null && item.Assignments.Count < 1)
                 {
-                    <a href="@Url.Action("CreateAssignment", "Activity", new {id = item.Id})" class="btn btn-primary btn-lg Create">Skapa Inlämning</a>
+                    <a href="@Url.Action("CreateAssignment", "Activity", new {id = item.Id})" class="btn btn-primary btn-lg CreateAssignment">Skapa Inlämning</a>
                 }
                 <a href="@Url.Action("Delete", "Activity", new {id = item.Id})" class="btn btn-primary btn-lg Delete">Tabort</a>
             </td>
@@ -133,6 +133,23 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="ModalCreateAssignment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Skapa Inlämning</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div @*class="modal-footer"*@>
+                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
+
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(document).ready(function () {
         $('.Create').click(function (event) {
@@ -159,6 +176,15 @@
                 $('.modal-body').html(response);
             });
             $('#ModalDelete').modal({
+                backdrop: 'static',
+            }, 'show');
+        });
+        $('.CreateAssignment').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('.modal-body').html(response);
+            });
+            $('#ModalCreateAssignment').modal({
                 backdrop: 'static',
             }, 'show');
         });
