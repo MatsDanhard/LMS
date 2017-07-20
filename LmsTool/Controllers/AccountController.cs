@@ -441,7 +441,7 @@ namespace LmsTool.Controllers
 
                 //db.SaveChanges();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Course", new {id =user.CourseId});
             }
             return PartialView(model);
         }
@@ -489,7 +489,7 @@ namespace LmsTool.Controllers
                     transaction.Commit();
                 }
 
-                return RedirectToAction("Index", "home");
+                return RedirectToAction("Index", "Course", new {id = user.CourseId});
             }
             else
             {
