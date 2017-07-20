@@ -491,7 +491,7 @@ namespace LmsTool.Controllers
         {
 
             var student = db.Users.Find(id);
-            ViewStudents model = new ViewStudents{Id = student.Id, Email = student.Email, FullName = student.FullName, Assignments = student.Assignments.ToList()};
+            ViewStudents model = new ViewStudents{Id = student.Id, Email = student.Email, FullName = student.FullName};
 
             return PartialView(model);
         }

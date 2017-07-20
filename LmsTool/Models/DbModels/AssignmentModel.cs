@@ -18,11 +18,16 @@ namespace LmsTool.Models.DbModels
         public string Description { get; set; }
         [Display(Name = "Inlämnad")]
         public DateTime? Submitted { get; set; }
+        [Display(Name = "Godkänd")]
+        public bool Approved { get; set; }  
         [Display(Name = "Senaste inlämningsdatum")]
         public DateTime Deadline { get; set; }
+        [Display(Name = "Dokument")]
+        public string Document { get; set; }
         public int ActivityId { get; set; }
-        public int AssignmentId { get; set; }
+        [Display(Name = "Elev")]
+        public string UserId { get; set; } 
         public virtual ActivityModel Activity { get; set; }
-        public virtual AssignmentModel Assignment { get; set; }
+        
     }
 }

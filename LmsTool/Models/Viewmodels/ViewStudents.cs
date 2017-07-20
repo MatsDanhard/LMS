@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using LmsTool.Models.DbModels;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
 namespace LmsTool.Models.Viewmodels

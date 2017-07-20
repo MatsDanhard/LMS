@@ -1,19 +1,15 @@
-﻿@model IEnumerable<LmsTool.Models.DbModels.ActivityModel>
+﻿@model IEnumerable<LmsTool.Models.Viewmodels.ViewActivitys>
 
 @{
     ViewBag.Title = "Index";
 }
 
-@if (Model.Any())
-{
-    <h3>@Html.DisplayFor(model => model.First().Modul.Name)</h3>
-    <h4>@Html.DisplayFor(model => model.First().Modul.StartDate)  -  @Html.DisplayFor(model1 => model1.First().Modul.EndDate)</h4>
-}
-@if (ViewBag.ModulName != null)
-{
-    <h3>@ViewBag.ModulName</h3>
-    <h4>@ViewBag.ModulStart - @ViewBag.ModulEnd</h4>
-}
+
+
+
+    <h3>@Model.FirstOrDefault().ModulName</h3>
+    <h4>@Model.FirstOrDefault().ModulStartStr - @Model.FirstOrDefault().ModulEndStr</h4>
+
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -35,9 +31,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Submission)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.StartDate)
         </th>
@@ -47,33 +41,44 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.TypeOfActivity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Submission)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
-        </td>
-        <td>
-            <a href="@Url.Action("Edit","Activity", new {id = item.Id})"  class="btn btn-primary btn-lg Edit">Redigera</a>
-            
-            <a href="@Url.Action("Delete","Activity", new {id = item.Id})"  class="btn btn-primary btn-lg Delete">Tabort</a>
-        </td>
-    </tr>
+@foreach (var item in Model)
+{
+    if (item.Name != null)
+    {
+
+
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOfActivity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", "Activity", new {id = item.Id})" class="btn btn-primary btn-lg Edit">Redigera</a>
+                @if (item.Assignments != null && item.Assignments.Count > 0)
+                {
+                    @Html.ActionLink("Inlämningsuppgifter", "IndexAssignment", "Activity", new {id = item.Id}, new {@class = "btn btn-primary btn-lg"})
+                }
+                @if (item.Assignments != null && item.Assignments.Count < 1)
+                {
+                    <a href="@Url.Action("CreateAssignment", "Activity", new {id = item.Id})" class="btn btn-primary btn-lg CreateAssignment">Skapa Inlämning</a>
+                }
+                <a href="@Url.Action("Delete", "Activity", new {id = item.Id})" class="btn btn-primary btn-lg Delete">Tabort</a>
+            </td>
+        </tr>
+    }
 }
 
 </table>
@@ -87,8 +92,8 @@
             <div class="modal-body">
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <div @*class="modal-footer"*@>
+                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
 
             </div>
         </div>
@@ -104,8 +109,8 @@
             <div class="modal-body">
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+            <div @*class="modal-footer"*@>
+                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
 
             </div>
         </div>
@@ -121,8 +126,25 @@
             <div class="modal-body">
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+            <div @*class="modal-footer"*@>
+                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalCreateAssignment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Skapa Inlämning</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div @*class="modal-footer"*@>
+                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
 
             </div>
         </div>
@@ -154,6 +176,15 @@
                 $('.modal-body').html(response);
             });
             $('#ModalDelete').modal({
+                backdrop: 'static',
+            }, 'show');
+        });
+        $('.CreateAssignment').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('.modal-body').html(response);
+            });
+            $('#ModalCreateAssignment').modal({
                 backdrop: 'static',
             }, 'show');
         });

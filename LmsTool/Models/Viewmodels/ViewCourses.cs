@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.ComponentModel;
+using LmsTool.Models.DbModels;
 
-namespace LmsTool.Models.DbModels
+namespace LmsTool.Models.Viewmodels
 {
-    public class ModulModel
+    public class ViewCourses
     {
         public int Id { get; set; }
-        [Display(Name = "Modulens namn")]
+        [Display(Name = "Kursens namn")]
         [Required]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Namnet behöver vara minst tre tecken långt")]
         public string Name { get; set; }
@@ -20,12 +20,7 @@ namespace LmsTool.Models.DbModels
         [Required]
         [DataType(DataType.Date, ErrorMessage = "Datumet är inte korrekt angivet")]
         public DateTime StartDate { get; set; } = DateTime.Now;
-        [Display(Name = "Slutdatum")]
-        [Required]
-        [DataType(DataType.Date, ErrorMessage = "Datumet är inte korrekt angivet")]
-        public DateTime EndDate { get; set; }= DateTime.Now.AddDays(7);
-        public int CourseId { get; set; }   
-        public CourseModel Course { get; set; }
-        public ICollection<ActivityModel> Activities { get; set; }
+        public int NrOfStudents { get; set; }
+        public int NrOfModuls { get; set; }
     }
 }
