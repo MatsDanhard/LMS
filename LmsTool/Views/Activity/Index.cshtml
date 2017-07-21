@@ -3,22 +3,25 @@
 @{
     ViewBag.Title = "Index";
 }
+<h2>@Model.FirstOrDefault().ModulName</h2>
+<p>
+    <a href="@Url.Action("Create","Activity", new {id = ViewBag.CurrentModul})" class="btn btn-success Create">Skapa aktivitet</a>
+</p>
 
-
-
-
-    <h3>@Model.FirstOrDefault().ModulName</h3>
-    <h4>@Model.FirstOrDefault().ModulStartStr - @Model.FirstOrDefault().ModulEndStr</h4>
-
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            
+            <h3>@Model.FirstOrDefault().ModulStartStr - @Model.FirstOrDefault().ModulEndStr</h3>
+        </div>
+    </div>
+    
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <script src="~/Scripts/bootstrap.min.js"></script>
-<p>
-    <a href="@Url.Action("Create","Activity", new {id = ViewBag.CurrentModul})" class="btn btn-success Create">Skapa aktivitet</a>
-</p>
+
 <table class="table">
     <tr>
         
@@ -76,7 +79,7 @@
                 }
                 @if (item.Assignments != null && item.Assignments.Count < 1)
                 {
-                    <a href="@Url.Action("CreateAssignment", "Activity", new {id = item.Id})" class="btn btn-success btn-md Create">Skapa Inlämning</a>
+                    <a href="@Url.Action("CreateAssignment", "Activity", new {id = item.Id})" class="btn btn-success btn-md CreateAssignment">Skapa Inlämning</a>
                 }
                 
 

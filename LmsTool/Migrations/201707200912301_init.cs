@@ -3,7 +3,7 @@ namespace LmsTool.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init3 : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
@@ -32,7 +32,9 @@ namespace LmsTool.Migrations
                         Name = c.String(nullable: false, maxLength: 50),
                         Description = c.String(),
                         Submitted = c.DateTime(),
+                        Approved = c.Boolean(nullable: false),
                         Deadline = c.DateTime(nullable: false),
+                        Document = c.String(),
                         ActivityId = c.Int(nullable: false),
                         UserId = c.String(),
                         ViewStudents_Id = c.String(maxLength: 128),
