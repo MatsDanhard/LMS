@@ -219,7 +219,7 @@ namespace LmsTool.Controllers
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
-            return View();
+            return PartialView();
         }
 
         //
@@ -230,7 +230,7 @@ namespace LmsTool.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return PartialView(model);
             }
             var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
             if (result.Succeeded)
