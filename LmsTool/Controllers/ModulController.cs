@@ -26,7 +26,6 @@ namespace LmsTool.Controllers
             ViewBag.CourseName = course.Name;
             ViewBag.CurrentCourse = course.Id;
 
-
             List<ViewModuls> model = new List<ViewModuls>();
             if (moduls.Any())
             {

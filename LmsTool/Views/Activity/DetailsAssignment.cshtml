@@ -1,9 +1,7 @@
 ﻿@model LmsTool.Models.DbModels.AssignmentModel
 
 <div>
-    <h4>AssignmentModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
+    <dl @*class="dl-horizontal"*@>
         <dt>
             @Html.DisplayNameFor(model => model.Activity.TypeOfActivity)
         </dt>
@@ -50,16 +48,17 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UserId)
+            @Html.DisplayNameFor(model => model.StudentName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserId)
+            @Html.DisplayFor(model => model.StudentName)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Godkänt", "DetailsAssignment", "Activity", new { id = Model.Id, approved = true }, new { @class = "btn btn-primary alert-success" })
-    @Html.ActionLink("Underkänt", "DetailsAssignment", "Activity", new { id = Model.Id, approved = false }, new { @class = "btn btn-primary alert-danger" })
+    @Html.ActionLink("Godkänt", "DetailsAssignment", "Activity", new { id = Model.Id, approved = true }, new { @class = "btn btn-primary btn-success btn-block" })
+
+    @Html.ActionLink("Underkänt", "DetailsAssignment", "Activity", new { id = Model.Id, approved = false }, new { @class = "btn btn-primary btn-danger btn-block" })
 </p>

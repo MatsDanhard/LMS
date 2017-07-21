@@ -3,16 +3,27 @@
     ViewBag.Title = "Användarinställningar";
 }
 
+<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
 <h2>@ViewBag.Title.</h2>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
-    <h4>Ändra ditt lösenord</h4>
+    @*<h4>Ändra ditt lösenord</h4>*@
     <hr />
 
-    <a href="/Manage/ChangePassword" class="btn btn-primary">Byt lösenord</a>
+    @*<div>
+        <p>
+            <a href="@Url.Action("ChangePassword", "Manage")" class="btn btn-primary Password">Byt lösenord</a>
+        </p>
+    </div>*@
+
+    <a href="/Manage/ChangePassword" class="btn btn-primary Password">Byt lösenord</a>
     @*<dl class="dl-horizontal">
         <dt>Lösenord:</dt>
         <dd>
@@ -94,7 +105,7 @@
 <br />
 <div>
     <p>
-        <a href="@Url.Action("RegisterTeacher", "Account")" class="btn btn-primary Create">Skapa ny lärare</a>
+        <a href="@Url.Action("RegisterTeacher", "Account")" class="btn btn-primary Create">Registrera lärare</a>
     </p>
 </div>
 }
@@ -104,13 +115,30 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Registrera ny Lärare</h4>
+                <h4 class="modal-title" id="myModalLabel">Registrera Lärare</h4>
             </div>
             <div class="modal-body">
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Avbryt</button>
+                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalPassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel1">Byt lösenord</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
 
             </div>
         </div>
@@ -124,6 +152,15 @@
                 $('.modal-body').html(response);
             });
             $('#ModalCreate').modal({
+                backdrop: 'static',
+            }, 'show');
+        });
+        $('.Password').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('.modal-body').html(response);
+            });
+            $('#ModalPassword').modal({
                 backdrop: 'static',
             }, 'show');
         });

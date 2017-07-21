@@ -58,6 +58,11 @@ font-size:20px;
     position: relative;
     padding: 15px;
 }
+.modal-dialog {
+    position: relative;
+    width: 1000px;
+    margin: 10px;
+}
     /*Modal CSS*/
     .modal {
     position: fixed;
@@ -81,7 +86,7 @@ font-size:20px;
     border: 1px solid rgba(0, 0, 0, .2);
     border-radius: 6px;
     /*outline: thick; /*Test av tjock kant*/
-    padding-top: 20px; /*Extra padding*/
+    /*padding-top: 20px;*/ /*Extra padding*/
     padding-left: 20px; /*Extra padding*/
     padding-right: 20px; /*Extra padding*/
     overflow-wrap: break-word; /*Bryter overflow på ord som är för långa*/
