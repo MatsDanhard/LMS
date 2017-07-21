@@ -323,6 +323,7 @@
     <Content Include="Views\Activity\CreateAssignment.cshtml" />
     <Content Include="Views\Activity\IndexAssignment.cshtml" />
     <Content Include="Views\Activity\DetailsAssignment.cshtml" />
+    <Content Include="Views\Activity\AllAssignmentsForStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

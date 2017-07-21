@@ -85,6 +85,20 @@ namespace LmsTool.Controllers
             return View(query.ToList());
         }
 
+        public ActionResult AllAssignmentsForStudent(string id)
+        {
+            ViewBag.StudentName = db.Users.Find(id).FullName;
+            var query = db.Assignments.Where(a => a.UserId == id).Include(b => b.Activity);
+
+
+
+
+
+
+            return View(query.ToList());
+        }
+
+
         // GET: Activity/Details/5
         public ActionResult Details(int? id)
         {
@@ -184,8 +198,9 @@ namespace LmsTool.Controllers
                         Deadline = assignmentModel.Deadline,
                         Description = assignmentModel.Description,
                         Name = assignmentModel.Name,
-                        UserId = user.UserName
-
+                        UserId = user.Id,
+                        StudentName = user.FullName
+                        
 
                     };
 

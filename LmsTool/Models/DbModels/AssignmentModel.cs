@@ -25,8 +25,10 @@ namespace LmsTool.Models.DbModels
         [Display(Name = "Dokument")]
         public string Document { get; set; }
         public int ActivityId { get; set; }
+        [Display(Name = "ElevId")]
+        public string UserId { get; set; }
         [Display(Name = "Elev")]
-        public string UserId { get; set; } 
+        public string StudentName { get; set; }
         public virtual ActivityModel Activity { get; set; }
         
     }
