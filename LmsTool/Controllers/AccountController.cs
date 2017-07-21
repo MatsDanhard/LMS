@@ -506,11 +506,13 @@ namespace LmsTool.Controllers
             {
                 var store = new UserStore<ApplicationUser>(db);
                 var manager = new ApplicationUserManager(store);
-
                 
                 var user = manager.FindById(id);
 
                 var rolesForUser =  manager.GetRoles(id);
+
+                //if (rolesForUser.First() == "Teacher" && db.Users.Where(g => g.Roles.Select(r => r.RoleId).Contains("Teacher")).ToList().Count() == 1)
+                //                                         db.Users.Where(g => g.CourseId == null).Count() == 1
 
                 using (var transaction = db.Database.BeginTransaction())
                 {

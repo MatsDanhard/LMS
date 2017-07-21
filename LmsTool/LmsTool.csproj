@@ -197,13 +197,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707191243358_init.cs" />
-    <Compile Include="Migrations\201707191243358_init.Designer.cs">
-      <DependentUpon>201707191243358_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707200824149_init3.cs" />
-    <Compile Include="Migrations\201707200824149_init3.Designer.cs">
-      <DependentUpon>201707200824149_init3.cs</DependentUpon>
+    <Compile Include="Migrations\201707200912301_init.cs" />
+    <Compile Include="Migrations\201707200912301_init.Designer.cs">
+      <DependentUpon>201707200912301_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -323,13 +319,10 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Activity\Edit.cshtml" />
     <Content Include="Views\Activity\Delete.cshtml" />
-
     <Content Include="Views\Account\RegisterTeacher.cshtml" />
-
     <Content Include="Views\Activity\CreateAssignment.cshtml" />
     <Content Include="Views\Activity\IndexAssignment.cshtml" />
     <Content Include="Views\Activity\DetailsAssignment.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -341,11 +334,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707191243358_init.resx">
-      <DependentUpon>201707191243358_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707200824149_init3.resx">
-      <DependentUpon>201707200824149_init3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707200912301_init.resx">
+      <DependentUpon>201707200912301_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
