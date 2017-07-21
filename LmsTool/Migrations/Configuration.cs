@@ -422,7 +422,7 @@ namespace LmsTool.Migrations
                 i++;
             }
 
-            course = context.Courses.Where(g => g.Name == "kursnamn").First();
+            course = context.Courses.Where(g => g.Name == "Lorem").First();
 
             emails = new[] { "ErikEriksson1@google.se", "Smultron891@live.se", "Peter20121@outlook.com" };
             fullName = new[] { "Erik Eriksson", "Jan Svensson", "Peter Johnsson" };
