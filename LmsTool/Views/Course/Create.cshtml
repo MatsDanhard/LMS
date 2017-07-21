@@ -1,7 +1,10 @@
 ﻿@using Action = Antlr.Runtime.Misc.Action
 @model LmsTool.Models.DbModels.CourseModel
 
-
+<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
 
 @using (Ajax.BeginForm("Create", "course", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ModalCreate", OnSuccess = "$('close').click()" }, new { id = Model.Id }))
 {
@@ -21,7 +24,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
            
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Description, 6, 50, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
            
         </div>
@@ -54,19 +57,18 @@
         });
 
 </script>
-<script>
+@*<script>
     $(document).ready(function () {
 
         $("#dt1").datepicker({
-            dateFormat: "dd-mm-yy",
-            minDate: 0,
+            dateFormat: "yy-mm-dd",
             onSelect: function () {
                 var date2 = $('#dt1').datepicker('getDate');
-                date2.setDate(date2.getDate() + 1);
-                $('#dt2').datepicker('setDate', date2);
-                //sets minDate to dt1 date + 1
-                $('#dt2').datepicker('option', 'minDate', date2);
+                //date2.setDate(date2.getDate() + 1);
+                $('#dt1').datepicker('setDate', date2);
+                ////sets minDate to dt1 date + 1
+                //$('#dt2').datepicker('option', 'minDate', date2);
             }
         });
     });
-</script>
+</script>*@

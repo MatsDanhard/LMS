@@ -105,7 +105,7 @@
                 <a href="@Url.Action("Edit","course", new {id = course.Id})" class="btn btn-primary Edit">Redigera</a>
                 <a href="@Url.Action("Delete","course", new {id = course.Id})" class="btn btn-danger Delete">Ta bort</a>
             </div>&nbsp;<p class="glyphicon glyphicon-pencil  Icon_toggle">&nbsp;</p><a >@course.Name</a><span class="pull-right">
-                @Html.ActionLink("Elever", "Index", "Course", new { id = course.Id }, new { @class = "btn btn-primary btn-lg" })
+                @Html.ActionLink("Elever" + " (" + course.NrOfStudents + ")", "Index", "Course", new { id = course.Id }, new { @class = "btn btn-primary btn-lg" })
 
 
                 @Html.ActionLink("Moduler"+ " ("+course.NrOfModuls+")", "Index", "Modul", new { id = course.Id }, new { @class = "btn btn-primary btn-lg" })
