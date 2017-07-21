@@ -72,15 +72,33 @@ namespace LmsTool.Migrations
             ApplicationUser adminUser = userManager.FindByName("teacher@teacher.se");
             userManager.AddToRole(adminUser.Id, "Teacher");
 
-            CourseModel course = new CourseModel { Name = "kursnamn", Description = "beskrivning", Moduls = new List<ModulModel>() };
+            CourseModel course = new CourseModel
+            {
+                Name = "Lorem",
+                Description = "beskrivning",
+                Moduls = new List<ModulModel>()
+            };
 
-            ModulModel modulModel = new ModulModel { Name = "modulnamn", Description = "beskrivning", StartDate = DateTime.Now, EndDate = DateTime.Now };
+            ModulModel modulModel = new ModulModel
+            {
+                Name = "Ipsum",
+                Description = "Lorem ipsum dolor sit amet, et sed orci, turpis suscipit in duis porttitor amet eget, varius dolor, facilisi convallis quis massa. Elementum praesentium dui cursus, metus in ipsum orci mollis justo sit, ac libero mauris erat. Turpis porttitor mauris nibh, vehicula quis etiam, hendrerit elementum duis ultricies. Tempus nulla amet luctus venenatis, vulputate praesent tortor ac. Mauris eu in, convallis venenatis, a sociis sit orci lobortis quam maecenas, convallis mattis ac at sodales. Libero eleifend nibh at, sit enim ultrices cras, in aspernatur arcu. Ultricies hendrerit pellentesque, phasellus suspendisse vel mollis sociosqu, lacus leo metus, ut omnis et sapien donec sit, dis sociis enim quisque id sapien iaculis. Vitae aenean sit massa suspendisse, sit suscipit eu lorem, tellus massa dictum donec velit orci. Ante aliquam auctor, metus fermentum a eleifend ligula ut donec, leo suspendisse lacus donec donec, placerat ligula molestie amet dui, molestie id mi lectus tristique interdum. Montes ut, sed ipsum et massa. Quis justo laboriosam lorem rhoncus amet, luctus cras in, eu proin eget hendrerit at sem id, integer id purus nulla netus mi. Vero volutpat eu suspendisse, id at arcu magna etiam.",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now
+            };
+
 
             course.Moduls.Add(modulModel);
 
             context.Courses.AddOrUpdate(p => p.Name, course);
 
-            course = new CourseModel { Name = "Python", Description = "Grundläggande python", Moduls = new List<ModulModel>(), Students = new List<ApplicationUser>() };
+            course = new CourseModel
+            {
+                Name = "Python",
+                Description = "Python is a widely used high-level programming language for general-purpose programming, created by Guido van Rossum and first released in 1991. An interpreted language, Python has a design philosophy which emphasizes code readability (notably using whitespace indentation to delimit code blocks rather than curly brackets or keywords), and a syntax which allows programmers to express concepts in fewer lines of code than might be used in languages such as C++ or Java.[22][23] The language provides constructs intended to enable writing clear programs on both a small and large scale.[24] Python features a dynamic type system and automatic memory management and supports multiple programming paradigms, including object - oriented, imperative, functional programming, and procedural styles.It has a large and comprehensive standard library.[25] Python interpreters are available for many operating systems, allowing Python code to run on a wide variety of systems.CPython, the reference implementation of Python, is open source software[26] and has a community - based development model, as do nearly all of its variant implementations.CPython is managed by the non-profit Python Software Foundation.",
+                Moduls = new List<ModulModel>(),
+                Students = new List<ApplicationUser>()
+            };
 
             modulModel = new ModulModel { Name = "Dokumentation", Description = "Skapa dokument", Activities = new List<ActivityModel>() };
 
@@ -404,7 +422,7 @@ namespace LmsTool.Migrations
                 i++;
             }
 
-            course = context.Courses.Where(g => g.Name == "kursnamn").First();
+            course = context.Courses.Where(g => g.Name == "Lorem").First();
 
             emails = new[] { "ErikEriksson1@google.se", "Smultron891@live.se", "Peter20121@outlook.com" };
             fullName = new[] { "Erik Eriksson", "Jan Svensson", "Peter Johnsson" };

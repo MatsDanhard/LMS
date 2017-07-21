@@ -11,8 +11,8 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Skapa en aktivitet för @Html.DisplayFor(model => model.ModulName)</h2>
-<h3>Som pågår mellan @Html.DisplayFor(model => model.DisplayModulStart) - @Html.DisplayFor(model => model.DisplayModulEnd)</h3>
+<h4>Skapa en aktivitet för @Html.DisplayFor(model => model.ModulName)</h4>
+<div>Som pågår mellan <div>@Html.DisplayFor(model => model.DisplayModulStart) - @Html.DisplayFor(model => model.DisplayModulEnd)</div></div>
 
 
 @using (Ajax.BeginForm("Create", "activity", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ModalCreate", OnSuccess = "$('close').click()" }, new { id = Model.ModulId }))
@@ -42,7 +42,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
             
-                @Html.TextAreaFor(model => model.Description, 10, 100, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Description, 6, 50, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             
         </div>
@@ -83,7 +83,7 @@
 
             </div>
         </div>
-    
+    <div class="hidden" id="startdatehidden">@Model.ModulStart.ToString("yyyy-MM-ddTHH:mm:ss")</div>
 }
 
 
@@ -95,36 +95,60 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <script>
-    //$(document).ready(function () {
-    alert("i script");
+    $(document).ready(function () {
+        //var enddate = $('startdatehidden').text();
+        //var enddate2 = new DateTime(enddate);
+        var startdate = $('#startdatehidden').val();
+        startdate = Date.parse(startdate);
+        @*var startdate = new DateTime("@Model.ModulStart.ToString("yyyy-MM-ddTHH:mm:ss")");*@
+        //alert(enddate);
+            @*var enddate = new DateTime("@Model.ModulEnd.ToString("yyyy-MM-ddTHH:mm:ss")");*@
     $("#dt1").datepicker({
         dateFormat: "yy-mm-dd",
-        minDate: 0,
+        //defaultDate: startdate,
+        //maxDate: startdate,
+        //minDate: startdate,
         onSelect: function () {
-            var date2 = $('#dt1').datepicker('getDate');
-            date2.setHours(8);
-            date2.setDate(date2.getDate() + 1);
-            $('#dt2').datepicker('setDate', date2);
-            //sets minDate to dt1 date + 1
-            $('#dt2').datepicker('option', 'minDate', date2);
-            alert(dt1);
+            @*var startdate = new DateTime("@Model.ModulStart.ToString("yyyy-MM-ddTHH:mm:ss")");
+            var enddate = new DateTime("@Model.ModulEnd.ToString("yyyy-MM-ddTHH:mm:ss")");*@
+            var dt1 = $('#dt1').datepicker('getDate');
+            if (dt1 < startdate)
+            {
+                $('dt1').datepicker('setDate', startdate);
+            }
+            //$('#dt1').datepicker('option', 'minDate', startdate);
+            //$('#dt2').datepicker('option', 'maxDate', enddate);
+            //var date2 = $('#dt1').datepicker('getDate');
+            //date2.setHours(8);
+            //date2.setDate(date2.getDate() + 1);
+            //$('#dt2').datepicker('setDate', date2);
+            //$('dt1').datepicker()
+            //alert('enddate');
+            ////sets minDate to dt1 date + 1
+            //$('#dt2').datepicker('option', 'minDate', date2);
         }
     });
     $('#dt2').datepicker({
+        //defaultDate: startdate,
+        //maxDate: enddate,
+        //minDate: startdate,
         dateFormat: "yy-mm-dd",
         onClose: function () {
             var dt1 = $('#dt1').datepicker('getDate');
-            console.log(dt1);
-            var dt2 = $('#dt2').datepicker('getDate');
-            dt2.setHours(17);
-            alert(dt2);
-            if (dt2 <= dt1) {
-                var minDate = $('#dt2').datepicker('option', 'minDate');
-                $('#dt2').datepicker('setDate', minDate);
+            if (dt1 < startdate) {
+                startdate.setDate(startdate.getDate());
+                $('dt1').datepicker('setDate', startdate);
             }
+        //    var dt1 = $('#dt1').datepicker('getDate');
+        //    var dt2 = $('#dt2').datepicker('getDate');
+        //    dt2.setHours(17);
+        //    if (dt2 <= dt1) {
+        //        var minDate = $('#dt2').datepicker('option', 'minDate');
+        //        $('#dt2').datepicker('setDate', minDate);
+        //    }
         }
     });
-    //});
+    });
 
 </script>
 

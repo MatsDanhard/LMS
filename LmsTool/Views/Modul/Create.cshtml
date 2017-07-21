@@ -1,9 +1,9 @@
 ﻿@model LmsTool.Models.DbModels.ModulModel
 
 <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
-    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-ui.min.js"></script>
-    <script src="~/Scripts/jquery-ui.js"></script>
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
 
 
 @using (Ajax.BeginForm("create", "modul", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ModalCreate", OnSuccess = "$('close').click()" }, new { id = ViewBag.CurrentCourse }))
@@ -85,12 +85,11 @@
             onSelect: function () {
                 var date2 = $('#dt1').datepicker('getDate');
                 date2.setHours(8);
-                alert(date2);
                 date2.setDate(date2.getDate() + 1);
                 $('#dt2').datepicker('setDate', date2);
                 //sets minDate to dt1 date + 1
                 $('#dt2').datepicker('option', 'minDate', date2);
-                alert("i script");
+                
 
 
             }
@@ -99,14 +98,14 @@
             dateFormat: "yy-mm-dd",
             onClose: function () {
                 var dt1 = $('#dt1').datepicker('getDate');
-                console.log(dt1);
+               
                 var dt2 = $('#dt2').datepicker('getDate');
                 dt2.setHours(17);
-                alert(dt2);
+                
                 if (dt2 <= dt1) {
                     var minDate = $('#dt2').datepicker('option', 'minDate');
                     $('#dt2').datepicker('setDate', minDate);
-                    alert("i script");
+                    
                 }
             }
         });
