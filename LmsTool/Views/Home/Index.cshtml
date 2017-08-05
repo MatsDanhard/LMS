@@ -6,68 +6,98 @@
 @model List<LmsTool.Models.Viewmodels.ViewCourses>
 
 
-<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
-<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 <script src="~/Scripts/jquery-ui.min.js"></script>
-<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
 @{
     ViewBag.Title = "Index";
 }
 
+
 <h2>Kurs</h2>
-<h2>@ViewBag.dateFailure</h2>
+
 
 <p>
-    @if (User.IsInRole("Teacher"))
-    {
 
-    }
+
     <a href="@Url.Action("Create","course", null)" class="btn btn-success Create">Skapa kurs</a>
+
 </p>
-<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
-<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-<script src="~/Scripts/bootstrap.min.js"></script>
+
 <!-- Modal -->
-<div class="modal fade" id="ModalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Skapa Kurs</h4>
+@using (Ajax.BeginForm(null, null, null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "frmCreate",
+    InsertionMode = InsertionMode.Replace
+}, new { @id = "frmID1" }))
+
+{
+
+    <div>
+        <div class="container row collapse" id="CreateWindow">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4">
+
+                <div id="frmCreate">
+
+                    @Html.Partial("~/Views/Course/Create.cshtml", new CourseModel())
+
+
+                </div>
             </div>
-            <div class="modal-body">
+            <div class="col-xs-4">
 
             </div>
-            <div class="@*modal-footer*@">
-                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
 
-            </div>
+
+
         </div>
     </div>
-</div>
-<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-                <h4 class="modal-title" id="myModalLabel1">Redigera Kurs</h4>
+}
+
+@using (Ajax.BeginForm(null, null, null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "frmEdit",
+    InsertionMode = InsertionMode.Replace
+}, new { @id = "frmID2" }))
+
+{
+
+    <div>
+        <div class="container row collapse" id="EditWindow">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4">
+
+                <div id="frmEdit">
+
+                    @Html.Partial("~/Views/Course/Create.cshtml", new CourseModel())
+
+
+                </div>
+            </div>
+            <div class="col-xs-4">
 
             </div>
-            <div class="modal-body">
 
-            </div>
-            <div class="">
-                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
 
-            </div>
+
         </div>
     </div>
-</div>
+
+}
+
+
+
 <div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -101,47 +131,39 @@
 
 
         <div class="panel-heading Icon-Fontsize">
-            <p class="glyphicon glyphicon-menu-down">&nbsp;</p><div class="btn-group btn-group-lg Settings">
+            <p class="glyphicon glyphicon-menu-down">&nbsp;</p><div class="btn-group btn-group-lg Settings collapse">
                 <a href="@Url.Action("Edit","course", new {id = course.Id})" class="btn btn-primary Edit">Redigera</a>
                 <a href="@Url.Action("Delete","course", new {id = course.Id})" class="btn btn-danger Delete">Ta bort</a>
-            </div>&nbsp;<p class="glyphicon glyphicon-pencil  Icon_toggle">&nbsp;</p><a >@course.Name</a><span class="pull-right">
+            </div>&nbsp;<p class="glyphicon glyphicon-pencil  Icon_toggle">&nbsp;</p><a class="inactiveLink">@course.Name</a><a class="DateOnDiv inactiveLink">(@course.StartDate.ToShortDateString())</a><span class="pull-right">
                 @Html.ActionLink("Elever" + " (" + course.NrOfStudents + ")", "Index", "Course", new { id = course.Id }, new { @class = "btn btn-primary btn-lg" })
 
 
-                @Html.ActionLink("Moduler"+ " ("+course.NrOfModuls+")", "Index", "Modul", new { id = course.Id }, new { @class = "btn btn-primary btn-lg" })
+                @Html.ActionLink("Moduler" + " (" + course.NrOfModuls + ")", "Index", "Modul", new { id = course.Id }, new { @class = "btn btn-primary btn-lg" })
             </span>
 
         </div>
 
 
-        <div class=" panel-body Expandable">
+        <div class="panel-body collapse Expandable">
             <div>
                 <section class="text-columns">
                     @course.Description
                 </section>
+
             </div>
 
         </div>
 
     </div>
-    @*<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Edit","Modul", new {id = modul.Id})">
-            Edit
-        </button>
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainerLarge" href="@Url.Action("Index","Activity", new {id = modul.Id})">
-            Aktiviteter( @{*@
 
-    @*</button>
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Delete","Modul", new {id = modul.Id})">
-            Tabort
-        </button>*@
 }
 
 
 
-<script>
-    $('.Expandable').hide();
-    $('.Settings').hide();
-</script>
+
+
+
+
 <script>
     $(document).ready(
 
@@ -156,6 +178,38 @@
             $(this).closest('.panel').find(".Expandable").toggle("fast", "swing");
         }));
 </script>
+<script>
+    $(document).ready(
+        $(document).on('click', '.Create', function () {
+            if ($('#EditWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+            }
+            else {
+                $(this).closest('.container').find("#EditWindow").toggle("fast", "swing");
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+
+            }
+        }));
+
+</script>
+<script>
+    $(document).ready(
+        $(document).on('click', '.Edit', function () {
+            if ($('#CreateWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#EditWindow").toggle("fast", "swing");
+            }
+            else {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+                $(this).closest('.container').find("#EditWindow").toggle("fast", "swing");
+
+            }
+
+
+        }));
+
+</script>
+
+
 
 
 <script>
@@ -163,20 +217,16 @@
         $('.Create').click(function (event) {
             event.preventDefault();
             $.get(this.href, function (response) {
-                $('.modal-body').html(response);
+                $('#frmCreate').html(response);
             });
-            $('#ModalCreate').modal({
-                backdrop: 'static',
-            }, 'show');
+
         });
         $('.Edit').click(function (event) {
             event.preventDefault();
             $.get(this.href, function (response) {
-                $('.modal-body').html(response);
+                $('#frmEdit').html(response);
             });
-            $('#ModalEdit').modal({
-                backdrop: 'static',
-            }, 'show');
+
         });
         $('.Delete').click(function (event) {
             event.preventDefault();
@@ -189,3 +239,5 @@
         });
     });
 </script>
+
+

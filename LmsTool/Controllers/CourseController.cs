@@ -68,24 +68,24 @@ namespace LmsTool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public ActionResult Create([Bind(Include = "Id,Name,Description,StartDate")] CourseModel courseModel)
         {
             if (ModelState.IsValid)
             {
-                CourseModel course = new CourseModel
-                {
-                    Id = courseModel.Id, Description = courseModel.Description, Name = courseModel.Name, StartDate = Convert.ToDateTime(courseModel.StartDate)
-                };
 
 
+                
                 db.Courses.Add(courseModel);
                 db.SaveChanges();
-                return RedirectToAction("Index","Home");
+                //TempData["postResult"] = "Saved!";
+                return RedirectToAction("Index", "Home");
             }
-
-             return PartialView(courseModel); 
+            ModelState.AddModelError("",@"Kunde ej spara kursen");
+            
+             return PartialView("Create",courseModel); 
         }
-
+       
         // GET: Course/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -110,6 +110,7 @@ namespace LmsTool.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 db.Entry(courseModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index","Home");
@@ -156,35 +157,7 @@ namespace LmsTool.Controllers
             return RedirectToAction("Index","Home");
         }
 
-        //public ActionResult AddStudent(int id)
-        //{
-
-
-
-        //    AddStudent model = new AddStudent{CourseId = id};
-
-
-        //    return PartialView(model);
-
-
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult AddStudent([Bind(Include = "CourseId,FullName,Email")] AddStudent model)
-        //{
-        //    UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(db);
-        //    UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(userStore);
-
-        //    var query = db.ApplicationUsers.ToList().FirstOrDefault(u => u.Email == model.Email);
-
-        //    if (query != null)
-        //    {
-        //        return RedirectToAction("AddStudent", model);
-        //    }
-
-            
-        //    return View("");
-        //}
+       
 
         protected override void Dispose(bool disposing)
         {

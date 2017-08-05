@@ -58,9 +58,10 @@
 
 
             <td>
-
-                <a href="@Url.Action("DetailsAssignment", "Activity", new {id = item.Id})" class="btn btn-primary btn-lg Details">Granska</a>
-
+                @if (item.Submitted != null)
+                {
+                    <a href="@Url.Action("DetailsAssignment", "Activity", new {id = item.Id})" class="btn btn-primary btn-lg Details">Granska</a>
+                }
             </td>
         </tr>
     }

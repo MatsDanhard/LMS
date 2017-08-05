@@ -23,6 +23,8 @@ namespace LmsTool.Controllers
 
             List<ViewCourses> model = new List<ViewCourses>();
 
+            
+
             foreach (var course in courses)
             {
                 model.Add(new ViewCourses

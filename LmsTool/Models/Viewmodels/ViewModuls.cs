@@ -28,5 +28,6 @@ namespace LmsTool.Models.Viewmodels
        
         public int NrOfActivitys { get; set; }
 
+        public virtual CourseModel Course { get; set; }
     }
 }

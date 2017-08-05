@@ -128,4 +128,18 @@ font-size:20px;
     -o-transform: translate(0, 0);
     transform: translate(0, 0);
 }
+
 /*Modal CSS*/
+
+.btn-group.collapse {
+    display: none;
+}
+.DateOnDiv {
+    padding-left: 15px;
+    color: black;
+    font-size: 18px;
+}
+.inactiveLink {
+    pointer-events: none;
+    cursor: default;
+}

@@ -108,7 +108,7 @@ namespace LmsTool.Controllers
             }
 
             //ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", modulModel.CourseId);
-            return View(modulModel);
+            return PartialView(modulModel);
         }
 
         // GET: Modul/Edit/5
