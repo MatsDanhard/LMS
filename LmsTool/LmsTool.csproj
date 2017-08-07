@@ -198,6 +198,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ModulController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -213,6 +214,7 @@
     <Compile Include="Models\DbModels\ModulModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\StudentViewmodels\index.cs" />
     <Compile Include="Models\Viewmodels\CreateActivity.cs" />
     <Compile Include="Models\Viewmodels\StudentIndexVM.cs" />
     <Compile Include="Models\Viewmodels\StudentsIndex.cs" />
@@ -234,6 +236,7 @@
     <Content Include="Content\index.js" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\Student.css" />
     <Content Include="Dokumentation\Backlog 20170705.txt" />
     <Content Include="Dokumentation\erdplus-diagram20170714.png" />
     <Content Include="favicon.ico" />
@@ -334,9 +337,11 @@
     <Content Include="Views\Activity\IndexAssignment.cshtml" />
     <Content Include="Views\Activity\DetailsAssignment.cshtml" />
     <Content Include="Views\Activity\AllAssignmentsForStudent.cshtml" />
+    <Content Include="Views\Shared\_LayoutStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Student\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

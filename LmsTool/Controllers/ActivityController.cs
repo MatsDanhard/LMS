@@ -29,7 +29,7 @@ namespace LmsTool.Controllers
 
 
             var modul = db.Moduls.Find(id);
-            var activities = db.Activities.Include(a => a.Assignments).Where(a => a.ModulId == id);
+            var activities = db.Activities.Include(a => a.Assignments).Where(a => a.ModulId == id).OrderBy(d => d.StartDate);
 
             List<ViewActivitys> model = new List<ViewActivitys>();
             if (activities.Any())
@@ -185,8 +185,8 @@ namespace LmsTool.Controllers
 
             if (ModelState.IsValid)
             {
-                var activities = db.Activities.Find(assignmentModel.ActivityId).ModulId;
-                var modul = db.Moduls.Find(activities).CourseId;
+                var activities = db.Activities.Find(assignmentModel.ActivityId);
+                var modul = db.Moduls.Find(activities.ModulId).CourseId;
                 var users = db.Users.Where(u => u.Course.Id == modul);
                 
                 foreach (var user in users)
@@ -203,10 +203,13 @@ namespace LmsTool.Controllers
                         
 
                     };
-
                     db.Assignments.Add(model);
-                    
+
+
                 }
+                activities.Submission = true;
+                db.Activities.AddOrUpdate(activities);
+                
                 db.SaveChanges();
 
             }
