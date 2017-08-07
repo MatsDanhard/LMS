@@ -4,6 +4,9 @@
     ViewBag.Title = "Registrera lärare";
 }
 
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
 @*<h2>Registrera lärare</h2>*@
 
 
@@ -12,7 +15,7 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    @*<div class="form-horizontal">*@
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -44,5 +47,5 @@
                 <input type="submit" value="Registrera" class="btn btn-success btn-block" />
             </div>
         </div>
-    </div>
+    @*</div>*@
 }
