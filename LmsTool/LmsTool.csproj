@@ -202,9 +202,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707210723122_34.cs" />
-    <Compile Include="Migrations\201707210723122_34.Designer.cs">
-      <DependentUpon>201707210723122_34.cs</DependentUpon>
+    <Compile Include="Migrations\201708070934441_ini.cs" />
+    <Compile Include="Migrations\201708070934441_ini.Designer.cs">
+      <DependentUpon>201708070934441_ini.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -338,24 +338,24 @@
     <Content Include="Views\Activity\DetailsAssignment.cshtml" />
     <Content Include="Views\Activity\AllAssignmentsForStudent.cshtml" />
     <Content Include="Views\Shared\_LayoutStudent.cshtml" />
+    <Content Include="Views\Student\InfoModul.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Student\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707210723122_34.resx">
-      <DependentUpon>201707210723122_34.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201708070934441_ini.resx">
+      <DependentUpon>201708070934441_ini.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

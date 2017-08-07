@@ -38,27 +38,23 @@ namespace LmsTool.Controllers
             return View("~/Views/Home/IndexStudent.cshtml", studentIndex);
         }
 
-        // GET: Student/Details/5
-        //public ActionResult InfoModul(int id)
-        //{
+        
+        public ActionResult InfoModul(int id)
+        {
 
-        //    ModulModel modul = db.Moduls.Find(id);
-        //    if (viewStudents == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(viewStudents);
-        //}
+
+
+            ModulModel modul = db.Moduls.Find(id);
+            
+            return PartialView(modul);
+        }
 
         public ActionResult InfoActivity(int id)
         {
+
+            ActivityModel activity = db.Activities.Find(id);
             
-            ViewStudents viewStudents = db.ViewStudents.Find(id);
-            if (viewStudents == null)
-            {
-                return HttpNotFound();
-            }
-            return View(viewStudents);
+            return View(activity);
         }
 
         public ActionResult InfoAssignment(int id)
