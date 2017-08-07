@@ -26,7 +26,9 @@ namespace LmsTool.Controllers
         public ActionResult Index(int? id) // För elevlistan
         {
             ViewBag.CurrentCourse = id;
-            var Students = db.Users.Where(model => model.CourseId == id).ToList();
+            var Students = db.Users.Where(model => model.CourseId == id)
+                .OrderBy(n => n.FullName)
+                .ToList();
 
             List<ViewStudents> listStudents = new List<ViewStudents>();
 

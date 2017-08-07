@@ -22,7 +22,8 @@ namespace LmsTool.Controllers
             var course = db.Courses.Find(id);
             ViewBag.InfoModul = info;
             ViewBag.ErrorModul = error;
-            var moduls = db.Moduls.Include(m => m.Activities).Where(c  => c.CourseId == id);
+            var moduls = db.Moduls.Include(m => m.Activities).Where(c  => c.CourseId == id)
+                .OrderBy(d => d.StartDate);
             ViewBag.CourseName = course.Name;
             ViewBag.CurrentCourse = course.Id;
 
