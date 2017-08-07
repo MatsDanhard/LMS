@@ -1,42 +1,287 @@
 ﻿@using LmsTool.Models.DbModels
+@using LmsTool.Models.StudentViewmodels
 @using LmsTool.Models.Viewmodels
-@model IEnumerable<LmsTool.Models.Viewmodels.ViewModuls>
+@model index
 
-    @{
-        ViewBag.Title = "IndexStudent";
-    }
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
 
-    <h2>@Model.FirstOrDefault().Course.Name</h2>
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "IndexStudent";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+<h2 class="CourseName">@Model.Course.Name</h2>
+
+@using (Ajax.BeginForm(null, null, null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "frmCreate",
+    InsertionMode = InsertionMode.Replace
+}, new { @id = "frmID1" }))
+
+{
+
+    <div>
+        <div class="container row collapse" id="InfoModul">
+            <div class="col-xs-2"></div>
+            <div class="col-xs-8">
+
+                <div id="frmInfo">
+
+                    @*@Html.Partial("~/Views/Course/Create.cshtml", new CourseModel())*@
 
 
-    @foreach (ViewModuls modul in Model)
-    {
-        <div class="panel panel-info">
-
-
-            <div class="panel-heading Icon-Fontsize">
-                <p class="glyphicon glyphicon-menu-down">&nbsp;</p>
-            </div>&nbsp;<a class="inactiveLink">@modul.Name</a><a class="DateOnDiv inactiveLink">(@modul.StartDate.ToShortDateString())&nbsp; - &nbsp; (@modul.EndDate.ToShortDateString()) </a><span class="pull-right">
-
-
-
-                @Html.ActionLink("Aktiviteter" + " (" + modul.NrOfActivitys + ")", "Index", "Activity", new { id = modul.Id }, new { @class = "btn btn-primary btn-lg" })
-            </span>
-
-        </div>
-
-
-        <div class="panel-body collapse Expandable">
-            <div>
-                <section class="text-columns">
-                    @modul.Description
-                </section>
+                </div>
+            </div>
+            <div class="col-xs-2">
 
             </div>
 
+
+
         </div>
+    </div>
 
-    
+}
 
-    }
- 
+@using (Ajax.BeginForm(null, null, null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "frmCreate",
+    InsertionMode = InsertionMode.Replace
+}, new { @id = "frmID1" }))
+
+{
+
+    <div>
+        <div class="container row collapse" id="InfoActivity">
+            <div class="col-xs-2"></div>
+            <div class="col-xs-8">
+
+                <div id="frmInfo">
+
+                    @*@Html.Partial("~/Views/Course/Create.cshtml", new CourseModel())*@
+
+
+                </div>
+            </div>
+            <div class="col-xs-2">
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+}
+
+@using (Ajax.BeginForm(null, null, null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "frmCreate",
+    InsertionMode = InsertionMode.Replace
+}, new { @id = "frmID1" }))
+
+{
+
+    <div>
+        <div class="container row collapse" id="InfoAssignment">
+            <div class="col-xs-2"></div>
+            <div class="col-xs-8">
+
+                <div id="frmInfo">
+
+                    @*@Html.Partial("~/Views/Course/Create.cshtml", new CourseModel())*@
+
+
+                </div>
+            </div>
+            <div class="col-xs-2">
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+}
+
+<div class="container-fluid row">
+    <div class="col-lg-6">
+        <table class="table border">
+            <caption><h2 class="text-center">Moduler</h2></caption>
+            <tr>
+                <th>Modulnamn</th>
+                <th>Start datum</th>
+                <th>Slut datum</th>
+                <th>Aktiviteter</th>
+            </tr>
+            @foreach (ModulModel modul in Model.Moduls)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelitem => modul.Name)</td>
+                    <td>@modul.StartDate.ToShortDateString()</td>
+                    <td>@modul.EndDate.ToShortDateString()</td>
+                    <td><a href="@Url.Action("Index")">@Html.DisplayFor(modelitem => modul.Activities.Count)</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-lg-6">
+        <div>
+            <table class="table">
+                <caption><h2 class="text-center">Dagens Aktiviteter</h2></caption>
+                <tr>
+                    <th>Namn</th>
+                    <th>Aktivitetstyp</th>
+                    <th>Inlämning</th>
+                </tr>
+                @foreach (ActivityModel activity in Model.TodaysActivities)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelitem => activity.Name)</td>
+                        <td>@Html.DisplayFor(modelitem => activity.TypeOfActivity)</td>
+                        @if (activity.Submission != true)
+                        {
+                            <td><a>Nej</a></td>
+                        }
+                        else
+                        {
+                            <td>Ja</td>
+
+                        }
+                    </tr>
+                }
+            </table>
+        </div>
+        <div>
+            <table class="table">
+                <caption><h2 class="text-center">Inlämningsuppgifter</h2></caption>
+                <tr>
+                    <th>Namn</th>
+                    <th>Activitet</th>
+                    <th>Status</th>
+                    <th>Senast inlämning</th>
+                </tr>
+                @foreach (AssignmentModel assignment in Model.Assignments)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelitem => assignment.Name)</td>
+                        <td>@Html.DisplayFor(modelitem => assignment.Activity.TypeOfActivity)</td>
+                        @if (assignment.Submitted == null)
+                        {
+                            <td>Ej inlämnad</td>
+                        }
+                        else
+                        {
+                            if (assignment.Approved == false)
+                            {
+                                <td>Väntar på rättning</td>
+                            }
+                            else
+                            {
+                                <td>Godkänd</td>
+                            }
+                        }
+                        <td>@Html.DisplayFor(modelitem => assignment.Deadline)</td>
+                    </tr>
+                }
+            </table>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(
+        $(document).on('click', '.infobtnModul', function () {
+            if ($('#InfoAssignment').css('display') == 'none' && $('#InfoActivity').css('display') == 'none') {
+                $(this).closest('.container').find("#InfoModul").toggle("fast", "swing");
+            }
+            else if ($('#InfoAssignment').css('display') == 'none') {
+                $(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
+                $(this).closest('.container').find("#InfoModul").toggle("fast", "swing");
+
+            }
+            else {
+                $(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
+                $(this).closest('.container').find("#InfoModul").toggle("fast", "swing");
+            }
+
+
+        }));
+
+</script>
+<script>
+    $(document).ready(
+        $(document).on('click', '.infobtnActivity', function () {
+            if ($('#InfoAssignment').css('display') == 'none' && $('#InfoModul').css('display') == 'none') {
+                $(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
+            }
+            else if ($('#InfoAssignment').css('display') == 'none') {
+                $(this).closest('.container').find("#InfoModul").toggle("fast", "swing");
+                $(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
+
+            }
+            else {
+                $(this).closest('.container').find("#InfoAssignment").toggle("fast", "swing");
+                $(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
+            }
+
+
+        }));
+
+</script>
+<script>
+    $(document).ready(
+        $(document).on('click', '.infobtnAssignment', function () {
+            if ($('#InfoActivity').css('display') == 'none' && $('#InfoModul').css('display') == 'none') {
+                $(this).closest('.container').find("#InfoAssignment").toggle("fast", "swing");
+            }
+            else if ($('#InfoActivity').css('display') == 'none') {
+                $(this).closest('.container').find("#InfoModul").toggle("fast", "swing");
+                $(this).closest('.container').find("#InfoAssignment").toggle("fast", "swing");
+
+            }
+            else {
+                $(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
+                $(this).closest('.container').find("#InfoAssignment").toggle("fast", "swing");
+            }
+
+
+        }));
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.infoBtnModul').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('#frmInfoModul').html(response);
+            });
+
+        });
+        $('.infoBtnActivity').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('#frmInfoActivity').html(response);
+            });
+
+        });
+        $('.infoBtnActivity').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('#frmInfoAssignment').html(response);
+            });
+           
+        });
+    });
+</script>
