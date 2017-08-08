@@ -12,7 +12,7 @@
     border-radius: 50%;
 }
 
-h2 {
+h1 {
     display: none;
 }
 
@@ -44,4 +44,10 @@ footer {
 
 hr {
     display: none;
+}
+
+input,
+select,
+textarea {
+    max-width: 280px;
 }
