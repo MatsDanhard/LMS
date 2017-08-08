@@ -110,6 +110,31 @@ namespace LmsTool.Controllers
            return RedirectToAction("Index");
         }
 
+        public JsonResult GetActivities()
+        {
+
+            var student = db.Users.Find(User.Identity.GetUserId());
+            var course = db.Courses.Find(student.CourseId);
+            //var modul = db.Moduls.Where(m => m.CourseId == course.Id);
+            var activities = db.Activities.Where(a => a.Modul.CourseId == course.Id)
+                .ToList()
+                .Select(item => new 
+                {
+                    id = item.Id,
+                    title = item.Name,
+                    start = item.StartDate,
+                    end = item.EndDate
+                    
+
+                })
+                .ToArray();
+            
+
+            
+
+            return Json(activities, JsonRequestBehavior.AllowGet);
+        }
+
 
         protected override void Dispose(bool disposing)
         {
