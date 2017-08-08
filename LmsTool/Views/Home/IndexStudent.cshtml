@@ -12,6 +12,23 @@
 <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
+@*<link href="~/Scripts/fullcalendar-3.4.0/fullcalendar.css" rel="stylesheet" />*@
+
+<link href="~/Scripts/fullcalendar-3.4.0/fullcalendar.print.min.css" rel="stylesheet" />
+<script src="~/Scripts/fullcalendar-3.4.0/lib/jquery.min.js"></script>
+<script src="~/Scripts/fullcalendar-3.4.0/lib/moment.min.js"></script>
+
+<script src="~/Scripts/fullcalendar-3.4.0/fullcalendar.js"></script>
+<script src="~/Scripts/fullcalendar-3.4.0/fullcalendar.min.js"></script>
+<link href="~/Scripts/fullcalendar-3.4.0/fullcalendar.min.css" rel="stylesheet" />
+<script src="~/Scripts/fullcalendar-3.4.0/locale/sv.js"></script>
+
+rjg
+rehkp
+erhoj
+
+
+<div id='calendar'></div>
 @{
     ViewBag.Title = "IndexStudent";
     Layout = "~/Views/Shared/_LayoutStudent.cshtml";
@@ -284,4 +301,48 @@
            
         });
     });
+</script>
+
+
+<script>
+
+
+    $(document).ready(function () {
+        alert('i script');
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,basicWeek,basicDay,listWeek'
+            },
+            weekends: false,
+            businessHours: {
+                dow: [1, 2, 3, 4, 5],
+                start: '08:00',
+                end: '17:00'
+            },
+            buttonText: {
+                list: "Veckoschema"
+            },
+            height: 'auto', // Maximize height so everything is shown, no scrollbar
+            timezone: 'local',
+            weekNumbers: true,
+            //allDay: true,
+            minTime: '08:00:00', // Show schedule from only 8-17
+            maxTime: '17:00:00',
+            defaultTimedEventDuration: '09:00:00',
+            defaultView: 'basicWeek',
+
+            events: 'Student/GetActivities',
+            // Custom renderer to add icon functionality on events
+           
+            monthNames: ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'October', 'November', 'December'], // Custom names to get Pascal casing on months
+            navLinks: true, // can click day/week names to navigate views
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+
+            });
+        alert('i script');
+    });
+
 </script>

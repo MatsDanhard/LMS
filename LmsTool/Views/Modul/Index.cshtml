@@ -99,7 +99,7 @@
 
 
         <div class="panel-heading Icon-Fontsize">
-            <p class="glyphicon glyphicon-menu-down">&nbsp;</p><div class="btn-group btn-group-lg Settings collapse">
+            <p class="glyphicon glyphicon-menu-down toggle_arrow pull-left">&nbsp;</p><div class="btn-group btn-group-lg Settings collapse">
             <a href="@Url.Action("Edit","Modul", new {id = modul.Id})" class="btn btn-primary btn-lg Edit">Redigera</a>
             <a href="@Url.Action("Delete","Modul", new {id = modul.Id})" class="btn btn-danger btn-lg Delete">Ta bort</a>
         </div>&nbsp;<p class="glyphicon glyphicon-pencil  Icon_toggle">&nbsp;</p><a class="inactiveLink">@modul.Name</a> <a class="DateOnDiv inactiveLink">(@modul.StartDate.ToShortDateString()) &nbsp - &nbsp (@modul.EndDate.ToShortDateString())</a><span class="pull-right">
