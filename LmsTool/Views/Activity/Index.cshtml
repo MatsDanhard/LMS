@@ -14,7 +14,7 @@
 @{
     ViewBag.Title = "Index";
 }
-<h2>@Model.FirstOrDefault().ModulName</h2>
+<h1>@Model.FirstOrDefault().ModulName</h1>
 <p>
     <a href="@Url.Action("Create","Activity", new {id = ViewBag.CurrentModul})" class="btn btn-success Create">Skapa aktivitet</a>
 </p>
