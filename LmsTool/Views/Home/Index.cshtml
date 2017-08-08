@@ -131,7 +131,7 @@
 
 
         <div class="panel-heading Icon-Fontsize">
-            <p class="glyphicon glyphicon-menu-down">&nbsp;</p><div class="btn-group btn-group-lg Settings collapse">
+            <p class="glyphicon glyphicon-menu-down toggle_arrow pull-left">&nbsp;</p><div class="Settings collapse btn-group btn-group-lg">
                 <a href="@Url.Action("Edit","course", new {id = course.Id})" class="btn btn-primary Edit">Redigera</a>
                 <a href="@Url.Action("Delete","course", new {id = course.Id})" class="btn btn-danger Delete">Ta bort</a>
             </div>&nbsp;<p class="glyphicon glyphicon-pencil  Icon_toggle">&nbsp;</p><a class="inactiveLink">@course.Name</a><a class="DateOnDiv inactiveLink">(@course.StartDate.ToShortDateString())</a><span class="pull-right">
@@ -174,9 +174,10 @@
 </script>
 <script>
     $(document).ready(
-        $(document).on('click', '.glyphicon-menu-down', function () {
+        $(document).on('click', '.toggle_arrow', function () {
             $(this).closest('.panel').find(".Expandable").toggle("fast", "swing");
-            $(this).closest('p.glyphicon-menu-down').toggleClass('glyphicon-menu-up');
+            $(this).closest('p.toggle_arrow').toggleClass('glyphicon-menu-down glyphicon-menu-right');
+
         }));
 </script>
 <script>
