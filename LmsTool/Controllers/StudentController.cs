@@ -97,7 +97,18 @@ namespace LmsTool.Controllers
 
         }
 
-        // GET: Student/Edit/5
+        public ActionResult RedoAssignment(int id)
+        {
+            
+            AssignmentModel assignment = db.Assignments.Find(id);
+            assignment.Document = null;
+            assignment.Submitted = null;
+            assignment.Redo = false;
+            db.Entry(assignment).State = EntityState.Modified;
+            db.SaveChanges();
+
+           return RedirectToAction("Index");
+        }
 
 
         protected override void Dispose(bool disposing)
