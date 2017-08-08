@@ -76,15 +76,16 @@ namespace LmsTool.Migrations
             {
                 Name = "Lorem",
                 Description = "beskrivning",
-                Moduls = new List<ModulModel>()
+                Moduls = new List<ModulModel>(),
+                StartDate = new DateTime(2017,7,3,8,0,0)
             };
 
             ModulModel modulModel = new ModulModel
             {
                 Name = "Ipsum",
                 Description = "Lorem ipsum dolor sit amet, et sed orci, turpis suscipit in duis porttitor amet eget, varius dolor, facilisi convallis quis massa. Elementum praesentium dui cursus, metus in ipsum orci mollis justo sit, ac libero mauris erat. Turpis porttitor mauris nibh, vehicula quis etiam, hendrerit elementum duis ultricies. Tempus nulla amet luctus venenatis, vulputate praesent tortor ac. Mauris eu in, convallis venenatis, a sociis sit orci lobortis quam maecenas, convallis mattis ac at sodales. Libero eleifend nibh at, sit enim ultrices cras, in aspernatur arcu. Ultricies hendrerit pellentesque, phasellus suspendisse vel mollis sociosqu, lacus leo metus, ut omnis et sapien donec sit, dis sociis enim quisque id sapien iaculis. Vitae aenean sit massa suspendisse, sit suscipit eu lorem, tellus massa dictum donec velit orci. Ante aliquam auctor, metus fermentum a eleifend ligula ut donec, leo suspendisse lacus donec donec, placerat ligula molestie amet dui, molestie id mi lectus tristique interdum. Montes ut, sed ipsum et massa. Quis justo laboriosam lorem rhoncus amet, luctus cras in, eu proin eget hendrerit at sem id, integer id purus nulla netus mi. Vero volutpat eu suspendisse, id at arcu magna etiam.",
-                StartDate = DateTime.Now,
-                EndDate = DateTime.Now
+                StartDate = new DateTime(2017,7,3,8,0,0),
+                EndDate = new DateTime(2017,8,18,17,0,0)
             };
 
 
@@ -97,7 +98,8 @@ namespace LmsTool.Migrations
                 Name = "Python",
                 Description = "Python is a widely used high-level programming language for general-purpose programming, created by Guido van Rossum and first released in 1991. An interpreted language, Python has a design philosophy which emphasizes code readability (notably using whitespace indentation to delimit code blocks rather than curly brackets or keywords), and a syntax which allows programmers to express concepts in fewer lines of code than might be used in languages such as C++ or Java.[22][23] The language provides constructs intended to enable writing clear programs on both a small and large scale.[24] Python features a dynamic type system and automatic memory management and supports multiple programming paradigms, including object - oriented, imperative, functional programming, and procedural styles.It has a large and comprehensive standard library.[25] Python interpreters are available for many operating systems, allowing Python code to run on a wide variety of systems.CPython, the reference implementation of Python, is open source software[26] and has a community - based development model, as do nearly all of its variant implementations.CPython is managed by the non-profit Python Software Foundation.",
                 Moduls = new List<ModulModel>(),
-                Students = new List<ApplicationUser>()
+                Students = new List<ApplicationUser>(),
+                StartDate = new DateTime(2017,7,3,8,0,0)
             };
 
             modulModel = new ModulModel { Name = "Dokumentation", Description = "Skapa dokument", Activities = new List<ActivityModel>() };
@@ -108,8 +110,8 @@ namespace LmsTool.Migrations
                 Submission = false,
                 Name = "Dokumentation",
                 TypeOfActivity = "E-learing",
-                StartDate = DateTime.Now.AddDays(2),
-                EndDate = DateTime.Now.AddDays(3),
+                StartDate = new DateTime(2017,7,4,8,0,0),
+                EndDate = new DateTime(2017, 7, 7, 17, 0, 0),
                 Modul = modulModel,
                 Assignments = new List<AssignmentModel>()
             };
@@ -122,8 +124,8 @@ namespace LmsTool.Migrations
                 Submission = true,
                 Name = "Dokumentation",
                 TypeOfActivity = "Föreläsning",
-                StartDate = DateTime.Now.AddDays(4),
-                EndDate = DateTime.Now.AddDays(5),
+                StartDate = new DateTime(2017, 7, 10, 8, 0, 0),
+                EndDate = new DateTime(2017, 7, 14, 17, 0, 0),
                 Modul = modulModel,
                 Assignments = new List<AssignmentModel>()
             };
@@ -136,8 +138,8 @@ namespace LmsTool.Migrations
                 Submission = false,
                 Name = "Objektorienterad programmering",
                 TypeOfActivity = "Föreläsning",
-                StartDate = DateTime.Now.AddDays(4),
-                EndDate = DateTime.Now.AddDays(5).AddHours(5),
+                StartDate = new DateTime(2017, 7, 17, 8, 0, 0),
+                EndDate = new DateTime(2017, 9, 15, 17, 0, 0),
                 Modul = modulModel,
                 Assignments = new List<AssignmentModel>()
             };
@@ -150,9 +152,9 @@ namespace LmsTool.Migrations
 
             context.SaveChanges();
 
-            course = new CourseModel { Name = ".NET", Description = "C#, HTML, CSS, Javascript, jQuery, MVC", Moduls = new List<ModulModel>(), Students = new List<ApplicationUser>() };
+            course = new CourseModel { Name = ".NET", Description = "C#, HTML, CSS, Javascript, jQuery, MVC", Moduls = new List<ModulModel>(), Students = new List<ApplicationUser>(), StartDate = new DateTime(2017,7,10,8,0,0) };
 
-            modulModel = new ModulModel { Name = "C# bas", Description = "God grund att stå på för framtiden", Activities = new List<ActivityModel>() };
+            modulModel = new ModulModel { Name = "C# bas", Description = "God grund att stå på för framtiden", Activities = new List<ActivityModel>(), StartDate = new DateTime(2017,7,10,8,0,0), EndDate = new DateTime(2017,7,14,17,0,0) };
 
             activity = new ActivityModel
             {
@@ -160,8 +162,8 @@ namespace LmsTool.Migrations
                 Submission = false,
                 Name = "Dokumentation",
                 TypeOfActivity = "E-learing",
-                StartDate = DateTime.Now.AddDays(2),
-                EndDate = DateTime.Now.AddDays(3),
+                StartDate = new DateTime(2017,7,10,8,0,0),
+                EndDate = new DateTime(2017,7,10,17,0,0),
                 Modul = modulModel,
                 Assignments = new List<AssignmentModel>()
             };
@@ -174,8 +176,8 @@ namespace LmsTool.Migrations
                 Submission = true,
                 Name = "Dokumentation",
                 TypeOfActivity = "Föreläsning",
-                StartDate = DateTime.Now.AddDays(4),
-                EndDate = DateTime.Now.AddDays(5),
+                StartDate = new DateTime(2017,7,11,8,0,0),
+                EndDate = new DateTime(2017,7,12,17,0,0),
                 Modul = modulModel,
                 Assignments = new List<AssignmentModel>()
             };
@@ -188,8 +190,8 @@ namespace LmsTool.Migrations
                 Submission = false,
                 Name = "Objektorienterad programmering",
                 TypeOfActivity = "Föreläsning",
-                StartDate = DateTime.Now.AddDays(4),
-                EndDate = DateTime.Now.AddDays(5).AddHours(5),
+                StartDate = new DateTime(2017,7,13,8,0,0),
+                EndDate = new DateTime(2017,7,14,17,0,0),
                 Modul = modulModel,
                 Assignments = new List<AssignmentModel>()
             };
@@ -198,7 +200,7 @@ namespace LmsTool.Migrations
 
             course.Moduls.Add(modulModel);
 
-            modulModel = new ModulModel { Name = "C# fördjupning", Description = "Mer avancerad kod", Activities = new List<ActivityModel>() };
+            modulModel = new ModulModel { Name = "C# fördjupning", Description = "Mer avancerad kod", Activities = new List<ActivityModel>(), StartDate = new DateTime(2017,7,31,8,0,0), EndDate = new DateTime(2017,8,11,17,0,0) };
 
             activity = new ActivityModel
             {
@@ -206,8 +208,8 @@ namespace LmsTool.Migrations
                 Submission = false,
                 Name = "Dokumentation",
                 TypeOfActivity = "E-learing",
-                StartDate = DateTime.Now.AddDays(2),
-                EndDate = DateTime.Now.AddDays(3),
+                StartDate = new DateTime(2017,7,31,8,0,0),
+                EndDate = new DateTime(2017, 7, 31, 17, 0, 0),
                 Modul = modulModel,
                 Assignments = new List<AssignmentModel>()
             };
@@ -220,8 +222,8 @@ namespace LmsTool.Migrations
                 Submission = true,
                 Name = "Dokumentation",
                 TypeOfActivity = "Föreläsning",
-                StartDate = DateTime.Now.AddDays(4),
-                EndDate = DateTime.Now.AddDays(5),
+                StartDate = new DateTime(2017, 8, 1, 8, 0, 0),
+                EndDate = new DateTime(2017, 8, 2, 17, 0, 0),
                 Modul = modulModel,
                 Assignments = new List<AssignmentModel>()
             };
@@ -234,8 +236,8 @@ namespace LmsTool.Migrations
                 Submission = false,
                 Name = "Objektorienterad programmering",
                 TypeOfActivity = "Föreläsning",
-                StartDate = DateTime.Now.AddDays(4),
-                EndDate = DateTime.Now.AddDays(5).AddHours(5),
+                StartDate = new DateTime(2017, 8, 3, 8, 0, 0),
+                EndDate = new DateTime(2017, 8, 4, 17, 0, 0),
                 Modul = modulModel,
                 Assignments = new List<AssignmentModel>()
             };
@@ -252,10 +254,13 @@ namespace LmsTool.Migrations
                 {
                     Name = ".NET fortsättning",
                     Description = "C#, HTML, CSS, Javascript, jQuery, MVC",
+                    StartDate = new DateTime(2017, 9, 4, 8, 0, 0),
                     Moduls = new List<ModulModel> {
                         new ModulModel {
                             Name = "C# bas",
                             Description = "God grund att stå på för framtiden",
+                            StartDate = new DateTime(2017, 9, 4, 8, 0, 0),
+                            EndDate = new DateTime(2017, 10, 6, 17, 0, 0),
                             Activities = new List<ActivityModel>
                             {
                                 new ActivityModel
@@ -264,7 +269,9 @@ namespace LmsTool.Migrations
                                     Submission = false,
                                     Name = "Objektorienterad programmering",
                                     TypeOfActivity = "Föreläsning",
-                                    Assignments = new List<AssignmentModel>()
+                                    Assignments = new List<AssignmentModel>(),
+                                    StartDate = new DateTime(2017, 9, 4, 8, 0, 0),
+                                    EndDate = new DateTime(2017, 9, 6, 17, 0, 0)
                                 },
                                 new ActivityModel
                                 {
@@ -272,7 +279,9 @@ namespace LmsTool.Migrations
                                     Submission = false,
                                     Name = "Objektorienterad programmering",
                                     TypeOfActivity = "Föreläsning",
-                                    Assignments = new List<AssignmentModel>()
+                                    Assignments = new List<AssignmentModel>(),
+                                    StartDate = new DateTime(2017, 9, 7, 8, 0, 0),
+                                    EndDate = new DateTime(2017, 10, 6, 17, 0, 0)
                                 }
                             }
                         },
@@ -280,6 +289,8 @@ namespace LmsTool.Migrations
                         {
                             Name = "C# fördjupning",
                             Description = "Fördjupning",
+                            StartDate = new DateTime(2017, 10, 9, 8, 0, 0),
+                            EndDate = new DateTime(2017, 10, 20, 17, 0, 0),
                             Activities = new List<ActivityModel>
                             {
                                 new ActivityModel
@@ -288,6 +299,8 @@ namespace LmsTool.Migrations
                                     Submission = false,
                                     Name = "Objektorienterad programmering",
                                     TypeOfActivity = "Föreläsning",
+                                    StartDate = new DateTime(2017, 10, 9, 8, 0, 0),
+                                    EndDate = new DateTime(2017, 10, 11, 17, 0, 0),
                                     Assignments = new List<AssignmentModel>()
                                 },
                                 new ActivityModel
@@ -296,6 +309,8 @@ namespace LmsTool.Migrations
                                     Submission = false,
                                     Name = "Objektorienterad programmering",
                                     TypeOfActivity = "Föreläsning",
+                                    StartDate = new DateTime(2017, 10, 12, 8, 0, 0),
+                                    EndDate = new DateTime(2017, 10, 20, 17, 0, 0),
                                     Assignments = new List<AssignmentModel>()
                                 }
                             }
@@ -311,11 +326,14 @@ namespace LmsTool.Migrations
                 new CourseModel
                 {
                     Name = "Erlang för ingenjörer",
-                    Description = "Allt man behöver till yrkeslivet vad gäller Erlang",
+                    Description = "Det unika med programmeringsspråket Erlang är möjligheten att skapa applikationer som effektivt hanterar ett mycket stort antal samtidiga processer, utan att vare sig en själv eller servern behöver anstränga sig. Utbildningen innehåller ett stort antal mindre övningsuppgifter som på ett pedagogiskt sätt stegvis bygger upp kunnandet och insikterna i språket Erlang. Denna utbildning riktar sig till er som planerar att ta in Erlang som utvecklingsspråk och snabbt vill komma in och bli effektiva med best practices",
+                    StartDate = new DateTime(2017, 6, 5, 8, 0, 0),
                     Moduls = new List<ModulModel> {
                         new ModulModel {
                             Name = "Erlang grunder",
                             Description = "God grund att stå på för framtiden",
+                            StartDate = new DateTime(2017, 6, 5, 8, 0, 0),
+                            EndDate = new DateTime(2017,6,28,17,0,0),
                             Activities = new List<ActivityModel>
                             {
                                 new ActivityModel
@@ -324,6 +342,8 @@ namespace LmsTool.Migrations
                                     Submission = false,
                                     Name = "Introduktion",
                                     TypeOfActivity = "Föreläsning",
+                                    StartDate = new DateTime(2017,6,5,8,0,0),
+                                    EndDate = new DateTime(2017,6,5,17,0,0),
                                     Assignments = new List<AssignmentModel>()
                                 },
                                 new ActivityModel
@@ -332,6 +352,8 @@ namespace LmsTool.Migrations
                                     Submission = false,
                                     Name = "Intro till Erlang",
                                     TypeOfActivity = "E-Learning",
+                                    StartDate = new DateTime(2017,6,25,8,0,0),
+                                    EndDate = new DateTime(2017,6,25,17,0,0),
                                     Assignments = new List<AssignmentModel>()
                                 }
                             }
@@ -340,6 +362,8 @@ namespace LmsTool.Migrations
                         {
                             Name = "Integrering",
                             Description = "Hur kopplar man Erlang till andra miljöer",
+                            StartDate = new DateTime(2017,7,1,8,0,0),
+                            EndDate = new DateTime(2017,7,19,17,0,0),
                             Activities = new List<ActivityModel>
                             {
                                 new ActivityModel
@@ -348,6 +372,8 @@ namespace LmsTool.Migrations
                                     Submission = false,
                                     Name = "MVC",
                                     TypeOfActivity = "Föreläsning",
+                                    StartDate = new DateTime(2017,7,3,8,0,0),
+                                    EndDate = new DateTime(2017,7,3,17,0,0),
                                     Assignments = new List<AssignmentModel>()
                                 },
                                 new ActivityModel
@@ -356,6 +382,8 @@ namespace LmsTool.Migrations
                                     Submission = false,
                                     Name = "MVC med Erlang",
                                     TypeOfActivity = "E-Learning",
+                                    StartDate = new DateTime(2017,7,18,8,0,0),
+                                    EndDate = new DateTime(2017,7,18,17,0,0),
                                     Assignments = new List<AssignmentModel>()
                                 }
                             }
@@ -478,29 +506,43 @@ namespace LmsTool.Migrations
 
             course = context.Courses.Where(g => g.Name == "Erlang för ingenjörer").First();
 
-            emails = new[] { "ErikEriksson89@google.se", "Smultronvagen@live.se", "PeterJohn@outlook.com" };
-            fullName = new[] { "Erik Eriksson", "Anna Svensson", "Peter Johannesson" };
-            i = 0;
-            foreach (string email in emails)
+            //emails = new[] { "ErikEriksson89@google.se", "Smultronvagen@live.se", "PeterJohn@outlook.com" };
+            //fullName = new[] { "Erik Eriksson", "Anna Svensson", "Peter Johannesson" };
+            //i = 0;
+            //foreach (string email in emails)
+            //{
+            //    if (!context.Users.Any(u => u.UserName == email))
+            //    {
+            //        student = new ApplicationUser
+            //        {
+            //            UserName = email,
+            //            Email = email,
+            //            FullName = fullName[i],
+            //            CourseId = course.Id
+            //        };
+            //        var result = userManager.Create(student, "password");
+            //        if (!result.Succeeded)
+            //        {
+            //            throw new Exception(string.Join("\n", result.Errors));
+            //        }
+            //        userManager.AddToRole(student.Id, "Student");
+            //        course.Students.Add(student);
+            //    }
+            //    i++;
+            //}
+
+            for (int p = 1; p < 100; p++)
             {
-                if (!context.Users.Any(u => u.UserName == email))
+                student = new ApplicationUser
                 {
-                    student = new ApplicationUser
-                    {
-                        UserName = email,
-                        Email = email,
-                        FullName = fullName[i],
-                        CourseId = course.Id
-                    };
-                    var result = userManager.Create(student, "password");
-                    if (!result.Succeeded)
-                    {
-                        throw new Exception(string.Join("\n", result.Errors));
-                    }
-                    userManager.AddToRole(student.Id, "Student");
-                    course.Students.Add(student);
-                }
-                i++;
+                    UserName = "Erlang" + p + "@outlook.com",
+                    Email = "Erlang" + p + "@outlook.com",
+                    FullName = "Erlang student",
+                    CourseId = course.Id
+                };
+                var result = userManager.Create(student, "password");
+                userManager.AddToRole(student.Id, "Student");
+                course.Students.Add(student);
             }
 
             //adminUser = userManager.FindByName("admin@Gymbokning.se");
