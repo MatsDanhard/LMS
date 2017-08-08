@@ -20,7 +20,8 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width:550px;
+    
 }
 .Icon-Fontsize {
     font-size: 28px;
@@ -142,4 +143,7 @@ font-size:20px;
 .inactiveLink {
     pointer-events: none;
     cursor: default;
+}
+long-textbox {
+    width:1000px;
 }

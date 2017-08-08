@@ -93,7 +93,7 @@
 {
 
     <div>
-        <div class="container row collapse" id="EditWindow">
+        <div class="container row collapse EditWindow">
             <div class="col-xs-4"></div>
             <div class="col-xs-4">
 
@@ -216,11 +216,11 @@
 <script>
     $(document).ready(
         $(document).on('click', '.Create', function () {
-            if ($('#EditWindow').css('display') == 'none' && $('#CreateWindowAssignment').css('display') == 'none') {
+            if ($('.EditWindow').css('display') == 'none' && $('#CreateWindowAssignment').css('display') == 'none') {
                 $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
             }
             else if ($('#CreateWindowAssignment').css('display') == 'none' ) {
-                $(this).closest('.container').find("#EditWindow").toggle("fast", "swing");
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
                 $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
 
             }
@@ -236,17 +236,29 @@
 <script>
     $(document).ready(
         $(document).on('click', '.Edit', function () {
-            if ($('#CreateWindow').css('display') == 'none' && $('#CreateWindowAssignment').css('display') == 'none') {
-                $(this).closest('.container').find("#EditWindow").toggle("fast", "swing");
+            if ($('.EditWindow').css('display') != 'none') {
+                $('.panel a.selected').not(this).removeClass('selected');
+                $(this).toggleClass('selected');
+                if ($(this).hasClass('selected')) {
+                    //alert('Unselected');
+                }
+                else {
+                    //alert('Selected');
+                    $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+                }
+            }
+            else if ($('#CreateWindow').css('display') == 'none' && $('#CreateWindowAssignment').css('display') == 'none') {
+                $(this).toggleClass('selected');
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
             }
             else if ($('#CreateWindowAssignment').css('display') == 'none') {
                 $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
-                $(this).closest('.container').find("#EditWindow").toggle("fast", "swing");
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
 
             }
             else {
                 $(this).closest('.container').find("#CreateWindowAssignment").toggle("fast", "swing");
-                $(this).closest('.container').find("#EditWindow").toggle("fast", "swing"); 
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing"); 
             }
 
 
@@ -256,11 +268,11 @@
 <script>
     $(document).ready(
         $(document).on('click', '.CreateAssignment', function () {
-            if ($('#CreateWindow').css('display') == 'none' && $('#EditWindow').css('display') == 'none') {
+            if ($('#CreateWindow').css('display') == 'none' && $('.EditWindow').css('display') == 'none') {
                 $(this).closest('.container').find("#CreateWindowAssignment").toggle("fast", "swing");
             }
            else if ($('#CreateWindow').css('display') == 'none') {
-                $(this).closest('.container').find("#EditWindow").toggle("fast", "swing");
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
                 $(this).closest('.container').find("#CreateWindowAssignment").toggle("fast", "swing");
 
             }
@@ -273,9 +285,6 @@
         }));
 
 </script>
-
-
-
 
 <script>
     $(document).ready(function () {
