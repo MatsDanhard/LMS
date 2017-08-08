@@ -1,81 +1,133 @@
-﻿@model LmsTool.Models.DbModels.AssignmentModel
+﻿@using Microsoft.Ajax.Utilities
+@model LmsTool.Models.DbModels.AssignmentModel
 
-<div>
-    <h4>@Html.DisplayFor(model => model.Name)</h4>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
     
-    <dl class="dl-horizontal">
+    <div class="form-horizontal">
         
         
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        
+        <h4 class="form-group text-center">@Html.DisplayFor(model => model.Name)</h4>
+       
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Activity.TypeOfActivity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Activity.TypeOfActivity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Submitted)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
         @if (Model.Submitted == null)
         {
-            <dd>
-             Nej
-            </dd>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Submitted, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    Nej
+                </div>
+            </div>
         }
         else
         {
-            @Html.DisplayFor(model => model.Submitted)
+            <div class="form-group">
+                @Html.LabelFor(model => model.Submitted, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Submitted, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Submitted, "", new { @class = "text-danger" })
+                </div>
+            </div>
         }
         
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Approved)
-        </dt>
         @if (Model.Approved == true)
         {
-            <dd>
-                Ja
-            </dd>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Approved, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    Ja
+                </div>
+            </div>
+        }
+        else if (Model.Submitted != null && Model.Approved == false && Model.Redo == true)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Approved, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    Nej
+                </div>
+            </div>
         }
         else
         {
-            <dd>
-                Ej rättad
-            </dd>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Approved, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    Väntar på rättning
+                </div>
+            </div>
         }
-        <dt>
-            @Html.DisplayNameFor(model => model.Deadline)
-        </dt>
+       
 
-        <dd>
-            @Html.DisplayFor(model => model.Deadline)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Deadline, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Deadline, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Deadline, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @if (Model.Document.IsNullOrWhiteSpace())
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Document, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Document, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Document, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Document, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Document, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Document, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+        @if (Model.Document.IsNullOrWhiteSpace())
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Spara Inlämning" class="btn btn-default" />
+                </div>
+            </div>
+        }
+        else if(Model.Redo == true)
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <a class="btn btn-danger" href="@Url.Action("Index")"></a>
+                </div>
+            </div>
+        }
+       
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Document)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.StudentName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StudentName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+      
 
-        <dd>
-            @Html.DisplayFor(model => model.Document)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.StudentName)
-        </dt>
+       
+    </div>
+}
 
-        <dd>
-            @Html.DisplayFor(model => model.StudentName)
-        </dd>
-
-
-    </dl>
-</div>
