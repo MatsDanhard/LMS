@@ -1,0 +1,81 @@
+﻿@model LmsTool.Models.DbModels.AssignmentModel
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Name)</h4>
+    
+    <dl class="dl-horizontal">
+        
+        
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.TypeOfActivity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity.TypeOfActivity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Submitted)
+        </dt>
+        @if (Model.Submitted == null)
+        {
+            <dd>
+             Nej
+            </dd>
+        }
+        else
+        {
+            @Html.DisplayFor(model => model.Submitted)
+        }
+        
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Approved)
+        </dt>
+        @if (Model.Approved == true)
+        {
+            <dd>
+                Ja
+            </dd>
+        }
+        else
+        {
+            <dd>
+                Ej rättad
+            </dd>
+        }
+        <dt>
+            @Html.DisplayNameFor(model => model.Deadline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Deadline)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Document)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Document)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentName)
+        </dd>
+
+
+    </dl>
+</div>

@@ -54,18 +54,15 @@ namespace LmsTool.Controllers
 
             ActivityModel activity = db.Activities.Find(id);
             
-            return View(activity);
+            return PartialView(activity);
         }
 
         public ActionResult InfoAssignment(int id)
         {
+
+            AssignmentModel assignment = db.Assignments.Find(id);
            
-            ViewStudents viewStudents = db.ViewStudents.Find(id);
-            if (viewStudents == null)
-            {
-                return HttpNotFound();
-            }
-            return View(viewStudents);
+            return PartialView(assignment);
         }
 
 

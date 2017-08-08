@@ -339,6 +339,8 @@
     <Content Include="Views\Activity\AllAssignmentsForStudent.cshtml" />
     <Content Include="Views\Shared\_LayoutStudent.cshtml" />
     <Content Include="Views\Student\InfoModul.cshtml" />
+    <Content Include="Views\Student\InfoActivity.cshtml" />
+    <Content Include="Views\Student\InfoAssignment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
