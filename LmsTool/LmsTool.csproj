@@ -237,6 +237,8 @@
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\Student.css" />
+    <Content Include="Documents\TestFile.txt" />
+    <Content Include="Documents\TestFile2.txt" />
     <Content Include="Dokumentation\Backlog 20170705.txt" />
     <Content Include="Dokumentation\erdplus-diagram20170714.png" />
     <Content Include="favicon.ico" />

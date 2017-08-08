@@ -18,6 +18,8 @@
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <hr />
+
+
 <div @*class="col-md-2"*@>
     <div>
         @*<h4>Ändra ditt lösenord</h4>*@
@@ -125,145 +127,155 @@
         }
     </div>
 </div>
-<div @*class="col-lg-10"*@>
-    <div>
-        @using (Ajax.BeginForm(null, null, null, new AjaxOptions
-        {
-            HttpMethod = "POST",
-            UpdateTargetId = "frmCreate",
-            InsertionMode = InsertionMode.Replace
-        }, new { @id = "frmID1" }))
+<div>
+    @using (Ajax.BeginForm(null, null, null, new AjaxOptions
+            {
+                HttpMethod = "POST",
+                UpdateTargetId = "frmCreate",
+                InsertionMode = InsertionMode.Replace
+            }, new { @id = "frmID1" }))
 
-        {
-            <div class="collapse" id="CreateWindow">
+            {
+        <div class="container row collapse" id="CreateWindow">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4">
+
                 <h3>Registrera en lärare</h3>
                 <div id="frmCreate">
 
                 </div>
             </div>
-        }
+            <div class="col-xs-4"></div>
 
-        @using (Ajax.BeginForm(null, null, null, new AjaxOptions
-        {
-            HttpMethod = "POST",
-            UpdateTargetId = "frmPassword",
-            InsertionMode = InsertionMode.Replace
-        }, new { @id = "frmID2" }))
+        </div>
+    }
 
-        {
-            <div class="collapse" id="PasswordWindow">
+    @using (Ajax.BeginForm(null, null, null, new AjaxOptions
+            {
+                HttpMethod = "POST",
+                UpdateTargetId = "frmPassword",
+                InsertionMode = InsertionMode.Replace
+            }, new { @id = "frmID2" }))
+
+            {
+        <div class="container row collapse" id="PasswordWindow">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4">
+
                 <h3>Nytt lösenord</h3>
                 <div id="frmPassword">
 
                 </div>
             </div>
-        }
-    </div>
+            <div class="col-xs-4"></div>
 
+        </div>
+    }
 </div>
-    @*<div class="modal fade" id="ModalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Registrera Lärare</h4>
-                    </div>
-                    <div class="modal-body">
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
+@*<div class="modal fade" id="ModalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Registrera Lärare</h4>
+                </div>
+                <div class="modal-body">
 
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
+
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="ModalPassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel1">Byt lösenord</h4>
-                    </div>
-                    <div class="modal-body">
+    </div>
+    <div class="modal fade" id="ModalPassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel1">Byt lösenord</h4>
+                </div>
+                <div class="modal-body">
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
 
-                    </div>
                 </div>
             </div>
-        </div>*@
-    @*<script>
-            $(document).ready(function () {
-                $('.Create').click(function (event) {
-                    event.preventDefault();
-                    $.get(this.href, function (response) {
-                        $('.modal-body').html(response);
-                    });
-                    $('#ModalCreate').modal({
-                        backdrop: 'static',
-                    }, 'show');
-                });
-                $('.Password').click(function (event) {
-                    event.preventDefault();
-                    $.get(this.href, function (response) {
-                        $('.modal-body').html(response);
-                    });
-                    $('#ModalPassword').modal({
-                        backdrop: 'static',
-                    }, 'show');
-                });
-            });
-        </script>*@
-
-    <script>
+        </div>
+    </div>*@
+@*<script>
         $(document).ready(function () {
             $('.Create').click(function (event) {
                 event.preventDefault();
                 $.get(this.href, function (response) {
-                    $('#frmCreate').html(response);
+                    $('.modal-body').html(response);
                 });
-
+                $('#ModalCreate').modal({
+                    backdrop: 'static',
+                }, 'show');
             });
             $('.Password').click(function (event) {
                 event.preventDefault();
                 $.get(this.href, function (response) {
-                    $('#frmPassword').html(response);
+                    $('.modal-body').html(response);
                 });
-
+                $('#ModalPassword').modal({
+                    backdrop: 'static',
+                }, 'show');
             });
         });
-    </script>
+    </script>*@
 
-    <script>
-        $(document).ready(
-            $(document).on('click', '.Create', function () {
-                if ($('#PasswordWindow').css('display') == 'none') {
-                    $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
-                }
-                else {
-                    $(this).closest('.container').find("#PasswordWindow").toggle("fast", "swing");
-                    $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+<script>
+    $(document).ready(function () {
+        $('.Create').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('#frmCreate').html(response);
+            });
 
-                }
-            }));
+        });
+        $('.Password').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('#frmPassword').html(response);
+            });
 
-    </script>
-    <script>
-        $(document).ready(
-            $(document).on('click', '.Password', function () {
-                if ($('#CreateWindow').css('display') == 'none') {
-                    $(this).closest('.container').find("#PasswordWindow").toggle("fast", "swing");
-                }
-                else {
-                    $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
-                    $(this).closest('.container').find("#PasswordWindow").toggle("fast", "swing");
+        });
+    });
+</script>
 
-                }
+<script>
+    $(document).ready(
+        $(document).on('click', '.Create', function () {
+            if ($('#PasswordWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+            }
+            else {
+                $(this).closest('.container').find("#PasswordWindow").toggle("fast", "swing");
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+
+            }
+        }));
+
+</script>
+<script>
+    $(document).ready(
+        $(document).on('click', '.Password', function () {
+            if ($('#CreateWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#PasswordWindow").toggle("fast", "swing");
+            }
+            else {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+                $(this).closest('.container').find("#PasswordWindow").toggle("fast", "swing");
+
+            }
 
 
-            }));
+        }));
 
-    </script>
+</script>
