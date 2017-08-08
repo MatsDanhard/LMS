@@ -12,20 +12,18 @@
 <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
-@*<link href="~/Scripts/fullcalendar-3.4.0/fullcalendar.css" rel="stylesheet" />*@
 
-<link href="~/Scripts/fullcalendar-3.4.0/fullcalendar.print.min.css" rel="stylesheet" />
+<link href="~/Scripts/fullcalendar-3.4.0/fullcalendar.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" media="print" rel="stylesheet" />
+@*<link href="~/Scripts/fullcalendar-3.4.0/fullcalendar.print.min.css" rel="stylesheet" />*@
 <script src="~/Scripts/fullcalendar-3.4.0/lib/jquery.min.js"></script>
 <script src="~/Scripts/fullcalendar-3.4.0/lib/moment.min.js"></script>
-
 <script src="~/Scripts/fullcalendar-3.4.0/fullcalendar.js"></script>
-<script src="~/Scripts/fullcalendar-3.4.0/fullcalendar.min.js"></script>
-<link href="~/Scripts/fullcalendar-3.4.0/fullcalendar.min.css" rel="stylesheet" />
 <script src="~/Scripts/fullcalendar-3.4.0/locale/sv.js"></script>
+@*https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js
+https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css
+https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css*@
 
-rjg
-rehkp
-erhoj
 
 
 <div id='calendar'></div>
@@ -327,14 +325,14 @@ erhoj
             timezone: 'local',
             weekNumbers: true,
             //allDay: true,
-            minTime: '08:00:00', // Show schedule from only 8-17
-            maxTime: '17:00:00',
+            minTime: '07:00:00', // Show schedule from only 8-17
+            maxTime: '18:00:00',
             defaultTimedEventDuration: '09:00:00',
             defaultView: 'basicWeek',
 
-            events: 'Student/GetActivities',
+            events: "@Url.Action("GetActivities","Student")",
             // Custom renderer to add icon functionality on events
-           
+
             monthNames: ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'October', 'November', 'December'], // Custom names to get Pascal casing on months
             navLinks: true, // can click day/week names to navigate views
             editable: true,
