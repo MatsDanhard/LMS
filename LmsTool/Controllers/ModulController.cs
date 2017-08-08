@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using LmsTool.Models;
 using LmsTool.Models.DbModels;
 using LmsTool.Models.Viewmodels;
+using System.IO;
 
 namespace LmsTool.Controllers
 {
@@ -22,7 +23,7 @@ namespace LmsTool.Controllers
             var course = db.Courses.Find(id);
             ViewBag.InfoModul = info;
             ViewBag.ErrorModul = error;
-            var moduls = db.Moduls.Include(m => m.Activities).Where(c  => c.CourseId == id)
+            var moduls = db.Moduls.Include(m => m.Activities).Where(c => c.CourseId == id)
                 .OrderBy(d => d.StartDate);
             ViewBag.CourseName = course.Name;
             ViewBag.CurrentCourse = course.Id;
@@ -41,8 +42,8 @@ namespace LmsTool.Controllers
                         EndDate = modul.EndDate,
                         StartDate = modul.StartDate,
                         Id = modul.Id,
-                        Name = modul.Name
-
+                        Name = modul.Name,
+                        Document = modul.Document
                     });
                 }
             }
@@ -71,7 +72,7 @@ namespace LmsTool.Controllers
         public ActionResult Create(int id)
         {
             //ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name");
-            ModulModel model = new ModulModel{CourseId = id};
+            ModulModel model = new ModulModel { CourseId = id };
 
             return PartialView(model);
         }
@@ -81,14 +82,21 @@ namespace LmsTool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,StartDate,EndDate,CourseId")] ModulModel modulModel)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,StartDate,EndDate,CourseId,file")] ModulModel modulModel, HttpPostedFileBase file)
         {
-            
+
 
             if (ModelState.IsValid)
             {
+
                 var query = db.Courses.Find(modulModel.CourseId);
 
+                if (file != null && file.ContentLength > 0)
+                {
+                    string path = Path.Combine(Server.MapPath("~/Documents"), Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                    modulModel.Document = file.FileName;
+                }
 
                 if (query.StartDate > modulModel.StartDate)
                 {
@@ -96,16 +104,19 @@ namespace LmsTool.Controllers
 
                     db.Moduls.Add(modulModel);
                     db.SaveChanges();
-                    
-                        
-                    return RedirectToAction("Index", new {id = modulModel.CourseId, error = "Din modul hade ett start datum som var tidgare än kursens, modulens start fick samma värde som kursens"
+
+
+                    return RedirectToAction("Index", new
+                    {
+                        id = modulModel.CourseId,
+                        error = "Din modul hade ett start datum som var tidgare än kursens, modulens start fick samma värde som kursens"
                     });
                 }
 
 
                 db.Moduls.Add(modulModel);
                 db.SaveChanges();
-                return RedirectToAction("Index","Modul", new {id = modulModel.CourseId, info = modulModel.Name + " Är nu skapad"});
+                return RedirectToAction("Index", "Modul", new { id = modulModel.CourseId, info = modulModel.Name + " Är nu skapad" });
             }
 
             //ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", modulModel.CourseId);
@@ -119,7 +130,7 @@ namespace LmsTool.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-           
+
 
             ModulModel modulModel = db.Moduls.Find(id);
             var course = db.Courses.Find(modulModel.CourseId);
@@ -128,8 +139,8 @@ namespace LmsTool.Controllers
             {
                 return HttpNotFound();
             }
-            
-             return PartialView(modulModel); 
+
+            return PartialView(modulModel);
         }
 
         // POST: Modul/Edit/5
@@ -173,7 +184,13 @@ namespace LmsTool.Controllers
             ModulModel modulModel = db.Moduls.Find(id);
             db.Moduls.Remove(modulModel);
             db.SaveChanges();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
+        }
+
+        public FileResult Download(string FileName)
+        {
+            var FileVirtualPath = "~/Documents/" + FileName;
+            return File(FileVirtualPath, "application/force-download", Path.GetFileName(FileVirtualPath));
         }
 
         protected override void Dispose(bool disposing)

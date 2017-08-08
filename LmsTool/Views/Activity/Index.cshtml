@@ -144,6 +144,9 @@
         <th>
             @Html.DisplayNameFor(model => model.EndDate)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Document)
+        </th>
         <th></th>
     </tr>
 
@@ -171,6 +174,12 @@
             </td>
             <td>
                 @item.EndDate.ToShortDateString()  @item.EndDate.Hour:@item.EndDate.Minute
+            </td>
+            <td>
+                @if (item.Document != null)
+                {
+                @Html.ActionLink(item.Document.ToString(), "Download", new { FileName = item.Document })
+                }
             </td>
             <td>
 

@@ -4,7 +4,7 @@
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
-@using (Ajax.BeginForm("Create", null, new AjaxOptions { HttpMethod = "POST",InsertionMode = InsertionMode.Replace, UpdateTargetId = "ModalCreate", OnSuccess = "$('close').click()" }, new { id = Model.Id }))
+@using (Ajax.BeginForm("Create", null, new AjaxOptions { HttpMethod = "POST",InsertionMode = InsertionMode.Replace, UpdateTargetId = "ModalCreate", OnSuccess = "$('close').click()" }, new { id = Model.Id, enctype = "multipart/form-data" }))
     {
 @Html.AntiForgeryToken()
 
@@ -32,6 +32,13 @@
 
         @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @id = "dt1", @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+
+    </div>
+
+    <div class="form-group">
+
+        <label for="file">Ladda upp en fil</label>
+        <input type="file" name="file" id="file" />
 
     </div>
 

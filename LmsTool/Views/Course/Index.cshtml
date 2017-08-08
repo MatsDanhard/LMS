@@ -62,7 +62,7 @@
 {
 
     <div>
-        <div class="container row collapse" id="EditWindow">
+        <div class="container row collapse EditWindow">
             <div class="col-xs-4"></div>
             <div class="col-xs-4">
 
@@ -137,18 +137,18 @@
 <script>
     $(document).ready(
         $(document).on('click', '.Create', function () {
-            if ($('#EditWindow').css('display') == 'none') {
+            if ($('.EditWindow').css('display') == 'none') {
                 $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
             }
             else {
-                $(this).closest('.container').find("#EditWindow").toggle("fast", "swing");
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
                 $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
 
             }
         }));
 
 </script>
-<script>
+@*<script>
     $(document).ready(
         $(document).on('click', '.Edit', function () {
             if ($('#CreateWindow').css('display') == 'none') {
@@ -163,7 +163,7 @@
 
         }));
 
-</script>
+</script>*@
 
 
 
@@ -194,4 +194,39 @@
             }, 'show');
         });
     });
+</script>
+@*<script>
+    function topFunction() {
+        if ($('#EditWindow').css('display') == 'none') {
+        document.body.scrollTop = 0; // For Chrome, Safari and Opera
+        document.documentElement.scrollTop = 0; // For IE and Firefox
+        }
+    }
+</script>*@
+<script>
+    $(document).ready(
+        $(document).on('click', '.Edit', function () {
+            if ($('.EditWindow').css('display') != 'none') {
+                $('.panel a.selected').not(this).removeClass('selected');
+                $(this).toggleClass('selected');
+                if ($(this).hasClass('selected')) {
+                    //$(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+                    //alert('Unselected');
+                }
+                else {
+                    //alert('Selected');
+
+                    $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+                }
+            }
+            else if ($('#CreateWindow').css('display') == 'none' && $('.EditWindow').css('display') == 'none') {
+                $(this).toggleClass('selected');
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+            }
+            else if ($('#CreateWindow').css('display') != 'none' && $('.EditWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+                $(this).toggleClass('selected');
+            }
+        }));
 </script>

@@ -13,6 +13,7 @@ using LmsTool.Models;
 using LmsTool.Models.DbModels;
 using LmsTool.Models.Viewmodels;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.IO;
 
 namespace LmsTool.Controllers
 {
@@ -71,13 +72,19 @@ namespace LmsTool.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Create([Bind(Include = "Id,Name,Description,StartDate")] CourseModel courseModel)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,StartDate,file")] CourseModel courseModel, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
 
+                if (file != null && file.ContentLength > 0)
+                {
+                    string path = Path.Combine(Server.MapPath("~/Documents"), Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                    courseModel.Document = file.FileName;
+                }
 
-                
+
                 db.Courses.Add(courseModel);
                 db.SaveChanges();
                 //TempData["postResult"] = "Saved!";
@@ -159,7 +166,11 @@ namespace LmsTool.Controllers
             return RedirectToAction("Index","Home");
         }
 
-       
+        public FileResult Download(string FileName)
+        {
+            var FileVirtualPath = "~/Documents/" + FileName;
+            return File(FileVirtualPath, "application/force-download", Path.GetFileName(FileVirtualPath));
+        }
 
         protected override void Dispose(bool disposing)
         {

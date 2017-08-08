@@ -16,6 +16,8 @@ namespace LmsTool.Models.DbModels
         public string Name { get; set; }
         [Display(Name = "Beskrivning")]
         public string Description { get; set; }
+        [Display(Name = "Dokument")]
+        public string Document { get; set; }
         [Display(Name = "Startdatum")]
         [Required]
         [DataType(DataType.Date, ErrorMessage = "Datumet är inte korrekt angivet")]

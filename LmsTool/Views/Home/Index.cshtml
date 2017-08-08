@@ -159,9 +159,17 @@
 
         <div class="panel-body collapse Expandable">
             <div>
+                <h4>Beskrivning</h4>
                 <section class="text-columns">
                     @course.Description
                 </section>
+                @if(course.Document != null)
+                {
+                    <section>
+                        <h4>Dokument</h4>
+                        @Html.ActionLink(course.Document.ToString(), "Download", new { FileName = course.Document })
+                    </section>
+                }
 
             </div>
 
@@ -214,7 +222,7 @@
                 $('.panel a.selected').not(this).removeClass('selected');
                 $(this).toggleClass('selected');
                 if ($(this).hasClass('selected')) {
-                    $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+                    //$(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
                     //alert('Unselected');
                 }
                 else {

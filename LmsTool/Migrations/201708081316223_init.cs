@@ -16,6 +16,7 @@ namespace LmsTool.Migrations
                         Name = c.String(nullable: false, maxLength: 50),
                         Description = c.String(),
                         Submission = c.Boolean(nullable: false),
+                        Document = c.String(),
                         StartDate = c.DateTime(nullable: false),
                         EndDate = c.DateTime(nullable: false),
                         ModulId = c.Int(nullable: false),
@@ -53,6 +54,7 @@ namespace LmsTool.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 50),
                         Description = c.String(),
+                        Document = c.String(),
                         StartDate = c.DateTime(nullable: false),
                         EndDate = c.DateTime(nullable: false),
                         CourseId = c.Int(nullable: false),
@@ -68,6 +70,7 @@ namespace LmsTool.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 50),
                         Description = c.String(),
+                        Document = c.String(),
                         StartDate = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
