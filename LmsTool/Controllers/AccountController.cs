@@ -219,7 +219,7 @@ namespace LmsTool.Controllers
 
                 ViewBag.Succes = "Lärare skapad";
 
-                return RedirectToAction("index", "Home");
+                return RedirectToAction("index", "Manage");
 
 
             }

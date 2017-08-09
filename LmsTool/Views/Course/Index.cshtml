@@ -22,7 +22,7 @@ För att visa elever i kursen
 @{
     ViewBag.Title = "Index";
 }
-<h2>Elevlista</h2>
+<h1>Elevlista</h1>
 <p>
     <a href="@Url.Action("register","Account", new {id = ViewBag.CurrentCourse})"  class = "btn btn-success Create btn-md" >Skapa elev</a>
 </p>
@@ -37,11 +37,11 @@ För att visa elever i kursen
 {
 
     <div>
-        <div class="container row collapse" id="CreateWindow">
+        <div class="container row collapse" id="CreateWindow" @*style="margin-bottom:20px;"*@>
             <div class="col-xs-4"></div>
             <div class="col-xs-4">
 
-                <div id="frmCreate">
+                <div id="frmCreate" @*style="border:1px solid #ddd; padding: 0px 25px;"*@>
 
                     @Html.Partial("~/Views/Account/Register.cshtml", new RegisterViewModel())
 
@@ -69,7 +69,7 @@ För att visa elever i kursen
 {
 
     <div>
-        <div class="container row collapse" id="EditWindow">
+        <div class="container row collapse EditWindow">
             <div class="col-xs-4"></div>
             <div class="col-xs-4">
 
@@ -144,18 +144,18 @@ För att visa elever i kursen
 <script>
     $(document).ready(
         $(document).on('click', '.Create', function () {
-            if ($('#EditWindow').css('display') == 'none') {
+            if ($('.EditWindow').css('display') == 'none') {
                 $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
             }
             else {
-                $(this).closest('.container').find("#EditWindow").toggle("fast", "swing");
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
                 $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
 
             }
         }));
 
 </script>
-<script>
+@*<script>
     $(document).ready(
         $(document).on('click', '.Edit', function () {
             if ($('#CreateWindow').css('display') == 'none') {
@@ -170,7 +170,7 @@ För att visa elever i kursen
 
         }));
 
-</script>
+</script>*@
 
 
 
@@ -201,4 +201,43 @@ För att visa elever i kursen
             }, 'show');
         });
     });
+</script>
+@*<script>
+    function topFunction() {
+        if ($('#EditWindow').css('display') == 'none') {
+        document.body.scrollTop = 0; // For Chrome, Safari and Opera
+        document.documentElement.scrollTop = 0; // For IE and Firefox
+        }
+    }
+</script>*@
+<script>
+    $(document).ready(
+        $(document).on('click', '.Edit', function () {
+            if ($('.EditWindow').css('display') != 'none') {
+                $('td a.selected').not(this).removeClass('selected');
+                $(this).toggleClass('selected');
+                if ($(this).hasClass('selected')) {
+                    //alert('Unselected');
+                    document.body.scrollTop = 0; // For Chrome, Safari and Opera
+                    document.documentElement.scrollTop = 0; // For IE and Firefox
+                }
+                else {
+                    //alert('Selected');
+                    $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+                }
+            }
+            else if ($('#CreateWindow').css('display') == 'none' && $('.EditWindow').css('display') == 'none') {
+                $(this).toggleClass('selected');
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+                document.body.scrollTop = 0; // For Chrome, Safari and Opera
+                document.documentElement.scrollTop = 0; // For IE and Firefox
+            }
+            else if ($('#CreateWindow').css('display') != 'none' && $('.EditWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+                $(this).toggleClass('selected');
+                document.body.scrollTop = 0; // For Chrome, Safari and Opera
+                document.documentElement.scrollTop = 0; // For IE and Firefox
+            }
+        }));
 </script>

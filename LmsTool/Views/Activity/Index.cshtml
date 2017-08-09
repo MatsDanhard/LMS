@@ -14,7 +14,7 @@
 @{
     ViewBag.Title = "Index";
 }
-<h2>@Model.FirstOrDefault().ModulName</h2>
+<h1>@Model.FirstOrDefault().ModulName</h1>
 <p>
     <a href="@Url.Action("Create","Activity", new {id = ViewBag.CurrentModul})" class="btn btn-success Create">Skapa aktivitet</a>
 </p>
@@ -144,6 +144,9 @@
         <th>
             @Html.DisplayNameFor(model => model.EndDate)
         </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Document)
+        </th>*@
         <th></th>
     </tr>
 
@@ -172,6 +175,12 @@
             <td>
                 @item.EndDate.ToShortDateString()  @item.EndDate.Hour:@item.EndDate.Minute
             </td>
+            @*<td>
+                @if (item.Document != null)
+                {
+                @Html.ActionLink(item.Document.ToString(), "Download", new { FileName = item.Document })
+                }
+            </td>*@
             <td>
 
                 <a href="@Url.Action("Edit", "Activity", new {id = item.Id})" class="btn btn-primary btn-md Edit">Redigera</a>
@@ -237,7 +246,7 @@
     $(document).ready(
         $(document).on('click', '.Edit', function () {
             if ($('.EditWindow').css('display') != 'none') {
-                $('.panel a.selected').not(this).removeClass('selected');
+                $('td a.selected').not(this).removeClass('selected');
                 $(this).toggleClass('selected');
                 if ($(this).hasClass('selected')) {
                     //alert('Unselected');

@@ -4,7 +4,7 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 
-@using (Ajax.BeginForm("create", "modul", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ModalCreate", OnSuccess = "$('close').click()" }, new { id = ViewBag.CurrentCourse }))
+@using (Ajax.BeginForm("create", "modul", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ModalCreate", OnSuccess = "$('close').click()" }, new { id = ViewBag.CurrentCourse, enctype = "multipart/form-data" }))
 
 {
 
@@ -49,6 +49,13 @@
         <div class="form-group">
             @Html.HiddenFor(model => model.CourseId)
             @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+
+            <label for="file">Ladda upp en fil</label>
+            <input type="file" name="file" id="file" />
+
         </div>
 
         <div class="form-group">

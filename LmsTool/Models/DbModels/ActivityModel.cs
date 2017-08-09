@@ -20,6 +20,8 @@ namespace LmsTool.Models.DbModels
         public string Description { get; set; }
         [Display(Name = "Inlämningsuppgift")]
         public bool Submission { get; set; }
+        [Display(Name = "Dokument")]
+        public string Document { get; set; }
         [Display(Name = "Startdatum")]
         [DataType(DataType.Date, ErrorMessage = "Datumet är inte korrekt angivet")]
         public DateTime StartDate { get; set; } = DateTime.Now;
