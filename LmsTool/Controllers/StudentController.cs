@@ -53,9 +53,10 @@ namespace LmsTool.Controllers
 
         public ActionResult InfoActivity(int id)
         {
-
+           
             ActivityModel activity = db.Activities.Find(id);
-
+            ModulModel modul = db.Moduls.Find(activity.ModulId);
+            activity.Modul = modul;
             return PartialView(activity);
         }
 
