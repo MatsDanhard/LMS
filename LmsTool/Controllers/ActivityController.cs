@@ -126,8 +126,8 @@ namespace LmsTool.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult DetailsAssignment(int id, bool approved)  // To approve assignments for teacher
+        
+        public ActionResult ApproveHandler(int id, bool approved)  // To approve assignments for teacher
         {
 
             AssignmentModel model = db.Assignments.Find(id);
@@ -185,9 +185,12 @@ namespace LmsTool.Controllers
 
             if (ModelState.IsValid)
             {
+               
+
                 var activities = db.Activities.Find(assignmentModel.ActivityId);
                 var modul = db.Moduls.Find(activities.ModulId).CourseId;
                 var users = db.Users.Where(u => u.Course.Id == modul);
+                var deadline = assignmentModel.Deadline.Date;
                 
                 foreach (var user in users)
                 {
@@ -195,7 +198,7 @@ namespace LmsTool.Controllers
                     {
                         ActivityId = assignmentModel.ActivityId,
                         Activity = assignmentModel.Activity,
-                        Deadline = assignmentModel.Deadline,
+                        Deadline = deadline.AddHours(17),
                         Description = assignmentModel.Description,
                         Name = assignmentModel.Name,
                         UserId = user.Id,
@@ -227,21 +230,10 @@ namespace LmsTool.Controllers
 
             var query = db.Moduls.Find(id);
 
-            //Todo:1 Partial
+          
 
 
-            //if (query.Activities.Any())
-            //{
-            //    var activityStart = query.Activities.OrderBy(a => a.EndDate).Last().EndDate;
-
-            //    CreateActivity model = new CreateActivity{DisplayModulStart = activityStart.ToShortDateString(), ModulId = id, ActivityStart = activityStart, ActivityEnd = activityStart.AddDays(1)};
-
-
-            //}
-
-
-            //ViewBag.ModulId = new SelectList(db.Models, "Id", "Name");
-            //ActivityModel model = new ActivityModel{ ModulId = id };
+         
             CreateActivity model = new CreateActivity{ ModulId = id, DisplayModulStart = query.StartDate.ToShortDateString(),
                 DisplayModulEnd = query.EndDate.ToShortDateString(), ModulName = query.Name, ModulStart = query.StartDate,ModulEnd = query.EndDate};
             return PartialView(model);
@@ -252,7 +244,7 @@ namespace LmsTool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TypeOfActivity,Name,Description,ActivityStart,ActivityEnd,ModulId,ModulStart,ModulEnd")] CreateActivity createActivity)
+        public ActionResult Create([Bind(Include = "Id,TypeOfActivity,Name,Description,ActivityStart,ModulId,ModulStart,ModulEnd")] CreateActivity createActivity)
         {
             
 
@@ -262,16 +254,17 @@ namespace LmsTool.Controllers
             {
                
                 {
-                    if (createActivity.ActivityStart > createActivity.ModulStart && createActivity.ActivityEnd < createActivity.ModulEnd)
+                    if (createActivity.ActivityStart >= createActivity.ModulStart)
                     {
-
+                        var startDate = createActivity.ActivityStart.Date;
+                        var endDate = createActivity.ActivityEnd.Date;
                        
                         ActivityModel model = new ActivityModel
                         {
                             Name = createActivity.Name,
                             Description = createActivity.Description,
-                            StartDate = createActivity.ActivityStart,
-                            EndDate = createActivity.ActivityEnd,
+                            StartDate = startDate.AddHours(8),
+                            EndDate = startDate.AddHours(17),
                             ModulId = createActivity.ModulId,
                             TypeOfActivity = createActivity.TypeOfActivity,
                             Submission = createActivity.Submission,
@@ -288,10 +281,10 @@ namespace LmsTool.Controllers
                 
 
             }
-            ViewBag.dateFailure = "Gick inte att skapa en aktvitet";
 
-            return View(createActivity);
-           
+
+            return RedirectToAction("Index", "Activity", new {id = createActivity.ModulId, info = "Aktiviteten måste vara inom tidsramen för modulen"});
+
 
             //ViewBag.ModulId = new SelectList(db.Models, "Id", "Name", activityModel.ModulId);
 
@@ -300,15 +293,10 @@ namespace LmsTool.Controllers
         // GET: Activity/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+           
             ActivityModel activityModel = db.Activities.Find(id);
-            if (activityModel == null)
-            {
-                return HttpNotFound();
-            }
+
+            
             
             return PartialView(activityModel);
         }
@@ -318,10 +306,15 @@ namespace LmsTool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,TypeOfActivity,Name,Description,Submission,StartDate,EndDate,ModulId")] ActivityModel activityModel)
+        public ActionResult Edit([Bind(Include = "Id,TypeOfActivity,Name,Description,Submission,StartDate,ModulId")] ActivityModel activityModel)
         {
             if (ModelState.IsValid)
             {
+                var startDate = activityModel.StartDate.Date;
+                var endDate = activityModel.EndDate.Date;
+                activityModel.StartDate = startDate.AddHours(8);
+                activityModel.EndDate = startDate.AddHours(17);
+
                 db.Entry(activityModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", new {id = activityModel.ModulId});

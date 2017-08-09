@@ -21,9 +21,11 @@ namespace LmsTool.Models.DbModels
         [Display(Name = "Inlämningsuppgift")]
         public bool Submission { get; set; }
         [Display(Name = "Startdatum")]
+        [DataType(DataType.Date, ErrorMessage = "Datumet är inte korrekt angivet")]
         public DateTime StartDate { get; set; } = DateTime.Now;
         [Display(Name = "Slutdatum")]
-        public DateTime EndDate { get; set; } = DateTime.Now.AddDays(1);
+        [DataType(DataType.Date, ErrorMessage = "Datumet är inte korrekt angivet")]
+        public DateTime EndDate { get; set; } 
         public int ModulId { get; set; }    
         public ModulModel Modul { get; set; }
         public ICollection<AssignmentModel> Assignments { get; set; }

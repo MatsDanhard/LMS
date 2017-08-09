@@ -76,8 +76,9 @@ namespace LmsTool.Controllers
             if (ModelState.IsValid)
             {
 
-
+                var date = courseModel.StartDate.Date;
                 
+                courseModel.StartDate = date.AddHours(8);
                 db.Courses.Add(courseModel);
                 db.SaveChanges();
                 //TempData["postResult"] = "Saved!";
@@ -112,7 +113,9 @@ namespace LmsTool.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+                var date = courseModel.StartDate.Date;
+               
+                courseModel.StartDate = date.AddHours(8);
                 db.Entry(courseModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index","Home");

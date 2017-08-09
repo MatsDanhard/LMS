@@ -22,8 +22,10 @@ namespace LmsTool.Models.DbModels
         public bool Approved { get; set; }
 
         public bool Redo { get; set; }
+
         [Display(Name = "Senaste inlämningsdatum")]
-        public DateTime Deadline { get; set; }
+        [DataType(DataType.Date, ErrorMessage = "Datumet är inte korrekt angivet")]
+        public DateTime Deadline { get; set; } = DateTime.Now;
         [Display(Name = "Dokument")]
         [StringLength(5000, MinimumLength = 30, ErrorMessage = "Dokumentet behöver vara minst trettio tecken långt")]
         

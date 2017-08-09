@@ -17,10 +17,10 @@ namespace LmsTool.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Modul
-        public ActionResult Index(int id, string info, string error)
+        public ActionResult Index(int id, string error)
         {
             var course = db.Courses.Find(id);
-            ViewBag.InfoModul = info;
+            
             ViewBag.ErrorModul = error;
             var moduls = db.Moduls.Include(m => m.Activities).Where(c  => c.CourseId == id)
                 .OrderBy(d => d.StartDate);
@@ -87,12 +87,19 @@ namespace LmsTool.Controllers
 
             if (ModelState.IsValid)
             {
+                var endDate = modulModel.EndDate.Date;
+                var startdate = modulModel.StartDate.Date;
+
                 var query = db.Courses.Find(modulModel.CourseId);
 
 
                 if (query.StartDate > modulModel.StartDate)
                 {
+
+
+
                     modulModel.StartDate = query.StartDate;
+                    modulModel.EndDate = endDate.AddHours(17);
 
                     db.Moduls.Add(modulModel);
                     db.SaveChanges();
@@ -102,10 +109,14 @@ namespace LmsTool.Controllers
                     });
                 }
 
+                
+                
+                modulModel.StartDate = startdate.AddHours(8);
+                modulModel.EndDate = endDate.AddHours(17);
 
                 db.Moduls.Add(modulModel);
                 db.SaveChanges();
-                return RedirectToAction("Index","Modul", new {id = modulModel.CourseId, info = modulModel.Name + " Är nu skapad"});
+                return RedirectToAction("Index","Modul", new {id = modulModel.CourseId});
             }
 
             //ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", modulModel.CourseId);
@@ -141,6 +152,11 @@ namespace LmsTool.Controllers
         {
             if (ModelState.IsValid)
             {
+                var startDate = modulModel.StartDate.Date;
+                var endDadte = modulModel.EndDate.Date;
+                modulModel.StartDate = startDate.AddHours(8);
+                modulModel.EndDate = endDadte.AddHours(17);
+
                 db.Entry(modulModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
