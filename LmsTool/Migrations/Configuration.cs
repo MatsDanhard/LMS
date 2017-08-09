@@ -102,7 +102,7 @@ namespace LmsTool.Migrations
                 StartDate = new DateTime(2017,7,3,8,0,0)
             };
 
-            modulModel = new ModulModel { Name = "Dokumentation", Description = "Skapa dokument", Activities = new List<ActivityModel>() };
+            modulModel = new ModulModel { Name = "Dokumentation", Description = "Skapa dokument", Activities = new List<ActivityModel>(), StartDate = new DateTime(2017, 7, 4, 8, 0, 0), EndDate = new DateTime(2017, 9, 15, 17, 0, 0) };
 
             ActivityModel activity = new ActivityModel
             {
@@ -111,7 +111,7 @@ namespace LmsTool.Migrations
                 Name = "Dokumentation",
                 TypeOfActivity = "E-learing",
                 StartDate = new DateTime(2017,7,4,8,0,0),
-                EndDate = new DateTime(2017, 7, 7, 17, 0, 0),
+                EndDate = new DateTime(2017, 7, 4, 17, 0, 0),
                 Modul = modulModel,
                 Assignments = new List<AssignmentModel>()
             };
@@ -125,7 +125,7 @@ namespace LmsTool.Migrations
                 Name = "Dokumentation",
                 TypeOfActivity = "Föreläsning",
                 StartDate = new DateTime(2017, 7, 10, 8, 0, 0),
-                EndDate = new DateTime(2017, 7, 14, 17, 0, 0),
+                EndDate = new DateTime(2017, 7, 10, 17, 0, 0),
                 Modul = modulModel,
                 Assignments = new List<AssignmentModel>()
             };
@@ -139,7 +139,7 @@ namespace LmsTool.Migrations
                 Name = "Objektorienterad programmering",
                 TypeOfActivity = "Föreläsning",
                 StartDate = new DateTime(2017, 7, 17, 8, 0, 0),
-                EndDate = new DateTime(2017, 9, 15, 17, 0, 0),
+                EndDate = new DateTime(2017, 7, 17, 17, 0, 0),
                 Modul = modulModel,
                 Assignments = new List<AssignmentModel>()
             };
@@ -163,7 +163,7 @@ namespace LmsTool.Migrations
                 Name = "Dokumentation",
                 TypeOfActivity = "E-learing",
                 StartDate = new DateTime(2017,7,10,8,0,0),
-                EndDate = new DateTime(2017,7,10,17,0,0),
+                EndDate = new DateTime(2017, 7, 10, 17, 0, 0),
                 Modul = modulModel,
                 Assignments = new List<AssignmentModel>()
             };
@@ -177,7 +177,7 @@ namespace LmsTool.Migrations
                 Name = "Dokumentation",
                 TypeOfActivity = "Föreläsning",
                 StartDate = new DateTime(2017,7,11,8,0,0),
-                EndDate = new DateTime(2017,7,12,17,0,0),
+                EndDate = new DateTime(2017, 7, 11, 17, 0, 0),
                 Modul = modulModel,
                 Assignments = new List<AssignmentModel>()
             };
@@ -191,7 +191,7 @@ namespace LmsTool.Migrations
                 Name = "Objektorienterad programmering",
                 TypeOfActivity = "Föreläsning",
                 StartDate = new DateTime(2017,7,13,8,0,0),
-                EndDate = new DateTime(2017,7,14,17,0,0),
+                EndDate = new DateTime(2017, 7, 13, 17, 0, 0),
                 Modul = modulModel,
                 Assignments = new List<AssignmentModel>()
             };
@@ -223,7 +223,7 @@ namespace LmsTool.Migrations
                 Name = "Dokumentation",
                 TypeOfActivity = "Föreläsning",
                 StartDate = new DateTime(2017, 8, 1, 8, 0, 0),
-                EndDate = new DateTime(2017, 8, 2, 17, 0, 0),
+                EndDate = new DateTime(2017, 8, 1, 17, 0, 0),
                 Modul = modulModel,
                 Assignments = new List<AssignmentModel>()
             };
@@ -237,7 +237,7 @@ namespace LmsTool.Migrations
                 Name = "Objektorienterad programmering",
                 TypeOfActivity = "Föreläsning",
                 StartDate = new DateTime(2017, 8, 3, 8, 0, 0),
-                EndDate = new DateTime(2017, 8, 4, 17, 0, 0),
+                EndDate = new DateTime(2017, 8, 3, 17, 0, 0),
                 Modul = modulModel,
                 Assignments = new List<AssignmentModel>()
             };
@@ -271,7 +271,7 @@ namespace LmsTool.Migrations
                                     TypeOfActivity = "Föreläsning",
                                     Assignments = new List<AssignmentModel>(),
                                     StartDate = new DateTime(2017, 9, 4, 8, 0, 0),
-                                    EndDate = new DateTime(2017, 9, 6, 17, 0, 0)
+                                    EndDate = new DateTime(2017, 9, 4, 17, 0, 0)
                                 },
                                 new ActivityModel
                                 {
@@ -281,7 +281,7 @@ namespace LmsTool.Migrations
                                     TypeOfActivity = "Föreläsning",
                                     Assignments = new List<AssignmentModel>(),
                                     StartDate = new DateTime(2017, 9, 7, 8, 0, 0),
-                                    EndDate = new DateTime(2017, 10, 6, 17, 0, 0)
+                                    EndDate = new DateTime(2017, 9, 7, 17, 0, 0)
                                 }
                             }
                         },
@@ -300,7 +300,7 @@ namespace LmsTool.Migrations
                                     Name = "Objektorienterad programmering",
                                     TypeOfActivity = "Föreläsning",
                                     StartDate = new DateTime(2017, 10, 9, 8, 0, 0),
-                                    EndDate = new DateTime(2017, 10, 11, 17, 0, 0),
+                                    EndDate = new DateTime(2017, 10, 9, 17, 0, 0),
                                     Assignments = new List<AssignmentModel>()
                                 },
                                 new ActivityModel
@@ -310,7 +310,7 @@ namespace LmsTool.Migrations
                                     Name = "Objektorienterad programmering",
                                     TypeOfActivity = "Föreläsning",
                                     StartDate = new DateTime(2017, 10, 12, 8, 0, 0),
-                                    EndDate = new DateTime(2017, 10, 20, 17, 0, 0),
+                                    EndDate = new DateTime(2017, 10, 12, 17, 0, 0),
                                     Assignments = new List<AssignmentModel>()
                                 }
                             }

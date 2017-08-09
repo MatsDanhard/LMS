@@ -202,9 +202,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708081316223_init.cs" />
-    <Compile Include="Migrations\201708081316223_init.Designer.cs">
-      <DependentUpon>201708081316223_init.cs</DependentUpon>
+    <Compile Include="Migrations\201708090854470_init.cs" />
+    <Compile Include="Migrations\201708090854470_init.Designer.cs">
+      <DependentUpon>201708090854470_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -237,7 +237,7 @@
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\Student.css" />
-    <Content Include="Documents\TestFile.txt" />
+    <Content Include="Documents\Python.txt" />
     <Content Include="Documents\TestFile2.txt" />
     <Content Include="Dokumentation\Backlog 20170705.txt" />
     <Content Include="Dokumentation\erdplus-diagram20170714.png" />
@@ -355,8 +355,8 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708081316223_init.resx">
-      <DependentUpon>201708081316223_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708090854470_init.resx">
+      <DependentUpon>201708090854470_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

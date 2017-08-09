@@ -30,11 +30,11 @@
 {
 
     <div>
-        <div class="container row collapse" id="CreateWindow">
+        <div class="container row collapse" id="CreateWindow" @*style="margin-bottom:20px;"*@>
             <div class="col-xs-4"></div>
             <div class="col-xs-4">
 
-                <div id="frmCreate">
+                <div id="frmCreate" @*style="border:1px solid #ddd; padding: 0px 25px;"*@>
 
                     @Html.Partial("~/Views/Account/Register.cshtml", new RegisterViewModel())
 
@@ -207,26 +207,30 @@
     $(document).ready(
         $(document).on('click', '.Edit', function () {
             if ($('.EditWindow').css('display') != 'none') {
-                $('.panel a.selected').not(this).removeClass('selected');
+                $('td a.selected').not(this).removeClass('selected');
                 $(this).toggleClass('selected');
                 if ($(this).hasClass('selected')) {
-                    //$(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
                     //alert('Unselected');
+                    document.body.scrollTop = 0; // For Chrome, Safari and Opera
+                    document.documentElement.scrollTop = 0; // For IE and Firefox
                 }
                 else {
                     //alert('Selected');
-
                     $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
                 }
             }
             else if ($('#CreateWindow').css('display') == 'none' && $('.EditWindow').css('display') == 'none') {
                 $(this).toggleClass('selected');
                 $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+                document.body.scrollTop = 0; // For Chrome, Safari and Opera
+                document.documentElement.scrollTop = 0; // For IE and Firefox
             }
             else if ($('#CreateWindow').css('display') != 'none' && $('.EditWindow').css('display') == 'none') {
                 $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
                 $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
                 $(this).toggleClass('selected');
+                document.body.scrollTop = 0; // For Chrome, Safari and Opera
+                document.documentElement.scrollTop = 0; // For IE and Firefox
             }
         }));
 </script>
