@@ -4,7 +4,7 @@
 <link href="~/Content/jquery-ui.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-ui.min.js"></script>
 <script src="~/Scripts/jquery-ui.js"></script>
-@using (Ajax.BeginForm("CreateAssignment", "activity", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "frmCreate", OnSuccess = "$('close').click()" }, new { id = Model.ActivityId }))
+@using (Ajax.BeginForm("CreateAssignment", "activity", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "frmCreate", OnSuccess = "$('close').click()" }, new { id = Model.ActivityId, enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -41,6 +41,12 @@
 
         </div>
 
+        <div class="form-group">
+
+            <label for="file">Ladda upp en fil</label>
+            <input type="file" name="file" id="file" />
+
+        </div>
         
 
             @Html.HiddenFor(model => model.ActivityId)

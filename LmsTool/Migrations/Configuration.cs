@@ -99,20 +99,22 @@ namespace LmsTool.Migrations
                 Description = "Python is a widely used high-level programming language for general-purpose programming, created by Guido van Rossum and first released in 1991. An interpreted language, Python has a design philosophy which emphasizes code readability (notably using whitespace indentation to delimit code blocks rather than curly brackets or keywords), and a syntax which allows programmers to express concepts in fewer lines of code than might be used in languages such as C++ or Java.[22][23] The language provides constructs intended to enable writing clear programs on both a small and large scale.[24] Python features a dynamic type system and automatic memory management and supports multiple programming paradigms, including object - oriented, imperative, functional programming, and procedural styles.It has a large and comprehensive standard library.[25] Python interpreters are available for many operating systems, allowing Python code to run on a wide variety of systems.CPython, the reference implementation of Python, is open source software[26] and has a community - based development model, as do nearly all of its variant implementations.CPython is managed by the non-profit Python Software Foundation.",
                 Moduls = new List<ModulModel>(),
                 Students = new List<ApplicationUser>(),
-                StartDate = new DateTime(2017,7,3,8,0,0)
+                StartDate = new DateTime(2017,7,3,8,0,0),
+                Document = "Python.txt"
             };
 
             modulModel = new ModulModel { Name = "Dokumentation", Description = "Skapa dokument", Activities = new List<ActivityModel>(), StartDate = new DateTime(2017, 7, 4, 8, 0, 0), EndDate = new DateTime(2017, 9, 15, 17, 0, 0) };
 
             ActivityModel activity = new ActivityModel
             {
-                Description = "Skriva god dokumentation",
+                Description = "Träutensilierna i ett tryckeri äro ingalunda en faktor där trevnadens ordningens och ekonomiens upprätthållande, och dock är det icke sällan som sorgliga erfarenheter göras ordningens och ekon och miens därmed upprätthållande. Träutensilierna i ett tryckeri äro ingalunda en oviktig faktor, för trevnadens ordningens och och dock är det icke sällan.",
                 Submission = false,
                 Name = "Dokumentation",
                 TypeOfActivity = "E-learing",
                 StartDate = new DateTime(2017,7,4,8,0,0),
                 EndDate = new DateTime(2017, 7, 4, 17, 0, 0),
                 Modul = modulModel,
+                Document = "Intro.txt",
                 Assignments = new List<AssignmentModel>()
             };
 

@@ -180,7 +180,7 @@ namespace LmsTool.Controllers
 
         // POST: Activity/CreateAssignment
         [HttpPost]
-        public ActionResult CreateAssignment([Bind(Include = "Name,Description,Deadline,ActivityId,Activity,file")] AssignmentModel assignmentModel)
+        public ActionResult CreateAssignment([Bind(Include = "Name,Description,Deadline,ActivityId,Activity,file")] AssignmentModel assignmentModel, HttpPostedFileBase file)
         {
 
 
@@ -192,7 +192,11 @@ namespace LmsTool.Controllers
                 var modul = db.Moduls.Find(activities.ModulId).CourseId;
                 var users = db.Users.Where(u => u.Course.Id == modul);
 
-                
+                if (file != null && file.ContentLength > 0)
+                {
+                    string path = Path.Combine(Server.MapPath("~/Documents"), Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                }
 
                 foreach (var user in users)
                 {
@@ -204,8 +208,8 @@ namespace LmsTool.Controllers
                         Description = assignmentModel.Description,
                         Name = assignmentModel.Name,
                         UserId = user.Id,
-                        StudentName = user.FullName
-
+                        StudentName = user.FullName,
+                        Document = file?.FileName
                     };
                     db.Assignments.Add(model);
 
