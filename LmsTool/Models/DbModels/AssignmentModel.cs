@@ -19,10 +19,14 @@ namespace LmsTool.Models.DbModels
         [Display(Name = "Inlämnad")]
         public DateTime? Submitted { get; set; }
         [Display(Name = "Godkänd")]
-        public bool Approved { get; set; }  
+        public bool Approved { get; set; }
+
+        public bool Redo { get; set; }
         [Display(Name = "Senaste inlämningsdatum")]
         public DateTime Deadline { get; set; }
         [Display(Name = "Dokument")]
+        [StringLength(5000, MinimumLength = 30, ErrorMessage = "Dokumentet behöver vara minst trettio tecken långt")]
+        
         public string Document { get; set; }
         public int ActivityId { get; set; }
         [Display(Name = "ElevId")]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -10,6 +11,7 @@ using LmsTool.Models;
 using LmsTool.Models.DbModels;
 using LmsTool.Models.StudentViewmodels;
 using LmsTool.Models.Viewmodels;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 
 namespace LmsTool.Controllers
@@ -29,75 +31,85 @@ namespace LmsTool.Controllers
             var course = db.Courses.Find(student.CourseId);
             var activities = db.Activities.Where(a => a.Modul.Course.Id == course.Id && a.StartDate > start && a.StartDate < end).ToList();
             var assignments = db.Assignments.Include(a => a.Activity).Where(u => u.UserId == student.Id).OrderByDescending(o => o.Deadline).ToList();
-            var modul = db.Moduls.Include(a => a.Activities).Where(m => m.CourseId == course.Id).OrderBy(o => o.StartDate) .ToList();
+            var modul = db.Moduls.Include(a => a.Activities).Where(m => m.CourseId == course.Id).OrderBy(o => o.StartDate).ToList();
 
-        
+         
 
-            index studentIndex = new index{Assignments = assignments, Course = course, Moduls = modul, TodaysActivities = activities, StudentName = student.FullName, TodaysDate = DateTime.Today.ToString()};
+            index studentIndex = new index { Assignments = assignments, Course = course, Moduls = modul, TodaysActivities = activities, StudentName = student.FullName, TodaysDate = DateTime.Today.ToString() };
 
             return View("~/Views/Home/IndexStudent.cshtml", studentIndex);
         }
 
-        // GET: Student/Details/5
-        //public ActionResult InfoModul(int id)
-        //{
 
-        //    ModulModel modul = db.Moduls.Find(id);
-        //    if (viewStudents == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(viewStudents);
-        //}
+        public ActionResult InfoModul(int id)
+        {
+
+
+
+            ModulModel modul = db.Moduls.Find(id);
+
+            return PartialView(modul);
+        }
 
         public ActionResult InfoActivity(int id)
         {
-            
-            ViewStudents viewStudents = db.ViewStudents.Find(id);
-            if (viewStudents == null)
-            {
-                return HttpNotFound();
-            }
-            return View(viewStudents);
+
+            ActivityModel activity = db.Activities.Find(id);
+
+            return PartialView(activity);
         }
 
         public ActionResult InfoAssignment(int id)
         {
-           
-            ViewStudents viewStudents = db.ViewStudents.Find(id);
-            if (viewStudents == null)
-            {
-                return HttpNotFound();
-            }
-            return View(viewStudents);
+
+            AssignmentModel assignment = db.Assignments.Find(id);
+
+            return PartialView(assignment);
         }
 
 
 
         // GET: Student/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+
 
         // POST: Student/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FullName,Email")] ViewStudents viewStudents)
+        public ActionResult InfoAssignment([Bind(Include = "Id,Document")] AssignmentModel assignmentModel)
         {
-            if (ModelState.IsValid)
+            if (assignmentModel.Document.IsNullOrWhiteSpace())
             {
-                db.ViewStudents.Add(viewStudents);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Student");
             }
 
-            return View(viewStudents);
+            AssignmentModel upd = db.Assignments.Find(assignmentModel.Id);
+
+            upd.Document = assignmentModel.Document;
+            upd.Submitted = DateTime.Now;
+
+
+            db.Assignments.AddOrUpdate(upd);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Student");
+
+
         }
 
-        // JSON SCHEMA
+        public ActionResult RedoAssignment(int id)
+        {
+            
+            AssignmentModel assignment = db.Assignments.Find(id);
+            assignment.Document = null;
+            assignment.Submitted = null;
+            assignment.Redo = false;
+            db.Entry(assignment).State = EntityState.Modified;
+            db.SaveChanges();
+
+           return RedirectToAction("Index");
+        }
+
         public JsonResult GetActivities()
         {
 
@@ -112,12 +124,16 @@ namespace LmsTool.Controllers
                     title = item.Name,
                     start = item.StartDate,
                     end = item.EndDate
+                    
+
                 })
                 .ToArray();
+            
+
+            
 
             return Json(activities, JsonRequestBehavior.AllowGet);
         }
-
 
 
         protected override void Dispose(bool disposing)
