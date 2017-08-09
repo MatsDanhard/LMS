@@ -144,6 +144,10 @@ font-size:20px;
     pointer-events: none;
     cursor: default;
 }
-long-textbox {
+.long-textbox {
     width:1000px;
+}
+.calendar {
+    max-width: 900px;
+    margin: 0 auto;
 }

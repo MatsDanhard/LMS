@@ -2,33 +2,29 @@
 @using LmsTool.Models.StudentViewmodels
 @using LmsTool.Models.Viewmodels
 @model index
+<head>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
 
-<script src="~/Scripts/jquery-3.1.1.min.js"></script>
-<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-<script src="~/Scripts/jquery-ui.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
-<link href="~/Content/jquery-ui.css" rel="stylesheet" />
-<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
-<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-
-@*<link href="~/Scripts/fullcalendar-3.4.0/fullcalendar.css" rel="stylesheet" />*@
-
-<link href="~/Scripts/fullcalendar-3.4.0/fullcalendar.print.min.css" rel="stylesheet" />
-<script src="~/Scripts/fullcalendar-3.4.0/lib/jquery.min.js"></script>
-<script src="~/Scripts/fullcalendar-3.4.0/lib/moment.min.js"></script>
-
-<script src="~/Scripts/fullcalendar-3.4.0/fullcalendar.js"></script>
-<script src="~/Scripts/fullcalendar-3.4.0/fullcalendar.min.js"></script>
-<link href="~/Scripts/fullcalendar-3.4.0/fullcalendar.min.css" rel="stylesheet" />
-<script src="~/Scripts/fullcalendar-3.4.0/locale/sv.js"></script>
-
-rjg
-rehkp
-erhoj
+    <link href="~/Scripts/fullcalendar-3.4.0/fullcalendar.css" rel="stylesheet" />
+    @*<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" rel="stylesheet" />*@
+    @*<script src="~/Scripts/fullcalendar-3.4.0/lib/jquery.min.js"></script>*@
+    <script src="~/Scripts/fullcalendar-3.4.0/lib/moment.min.js"></script>
+    <script src="~/Scripts/fullcalendar-3.4.0/fullcalendar.js"></script>
+    @*<script src="~/Scripts/fullcalendar-3.4.0/fullcalendar.min.js"></script>*@
+    <script src="~/Scripts/fullcalendar-3.4.0/locale/sv.js"></script>
+   
+    
+</head>
 
 
-<div id='calendar'></div>
+
 @{
     ViewBag.Title = "IndexStudent";
     Layout = "~/Views/Shared/_LayoutStudent.cshtml";
@@ -216,6 +212,9 @@ erhoj
         </div>
     </div>
 </div>
+<caption><h2 class="text-center">Schema</h2></caption>
+<div id='calendar' class='calendar'></div>
+
 <script>
     $(document).ready(
         $(document).on('click', '.infobtnModul', function () {
@@ -308,7 +307,7 @@ erhoj
 
 
     $(document).ready(function () {
-        alert('i script');
+        
         $('#calendar').fullCalendar({
             header: {
                 left: 'prev,next today',
@@ -324,16 +323,32 @@ erhoj
             buttonText: {
                 list: "Veckoschema"
             },
+
+            //views: {
+            //    month: {
+            //        titleFormat: 'MMMM YYYY', // Gives the whole name of the month and the full number for the year
+            //        timeFormat: 'HH:mm' //Gives the hours a 00:00 format in month
+            //    },
+            //    agendaWeek: {
+            //        columnFormat: 'ddd DD/MM',
+            //        titleFormat: 'MMMM YYYY', // Gives the whole name of the month and the full number for the year
+            //        slotLabelFormat: 'HH:mm' //Gives the hours a 00:00 format in agendaWeek
+            //    },
+            //    listWeek: {
+            //        titleFormat: '[V.] WW, MMMM YYYY' // Gives the whole name of the month and the full number for the year
+            //    }
+            //},
+
             height: 'auto', // Maximize height so everything is shown, no scrollbar
             timezone: 'local',
             weekNumbers: true,
             //allDay: true,
-            minTime: '08:00:00', // Show schedule from only 8-17
-            maxTime: '17:00:00',
-            defaultTimedEventDuration: '09:00:00',
+            //minTime: '00:00:00', // Show schedule from only 8-17
+            //maxTime: '24:00:00',
+            //defaultTimedEventDuration: '09:00:00',
             defaultView: 'basicWeek',
-
-            events: 'Student/GetActivities',
+            
+            events: "@Url.Action("GetActivities", "Student")",
             // Custom renderer to add icon functionality on events
            
             monthNames: ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'October', 'November', 'December'], // Custom names to get Pascal casing on months
@@ -342,7 +357,7 @@ erhoj
             eventLimit: true, // allow "more" link when too many events
 
             });
-        alert('i script');
+        
     });
 
 </script>
