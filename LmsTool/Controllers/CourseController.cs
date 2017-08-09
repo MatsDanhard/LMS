@@ -26,6 +26,8 @@ namespace LmsTool.Controllers
         // GET: Course
         public ActionResult Index(int? id) // För elevlistan
         {
+            ViewBag.CourseName = db.Courses.Find(id).Name;
+
             ViewBag.CurrentCourse = id;
             var Students = db.Users.Where(model => model.CourseId == id)
                 .OrderBy(n => n.FullName)
@@ -76,6 +78,7 @@ namespace LmsTool.Controllers
         {
             if (ModelState.IsValid)
             {
+                var startDate = courseModel.StartDate.Date;
 
                 if (file != null && file.ContentLength > 0)
                 {
@@ -84,6 +87,7 @@ namespace LmsTool.Controllers
                     courseModel.Document = file.FileName;
                 }
 
+                courseModel.StartDate = startDate.AddHours(8);
 
                 db.Courses.Add(courseModel);
                 db.SaveChanges();
@@ -119,7 +123,8 @@ namespace LmsTool.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+                var startDate = courseModel.StartDate.Date;
+                courseModel.StartDate = startDate.AddHours(8);
                 db.Entry(courseModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index","Home");
