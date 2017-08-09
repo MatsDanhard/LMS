@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<LmsTool.Models.DbModels.AssignmentModel>
 
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
 @{
     ViewBag.Title = "AllAssignmentsForStudent";
 }
@@ -64,7 +66,10 @@
             @Html.DisplayFor(modelItem => item.Deadline)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Document)
+            @if (item.Document != null)
+                {
+                @Html.ActionLink(item.Document.ToString(), "Download", new { FileName = item.Document })
+            }
         </td>
         @*<td>
             @Html.DisplayFor(modelItem => item.UserId)

@@ -3,7 +3,7 @@
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
-@using (Ajax.BeginForm("Edit", "activity", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ModalEdit", OnSuccess = "$('close').click()" }, new { id = Model.Id }))
+@using (Ajax.BeginForm("Edit", "activity", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ModalEdit", OnSuccess = "$('close').click()" }, new { id = Model.Id, enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -54,6 +54,27 @@
                 @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
            
         </div>
+
+        @if (Model.Document == null)
+        {
+            <div class="form-group">
+
+                <label for="file">Ladda upp en fil</label>
+                <input type="file" name="file" id="file" />
+
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Document, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.Document, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Document, "", new { @class = "text-danger" })
+
+            </div>
+        }
+
 
         @Html.HiddenFor(model => model.ModulId)
 
