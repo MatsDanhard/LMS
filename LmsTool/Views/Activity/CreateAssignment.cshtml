@@ -7,41 +7,43 @@
 @using (Ajax.BeginForm("CreateAssignment", "activity", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "frmCreate", OnSuccess = "$('close').click()" }, new { id = Model.ActivityId }))
 {
     @Html.AntiForgeryToken()
-    
-   
+
+
 
     <div class="form-horizontal">
-        @if (Model.Activity != null)
-        {
-            <h4>Inlämningsuppgift för @Model.Activity.Name som börjar @Model.Activity.StartDate och slutar @Model.Activity.EndDate</h4>
-        }
-        
-        <hr/>
-        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label"})
+            @if (Model.Activity != null)
+            {
+                <h2>
+                    Skapa Inlämningsuppgift för @Model.Activity.Name
+                    <br /><br />@Model.Activity.StartDate.ToShortDateString() @*- @Model.Activity.EndDate.ToShortDateString()*@
+                </h2>
+            }
+            </div>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
 
-            @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
-            @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
 
-        </div>
+            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new {@class = "control-label"})
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
 
-            @Html.TextAreaFor(model => model.Description, 6, 50, new {@class = "form-control"})
-            @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
+                @Html.TextAreaFor(model => model.Description, 6, 50, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
 
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Deadline, htmlAttributes: new {@class = "control-label"})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Deadline, htmlAttributes: new { @class = "control-label" })
 
-            @Html.EditorFor(model => model.Deadline, new {htmlAttributes = new { @class = "form-control"}})
-            @Html.ValidationMessageFor(model => model.Deadline, "", new {@class = "text-danger"})
+                @Html.EditorFor(model => model.Deadline, new { htmlAttributes = new { @id = "dt1", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Deadline, "", new { @class = "text-danger" })
 
-        </div>
-
-        
+            </div>
 
             @Html.HiddenFor(model => model.ActivityId)
 
@@ -57,3 +59,29 @@
 
 
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+@*<script>
+    $(document).ready(function () {
+        $("#dt1").datepicker({
+            dateFormat: "yy-mm-dd",
+            onSelect: function () {
+                var dt1 = $('#dt1').datepicker('getDate');
+                $('#dt1').datepicker('setDate', dt1);
+                //var date2 = $('#dt1').datepicker('getDate');
+                //date2.setDate(date2.getDate() + 1);
+                //$('#dt2').datepicker('setDate', date2);
+            }
+
+        });
+        $('#dt2').datepicker({
+            dateFormat: "yy-mm-dd",
+            onClose: function () {
+                var dt1 = $('#dt1').datepicker('getDate');
+            }
+        });
+    });
+
+</script>*@

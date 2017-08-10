@@ -1,63 +1,73 @@
 ﻿@model LmsTool.Models.DbModels.ActivityModel
-
+@Html.AntiForgeryToken()
 <div>
-    <h4>@Html.DisplayFor(model => model.Name)</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Modul.Name)
-        </dt>
+    <br />
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 class="form-group text-center">@Html.DisplayFor(model => model.Name)</h4>
+        </div><div class="panel-body">
+                  
 
-        <dd>
-            @Html.DisplayFor(model => model.Modul.Name)
-        </dd>
+                      @*<hr />*@
+                      <dl class="dl-horizontal">
+                          <dt>
+                              @Html.LabelFor(model => model.Modul.Name)
+                          </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TypeOfActivity)
-        </dt>
+                          <dd>
+                              @Html.DisplayFor(model => model.Modul.Name, new { htmlAttributes = new { @class = "form-control" } })
+                          </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.TypeOfActivity)
-        </dd>
+                          <dt>
+                              @Html.LabelFor(model => model.TypeOfActivity)
+                          </dt>
+
+                          <dd>
+                              @Html.DisplayFor(model => model.TypeOfActivity, new { htmlAttributes = new { @class = "form-control" } })
+                          </dd>
+                          <dt>
+                              @Html.LabelFor(model => model.Submission)
+                          </dt>
+                          @if (Model.Submission == false)
+                          {
+                              <dd>Nej</dd>
+                          }
+                          else
+                          {
+                              <dd>Ja</dd>
+                          }
 
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+                          @*<dt>
+                              @Html.LabelFor(model => model.StartDate)
+                          </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                          <dd>
+                              @Html.DisplayFor(model => model.StartDate)
+                          </dd>*@
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Submission)
-        </dt>
-        @if (Model.Submission == false)
-        {
-         <dd>Nej</dd>
-        }
-        else
-        {
-         <dd>Ja</dd>
-        }
-        
+                          @*<dt>
+                              @Html.LabelFor(model => model.EndDate)
+                          </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-
-    </dl>
+                          <dd>
+                              @Html.DisplayFor(model => model.EndDate)
+                          </dd>*@
+                          @*@if (Model.Document != null) {
+                          <dt>
+                             @Html.LabelFor(model => model.Document)
+                          </dt>
+                          <dd>
+                              @Html.DisplayFor(model => model.Document)
+                          </dd>
+                          }*@
+                      </dl>
+                 
+                      <h4>@Html.DisplayNameFor(model => model.Description)</h4>
+                      <section class="text-columns">
+                          @Html.DisplayFor(model => model.Description)
+                      </section>
+                  </div>
+    </div>
 </div>
-
+    

@@ -150,4 +150,9 @@ font-size:20px;
 .calendar {
     max-width: 900px;
     margin: 0 auto;
+    
+}
+.Blue-box {
+    background-color: #31708f;
+    color: white;
 }
