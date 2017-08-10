@@ -13,7 +13,7 @@
     <div class="form-horizontal">
         @if (Model.Activity != null)
         {
-            <h4>Inlämningsuppgift för @Model.Activity.Name som börjar @Model.Activity.StartDate och slutar @Model.Activity.EndDate</h4>
+            <h4>Skapa inlämningsuppgift för @Model.Activity.Name</h4> @Model.Activity.StartDate.ToShortDateString() @*och slutar @Model.Activity.EndDate*@
         }
         
         <hr/>

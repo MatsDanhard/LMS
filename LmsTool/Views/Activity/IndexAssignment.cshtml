@@ -10,14 +10,28 @@
 }
 
 <h1>@Model.FirstOrDefault().Name i @Model.FirstOrDefault().Activity.Name</h1>
-<h3>Deadline @Model.FirstOrDefault().Deadline</h3>
-
-<div class="text-center">
+<dl>
+    <dt>
+        <label>Deadline</label>
+    </dt>
+    <dd>
+        @Model.FirstOrDefault().Deadline
+    </dd>
+    <dt>
+        <label>Typ av aktivitet</label>
+    </dt>
+    <dd>
+        @Model.FirstOrDefault().Activity.TypeOfActivity
+    </dd>
+</dl>
+<div @*class="text-center"*@>
     <div>
-        <h4>Beskrivning för uppgiften</h4>
-        @Model.FirstOrDefault().Description
+        <label>Beskrivning för uppgiften</label>
+        <section class="text-columns">
+            @Model.FirstOrDefault().Description
+        </section>
     </div>
-    <div>Typ av aktivitet @Model.FirstOrDefault().Activity.TypeOfActivity</div>
+    <br />
 
 
 
@@ -46,12 +60,12 @@
             </td>
             @if (item.Submitted == null)
             {
-                <td>Nej</td>
+                <td><span class="label label-warning" style="color:black;">Nej</span></td>
             }
             @if (item.Submitted != null)
             {
                 <td>
-                    @Html.DisplayFor(modelItem => item.Submitted)
+                    <span class="label label-success">@Html.DisplayFor(modelItem => item.Submitted)</span>
                 </td>
             }
 
