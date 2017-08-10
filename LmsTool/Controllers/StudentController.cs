@@ -136,6 +136,70 @@ namespace LmsTool.Controllers
             return Json(activities, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult StudentsInClass()
+        {
+            var myself = db.Users.Find(User.Identity.GetUserId()).CourseId;
+           
+
+            var Students = db.Users.Where(model => model.CourseId == myself)
+                .OrderBy(n => n.FullName)
+                .ToList();
+
+            List<ViewStudents> listStudents = new List<ViewStudents>();
+
+            foreach (var user in Students)
+            {
+                listStudents.Add(new ViewStudents { Id = user.Id, Email = user.Email, FullName = user.FullName, Assignments = db.Assignments.Where(a => a.UserId == user.Email).ToList() });
+            }
+
+            return View("~/Views/Course/Index.cshtml", listStudents);
+        }
+
+        public ActionResult ViewActivities(int id)
+        {
+            var myself = db.Users.Find(User.Identity.GetUserId()).CourseId;
+            var modul = db.Moduls.Find(id);
+            if (modul.CourseId == myself)
+            {
+
+                var activities = db.Activities.Include(a => a.Assignments).Where(a => a.ModulId == id).OrderBy(d => d.StartDate);
+
+                List<ViewActivitys> model = new List<ViewActivitys>();
+                if (activities.Any())
+                {
+
+                    foreach (var activity in activities)
+                    {
+                        model.Add(new ViewActivitys
+                        {
+                            TypeOfActivity = activity.TypeOfActivity,
+                            Assignments = activity.Assignments.ToList(),
+                            Description = activity.Description,
+                            EndDate = activity.EndDate,
+                            Id = activity.Id,
+                            ModulId = activity.ModulId,
+                            Name = activity.Name,
+                            StartDate = activity.StartDate,
+                            ModulName = modul.Name,
+                            ModulStartStr = modul.StartDate.ToShortDateString(),
+                            ModulEndStr = modul.EndDate.ToShortDateString(),
+                            Document = activity.Document
+
+                        });
+                    }
+                }
+
+                return View("~/Views/Activity/Index.cshtml", model);
+            }
+            else
+            {
+                return View("~/Views/Activity/Index.cshtml");
+            }
+
+
+            
+        }
+
 
         protected override void Dispose(bool disposing)
         {
