@@ -3,46 +3,63 @@
 
 <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-
+@*@Html.AntiForgeryToken()*@
 
 <div>
+    <br />
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 class="text-center">@Html.DisplayFor(model => model.Name)</h4>
+        </div><div class="panel-body">
+           
+                @*<div class="col-xs-4">*@
+                    <dl class="dl-horizontal">
 
-    <h3 class="text-center">@Html.DisplayFor(model => model.Name)</h3>
-    <div class="row table-bordered">
-        <div class="col-xs-3">
-            <dl class="dl-horizontal">
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.StartDate)
-                </dt>
+                        @*@if (Model.Document != null) {
+    <dt>
+    @Html.LabelFor(model => model.Document)
+    </dt>
+    <dd>
+    @Html.DisplayFor(model => model.Document, new { htmlAttributes = new { @class = "form-control" } })
+    </dd>
+    }*@
 
-                <dd>
-                    @Html.DisplayFor(model => model.StartDate)
-                </dd>
+                        <dt>
+                            @Html.LabelFor(model => model.StartDate)
+                        </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.EndDate)
-                </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                        </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.EndDate)
-                </dd>
+                        <dt>
+                            @Html.LabelFor(model => model.EndDate)
+                        </dt>
 
-            </dl>
+                        <dd>
+                            @Html.DisplayFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                        </dd>
+
+                    </dl>
+                @*</div>*@
+
+
+                <div class="col-xs-12">
+                    
+                            <h4>@Html.DisplayNameFor(model => model.Description)</h4>
+                       
+
+                        
+                            <section  class="text-columns">
+                                @Html.DisplayFor(model => model.Description)
+                            </section>
+                       
+                   
+                </div>
+
+            
+
         </div>
-
-        <div class="col-xs-9">
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Description)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Description)
-                </dd>
-            </dl>
-        </div>
-
     </div>
-
 </div>

@@ -5,6 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
+
 namespace LmsTool.Models.DbModels
 {
     public class AssignmentModel
@@ -17,15 +18,17 @@ namespace LmsTool.Models.DbModels
         [Display(Name = "Beskrivning")]
         public string Description { get; set; }
         [Display(Name = "Inlämnad")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm}")]
         public DateTime? Submitted { get; set; }
-        [Display(Name = "Godkänd")]
+        [Display(Name = "Status")]
         public bool Approved { get; set; }
 
         public bool Redo { get; set; }
-        [Display(Name = "Senaste inlämningsdatum")]
+        //[Display(Name = "Inlämningsdatum")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm}")]
         public DateTime Deadline { get; set; }
         [Display(Name = "Dokument")]
-        [StringLength(5000, MinimumLength = 30, ErrorMessage = "Dokumentet behöver vara minst trettio tecken långt")]
+        [StringLength(5000, MinimumLength = 3, ErrorMessage = "Dokumentet behöver vara minst tre tecken långt")]
         
         public string Document { get; set; }
         public int ActivityId { get; set; }

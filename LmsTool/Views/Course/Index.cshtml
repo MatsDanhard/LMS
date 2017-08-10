@@ -23,10 +23,12 @@ För att visa elever i kursen
     ViewBag.Title = "Index";
 }
 <h2>Elevlista</h2>
+@if (User.IsInRole("Teacher"))
+{
 <p>
-    <a href="@Url.Action("register","Account", new {id = ViewBag.CurrentCourse})"  class = "btn btn-success Create btn-md" >Skapa elev</a>
+    <a href="@Url.Action("register", "Account", new { id = ViewBag.CurrentCourse })"  class = "btn btn-success Create btn-md" >Skapa elev</a>
 </p>
-
+}
 @using (Ajax.BeginForm(null, null, null, new AjaxOptions
 {
     HttpMethod = "POST",
@@ -110,14 +112,17 @@ För att visa elever i kursen
         <td>
             <a href="mailto:@item.Email" class="glyphicon glyphicon-envelope"></a>&nbsp;@Html.DisplayFor(modelItem => item.Email)
         </td>
+@if (User.IsInRole("Teacher"))
+{
         <td>
-            <a href="@Url.Action("Edit","Account", new {id = item.Id})"  class="btn btn-primary Edit">Redigera</a>
+            <a href="@Url.Action("Edit", "Account", new { id = item.Id })"  class="btn btn-primary Edit">Redigera</a>
 
-            <a href="@Url.Action("Delete","Account", new {id = item.Id})"  class="btn btn-danger Delete">Tabort</a>
-            <a href="@Url.Action("AllAssignmentsForStudent","Activity", new {id = item.Id})" class="btn btn-primary">Inlämningsuppgifter</a>
+            <a href="@Url.Action("Delete", "Account", new { id = item.Id })"  class="btn btn-danger Delete">Tabort</a>
+            <a href="@Url.Action("AllAssignmentsForStudent", "Activity", new { id = item.Id })" class="btn btn-primary">Inlämningsuppgifter</a>
             
             
         </td>
+}
     </tr>
 }
 

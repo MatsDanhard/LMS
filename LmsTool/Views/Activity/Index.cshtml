@@ -15,16 +15,17 @@
     ViewBag.Title = "Index";
 }
 <h2>@Model.FirstOrDefault().ModulName</h2>
+@if (User.IsInRole("Teacher")){ 
 <p>
     <a href="@Url.Action("Create","Activity", new {id = ViewBag.CurrentModul})" class="btn btn-success Create">Skapa aktivitet</a>
 </p>
-
+}
 @using (Ajax.BeginForm(null, null, null, new AjaxOptions
 {
     HttpMethod = "POST",
     UpdateTargetId = "frmCreate",
     InsertionMode = InsertionMode.Replace
-}, new { @id = "frmID1" }))
+    }, new { @id = "frmID1" }))
 
 {
 
@@ -134,9 +135,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Description)
-        </th>
+        </th>*@
         
         <th>
             @Html.DisplayNameFor(model => model.StartDate)
@@ -161,9 +162,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>
+            </td>*@
 
             <td>
                 @item.StartDate.ToShortDateString()  @item.StartDate.Hour:@item.StartDate.Minute
@@ -172,21 +173,24 @@
             <td>
                 @item.EndDate.ToShortDateString()  @item.EndDate.Hour:@item.EndDate.Minute
             </td>
+@if (User.IsInRole("Teacher"))
+{
             <td>
 
-                <a href="@Url.Action("Edit", "Activity", new {id = item.Id})" class="btn btn-primary btn-md Edit">Redigera</a>
-                <a href="@Url.Action("Delete", "Activity", new {id = item.Id})" class="btn btn-danger btn-md Delete">Ta bort</a>
+                <a href="@Url.Action("Edit", "Activity", new { id = item.Id })" class="btn btn-primary btn-md Edit">Redigera</a>
+                <a href="@Url.Action("Delete", "Activity", new { id = item.Id })" class="btn btn-danger btn-md Delete">Ta bort</a>
                 @if (item.Assignments != null && item.Assignments.Count > 0)
                 {
-                    @Html.ActionLink("Inlämningsuppgifter", "IndexAssignment", "Activity", new {id = item.Id}, new {@class = "btn btn-primary btn-md"})
+                    @Html.ActionLink("Inlämningsuppgifter", "IndexAssignment", "Activity", new { id = item.Id }, new { @class = "btn btn-primary btn-md" })
                 }
                 @if (item.Assignments != null && item.Assignments.Count < 1)
                 {
-                    <a href="@Url.Action("CreateAssignment", "Activity", new {id = item.Id})" class="btn btn-success btn-md CreateAssignment">Skapa Inlämning</a>
+                    <a href="@Url.Action("CreateAssignment", "Activity", new { id = item.Id })" class="btn btn-success btn-md CreateAssignment">Skapa Inlämning</a>
                 }
                 
 
             </td>
+}
         </tr>
     }
 }

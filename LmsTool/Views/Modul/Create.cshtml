@@ -11,55 +11,56 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
+        <div class="form-group"><h2>Skapa modul</h2></div>
 
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
-            
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-           
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
-            
-                @Html.TextAreaFor(model => model.Description, 6, 50, new {  @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-           
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label" })
-            
-                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @id = "dt1", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
-         
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label" })
-           
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @id = "dt2", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-           
-        </div>
-
-        <div class="form-group">
-            @Html.HiddenFor(model => model.CourseId)
-            @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            <div @*class="col-md-offset-2 col-md-10"*@>
-                <input type="submit" value="Lägg till" class="btn btn-success btn-block" />
-
-
 
             </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+
+                @Html.TextAreaFor(model => model.Description, 6, 50, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @id = "dt1", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @id = "dt2", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.HiddenFor(model => model.CourseId)
+                @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <div @*class="col-md-offset-2 col-md-10"*@>
+                    <input type="submit" value="Lägg till" class="btn btn-success btn-block" />
+
+
+
+                </div>
+            </div>
         </div>
-    </div>
+
 }
 
 
