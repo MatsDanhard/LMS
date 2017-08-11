@@ -3,7 +3,7 @@ namespace LmsTool.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init465 : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {

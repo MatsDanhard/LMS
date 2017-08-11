@@ -22,7 +22,7 @@ För att visa elever i kursen
 @{
     ViewBag.Title = "Index";
 }
-<h2>Elevlista för kursen - @ViewBag.CourseName</h2>
+<h2>@ViewBag.CourseName</h2>
 @if (User.IsInRole("Teacher"))
 {
 <p>
