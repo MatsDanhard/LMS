@@ -18,8 +18,8 @@
 
 <h2>@ViewBag.CourseName</h2>
 
-
-@Html.ActionLink("Skapa ny lärare", "RegisterTeacher", "Account", null , new {@class= "Create"})
+<a href="@Url.Action("RegisterTeacher", "Account")" class="btn btn-success Create btn-md">Skapa Lärare</a>
+@*@Html.ActionLink("Skapa ny lärare", "RegisterTeacher", "Account", null , new {@class= "Create"})*@
 
 @using (Ajax.BeginForm(null, null, null, new AjaxOptions
 {
@@ -124,9 +124,10 @@
         </td>
         
         <td>
-            @Html.ActionLink("Redigera", "Edit", "Account", new { id=item.Id } , new {@class= "Edit"}) |
-           
-            @Html.ActionLink("Delete", "Delete", "Account", new { id=item.Id } , new {@class= "Delete"})
+            <a href="@Url.Action("Edit", "Account", new { id = item.Id})" class="btn btn-primary Edit btn-md">Redigera</a>
+            @*@Html.ActionLink("Redigera", "Edit", "Account", new { id=item.Id } , new {@class= "Edit"})*@
+            <a href="@Url.Action("Delete", "Account", new { id = item.Id})" class="btn btn-danger Delete btn-md">Ta bort</a>
+            @*@Html.ActionLink("Delete", "Delete", "Account", new { id=item.Id } , new {@class= "Delete"})*@
         </td>
     </tr>
 }
