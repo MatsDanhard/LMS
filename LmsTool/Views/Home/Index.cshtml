@@ -135,22 +135,26 @@
                 <p class="glyphicon glyphicon-menu-down toggle_arrow" title="Beskrivning">&nbsp;</p>
                 <a class="inactiveLink">@course.Name</a>
                 <a class="DateOnDiv inactiveLink">(@course.StartDate.ToShortDateString())&nbsp;</a>
-                <p class="glyphicon glyphicon-pencil  Icon_toggle" title="Redigera">&nbsp;</p>
-            </div>
-
-            <div class="Settings collapse btn-group btn-group">
-                <a href="@Url.Action("Edit","course", new {id = course.Id})" class="btn btn-primary Edit">Redigera</a>
-                <a href="@Url.Action("Delete","course", new {id = course.Id})" class="btn btn-danger Delete">Ta bort</a>
             </div>&nbsp;
 
-
             <span class="pull-right">
+
                 @Html.ActionLink("Elever" + " (" + course.NrOfStudents + ")", "Index", "Course", new { id = course.Id }, new { @class = "btn btn-primary btn-lg" })
 
 
                 @Html.ActionLink("Moduler" + " (" + course.NrOfModuls + ")", "Index", "Modul", new { id = course.Id }, new { @class = "btn btn-primary btn-lg" })
             </span>
 
+            <div class="pull-right">
+                <p class="glyphicon glyphicon-pencil  Icon_toggle" title="Redigera">&nbsp;</p>
+            </div>
+
+            <div class="pull-right">
+                <div class="Settings collapse btn-group btn-group">
+                    <a href="@Url.Action("Edit","course", new {id = course.Id})" class="btn btn-primary Edit">Redigera</a>
+                    <a href="@Url.Action("Delete","course", new {id = course.Id})" class="btn btn-danger Delete">Ta bort</a>
+                </div>&nbsp;
+            </div>
         </div>
 
 
@@ -160,7 +164,7 @@
                 <section class="text-columns">
                     @course.Description
                 </section>
-                @if(course.Document != null)
+                @if (course.Document != null)
                 {
                     <section>
                         <h4>Dokument</h4>
@@ -187,7 +191,7 @@
 
         $(document).on('click', '.glyphicon-pencil', function () {
             $(this).closest('.panel').find(".Settings").toggle(0, "swing");
-            $(this).closest('p.glyphicon-pencil').toggleClass('Icon_toggle glyphicon-menu-left');
+            $(this).closest('p.glyphicon-pencil').toggleClass('Icon_toggle glyphicon-menu-right');
         }));
 </script>
 <script>
