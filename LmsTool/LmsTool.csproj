@@ -202,11 +202,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-
-    <Compile Include="Migrations\201708110727256_init465.cs" />
-    <Compile Include="Migrations\201708110727256_init465.Designer.cs">
-      <DependentUpon>201708110727256_init465.cs</DependentUpon>
-
+    <Compile Include="Migrations\201708110758375_init.cs" />
+    <Compile Include="Migrations\201708110758375_init.Designer.cs">
+      <DependentUpon>201708110758375_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -342,16 +340,13 @@
     <Content Include="Views\Activity\DetailsAssignment.cshtml" />
     <Content Include="Views\Activity\AllAssignmentsForStudent.cshtml" />
     <Content Include="Views\Shared\_LayoutStudent.cshtml" />
-
     <Content Include="Views\Student\InfoModul.cshtml" />
     <Content Include="Views\Student\InfoActivity.cshtml" />
     <Content Include="Views\Student\InfoAssignment.cshtml" />
     <Content Include="Views\Course\IndexTeacherView.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Student\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -363,10 +358,8 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-
-    <EmbeddedResource Include="Migrations\201708110727256_init465.resx">
-      <DependentUpon>201708110727256_init465.cs</DependentUpon>
-
+    <EmbeddedResource Include="Migrations\201708110758375_init.resx">
+      <DependentUpon>201708110758375_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
