@@ -242,6 +242,16 @@
     <Content Include="Dokumentation\Backlog 20170705.txt" />
     <Content Include="Dokumentation\erdplus-diagram %281%29 20170721.png" />
     <Content Include="Dokumentation\erdplus-diagram20170714.png" />
+    <Content Include="Dokumentation\Screenshots\Elevvy\Elev index.png" />
+    <Content Include="Dokumentation\Screenshots\Elevvy\elev inlämning.png" />
+    <Content Include="Dokumentation\Screenshots\Lärarvy\Aktivitets index.png" />
+    <Content Include="Dokumentation\Screenshots\Lärarvy\Index Modul.png" />
+    <Content Include="Dokumentation\Screenshots\Lärarvy\Kursöversikt.png" />
+    <Content Include="Dokumentation\Screenshots\Lärarvy\Redigera kurs.png" />
+    <Content Include="Dokumentation\Screenshots\Lärarvy\Skapa inlämning.png" />
+    <Content Include="Dokumentation\Screenshots\Lärarvy\Skapa kurs.png" />
+    <Content Include="Dokumentation\Screenshots\Lärarvy\Ta bort kurs.png" />
+    <Content Include="Dokumentation\Screenshots\Lärarvy\visa inlämning.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
