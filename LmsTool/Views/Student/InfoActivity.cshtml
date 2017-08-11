@@ -58,7 +58,8 @@
                              @Html.LabelFor(model => model.Document)
                           </dt>
                           <dd>
-                              @Html.DisplayFor(model => model.Document)
+                              @Html.ActionLink(Model.Document.ToString(), "Download", new { FileName = Model.Document})
+                             
                           </dd>
                           }
                       </dl>

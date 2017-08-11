@@ -18,7 +18,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LmsTool.Controllers
 {
-    
+    [Authorize(Roles = "Teacher")]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -444,6 +444,7 @@ namespace LmsTool.Controllers
         //
         // POST: /Account/LogOff
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {

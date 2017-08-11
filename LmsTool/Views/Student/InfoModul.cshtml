@@ -40,6 +40,16 @@
                         <dd>
                             @Html.DisplayFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
                         </dd>
+                        @if (Model.Document != null)
+                        {
+                            <dt>
+                                @Html.LabelFor(model => model.Document)
+                            </dt>
+                            <dd>
+                                @Html.ActionLink(Model.Document.ToString(), "Download", new { FileName = Model.Document })
+
+                            </dd>
+                        }
 
                     </dl>
                 @*</div>*@

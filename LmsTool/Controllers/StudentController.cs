@@ -13,9 +13,11 @@ using LmsTool.Models.StudentViewmodels;
 using LmsTool.Models.Viewmodels;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
+using System.IO;
 
 namespace LmsTool.Controllers
 {
+    [Authorize(Roles="Student")]
     public class StudentController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -199,7 +201,11 @@ namespace LmsTool.Controllers
 
             
         }
-
+        public FileResult Download(string FileName)
+        {
+            var FileVirtualPath = "~/Documents/" + FileName;
+            return File(FileVirtualPath, "application/force-download", Path.GetFileName(FileVirtualPath));
+        }
 
         protected override void Dispose(bool disposing)
         {
