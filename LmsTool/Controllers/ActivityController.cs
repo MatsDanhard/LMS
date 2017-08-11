@@ -129,8 +129,8 @@ namespace LmsTool.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult DetailsAssignment(int id, bool approved)  // To approve assignments for teacher
+        
+        public ActionResult ApproveHandler(int id, bool approved)  // To approve assignments for teacher
         {
 
             AssignmentModel model = db.Assignments.Find(id);
@@ -284,7 +284,7 @@ namespace LmsTool.Controllers
                     if (createActivity.ActivityStart >= createActivity.ModulStart)
                     {
                         var startDate = createActivity.ActivityStart.Date;
-                        var endDate = createActivity.ActivityEnd.Date;
+                        var endDate = createActivity.ActivityStart.Date;
                         if (file != null && file.ContentLength > 0)
                         {
                             string path = Path.Combine(Server.MapPath("~/Documents"), Path.GetFileName(file.FileName));
@@ -356,10 +356,10 @@ namespace LmsTool.Controllers
                 }
 
                 var startDate = activityModel.StartDate.Date;
-                var endDate = activityModel.EndDate.Date;
+                var endDate = activityModel.StartDate.Date;
 
                 activityModel.StartDate = startDate.AddHours(8);
-                activityModel.EndDate = endDate.AddHours(8);
+                activityModel.EndDate = endDate.AddHours(17);
 
 
                 db.Entry(activityModel).State = EntityState.Modified;

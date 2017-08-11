@@ -1,10 +1,12 @@
 ﻿@model IEnumerable<LmsTool.Models.DbModels.AssignmentModel>
-<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
 <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-<script src="~/Scripts/bootstrap.min.js"></script>
 @{
     ViewBag.Title = "IndexAssignment";
 }
@@ -69,10 +71,19 @@
 
 
             <td>
-                @if (item.Submitted != null)
+                @if (item.Submitted != null && item.Approved == false)
                 {
                     <a href="@Url.Action("DetailsAssignment", "Activity", new {id = item.Id})" class="btn btn-primary btn-lg Details">Granska</a>
                 }
+                else if (item.Submitted != null && item.Approved == true)
+                {
+                    <a href="@Url.Action("DetailsAssignment", "Activity", new {id = item.Id})" class="btn btn-success btn-lg Details">Godkänd</a>
+                }
+                else
+                {
+  
+                }
+                
             </td>
         </tr>
     }

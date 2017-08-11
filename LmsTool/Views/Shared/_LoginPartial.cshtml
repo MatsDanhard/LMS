@@ -7,7 +7,7 @@
 
     <ul class="nav navbar-nav navbar-right">
        @if (User.IsInRole("Teacher"))
-       {<li><a href="/Course/Index/">Lärarlista</a></li>}
+       {<li><a href="@Url.Action("index","Course")">Lärarlista</a></li>}
        @*@if (User.IsInRole("Student"))
        {<li><a href="/Course/Index/">Lärarlista</a></li>}*@
        

@@ -26,7 +26,29 @@ namespace LmsTool.Controllers
         // GET: Course
         public ActionResult Index(int? id) // För elevlistan
         {
-            ViewBag.CourseName = db.Courses.Find(id).Name;
+
+            if (id == null)
+            {
+                ViewBag.CourseName = "Lärarlista";
+
+                var Teachers = db.Users.Where(model => model.CourseId == null)
+                    .OrderBy(n => n.FullName)
+                    .ToList();
+
+
+                List<ViewStudents> ListTeachers = new List<ViewStudents>();
+
+                foreach (var user in Teachers)
+                {
+                    ListTeachers.Add(new ViewStudents { Id = user.Id, Email = user.Email, FullName = user.FullName, Assignments = db.Assignments.Where(a => a.UserId == user.Email).ToList() });
+                }
+
+                return View("IndexTeacherView", ListTeachers);
+
+            }
+
+
+            ViewBag.CourseName = "Elevlista för - " + db.Courses.Find(id).Name;
 
             ViewBag.CurrentCourse = id;
             var Students = db.Users.Where(model => model.CourseId == id)
@@ -42,6 +64,26 @@ namespace LmsTool.Controllers
 
             return View(listStudents);
         }
+
+        //public ActionResult TeacherList(int? id) // För elevlistan
+        //{
+            
+
+        //    ViewBag.CurrentCourse = id;
+        //    var Students = db.Users.Where(model => model.CourseId == id)
+        //        .OrderBy(n => n.FullName)
+        //        .ToList();
+
+        //    List<ViewStudents> listTeachers = new List<ViewStudents>();
+
+        //    foreach (var user in Students)
+        //    {
+        //        listTeachers.Add(new ViewStudents { Id = user.Id, Email = user.Email, FullName = user.FullName, Assignments = db.Assignments.Where(a => a.UserId == user.Email).ToList() });
+        //    }
+
+        //    return View(listTeachers);
+        //}
+
 
         // GET: Course/Details/5
         public ActionResult Details(int? id)
