@@ -4,7 +4,10 @@
     ViewBag.Title = "Registrera lärare";
 }
 
-@*<h2>Registrera lärare</h2>*@
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@*<h1>Registrera lärare</h1>*@
 
 
 @using (Ajax.BeginForm("RegisterTeacher", "Account", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ModalCreate", OnSuccess = "$('close').click()" }))
@@ -12,7 +15,7 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    @*<div class="form-horizontal">*@
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -44,5 +47,5 @@
                 <input type="submit" value="Registrera" class="btn btn-success btn-block" />
             </div>
         </div>
-    </div>
+    @*</div>*@
 }

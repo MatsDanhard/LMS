@@ -1,5 +1,7 @@
 ﻿@model LmsTool.Models.DbModels.ActivityModel
 
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 @using (Ajax.BeginForm("Edit", "activity", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ModalEdit", OnSuccess = "$('close').click()" }, new { id = Model.Id }))
 {
@@ -9,6 +11,7 @@
        
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
+        
 
         <div class="form-group">
             @Html.LabelFor(model => model.TypeOfActivity, htmlAttributes: new { @class = "control-label" })
@@ -44,13 +47,7 @@
           
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label" })
-            
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-           
-        </div>
+        
 
         @Html.HiddenFor(model => model.ModulId)
 
@@ -64,6 +61,4 @@
 
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+

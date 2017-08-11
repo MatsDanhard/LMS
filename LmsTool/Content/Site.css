@@ -20,7 +20,8 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width:550px;
+    
 }
 .Icon-Fontsize {
     font-size: 28px;
@@ -128,4 +129,30 @@ font-size:20px;
     -o-transform: translate(0, 0);
     transform: translate(0, 0);
 }
+
 /*Modal CSS*/
+
+.btn-group.collapse {
+    display: none;
+}
+.DateOnDiv {
+    padding-left: 15px;
+    color: black;
+    font-size: 18px;
+}
+.inactiveLink {
+    pointer-events: none;
+    cursor: default;
+}
+.long-textbox {
+    width:1000px;
+}
+.calendar {
+    max-width: 900px;
+    margin: 0 auto;
+    
+}
+.Blue-box {
+    background-color: #31708f;
+    color: white;
+}

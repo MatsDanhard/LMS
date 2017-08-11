@@ -1,26 +1,130 @@
-﻿@model IEnumerable<LmsTool.Models.Viewmodels.ViewActivitys>
+﻿@using LmsTool.Models.DbModels
+@using LmsTool.Models.Viewmodels
+@model IEnumerable<LmsTool.Models.Viewmodels.ViewActivitys>
+
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
 @{
     ViewBag.Title = "Index";
 }
 <h2>@Model.FirstOrDefault().ModulName</h2>
+@if (User.IsInRole("Teacher")){ 
 <p>
     <a href="@Url.Action("Create","Activity", new {id = ViewBag.CurrentModul})" class="btn btn-success Create">Skapa aktivitet</a>
 </p>
+}
+@using (Ajax.BeginForm(null, null, null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "frmCreate",
+    InsertionMode = InsertionMode.Replace
+    }, new { @id = "frmID1" }))
 
-    <div class="panel panel-info">
+{
+
+    <div>
+        <div class="container row collapse" id="CreateWindow">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4">
+
+                <div id="frmCreate">
+
+                    @Html.Partial("~/Views/Activity/Create.cshtml", new CreateActivity())
+
+
+                </div>
+            </div>
+            <div class="col-xs-4">
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+}
+
+@using (Ajax.BeginForm(null, null, null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "frmCreateAssignment",
+    InsertionMode = InsertionMode.Replace
+}, new { @id = "frmID3" }))
+
+{
+
+    <div>
+        <div class="container row collapse" id="CreateWindowAssignment">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4">
+
+                <div id="frmCreateAssignment">
+
+                    @Html.Partial("~/Views/Activity/CreateAssignment.cshtml", new AssignmentModel())
+
+
+                </div>
+            </div>
+            <div class="col-xs-4">
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+}
+
+@using (Ajax.BeginForm(null, null, null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "frmEdit",
+    InsertionMode = InsertionMode.Replace
+}, new { @id = "frmID2" }))
+
+{
+
+    <div>
+        <div class="container row collapse EditWindow">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4">
+
+                <div id="frmEdit">
+
+                    @Html.Partial("~/Views/Activity/Edit.cshtml", new ActivityModel())
+
+
+                </div>
+            </div>
+            <div class="col-xs-4">
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+}
+
+
+<div class="panel panel-info">
         <div class="panel-heading">
             
-            <h3>@Model.FirstOrDefault().ModulStartStr - @Model.FirstOrDefault().ModulEndStr</h3>
+            <h3 class="text-center">@Model.FirstOrDefault().ModulStartStr  &nbsp - &nbsp  @Model.FirstOrDefault().ModulEndStr</h3>
         </div>
     </div>
     
-<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
-<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-<script src="~/Scripts/bootstrap.min.js"></script>
+
 
 <table class="table">
     <tr>
@@ -31,9 +135,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Description)
-        </th>
+        </th>*@
         
         <th>
             @Html.DisplayNameFor(model => model.StartDate)
@@ -58,9 +162,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>
+            </td>*@
 
             <td>
                 @item.StartDate.ToShortDateString()  @item.StartDate.Hour:@item.StartDate.Minute
@@ -69,60 +173,30 @@
             <td>
                 @item.EndDate.ToShortDateString()  @item.EndDate.Hour:@item.EndDate.Minute
             </td>
+@if (User.IsInRole("Teacher"))
+{
             <td>
 
-                <a href="@Url.Action("Edit", "Activity", new {id = item.Id})" class="btn btn-primary btn-md Edit">Redigera</a>
-                <a href="@Url.Action("Delete", "Activity", new {id = item.Id})" class="btn btn-danger btn-md Delete">Ta bort</a>
+                <a href="@Url.Action("Edit", "Activity", new { id = item.Id })" class="btn btn-primary btn-md Edit">Redigera</a>
+                <a href="@Url.Action("Delete", "Activity", new { id = item.Id })" class="btn btn-danger btn-md Delete">Ta bort</a>
                 @if (item.Assignments != null && item.Assignments.Count > 0)
                 {
-                    @Html.ActionLink("Inlämningsuppgifter", "IndexAssignment", "Activity", new {id = item.Id}, new {@class = "btn btn-primary btn-md"})
+                    @Html.ActionLink("Inlämningsuppgifter", "IndexAssignment", "Activity", new { id = item.Id }, new { @class = "btn btn-primary btn-md" })
                 }
                 @if (item.Assignments != null && item.Assignments.Count < 1)
                 {
-                    <a href="@Url.Action("CreateAssignment", "Activity", new {id = item.Id})" class="btn btn-success btn-md CreateAssignment">Skapa Inlämning</a>
+                    <a href="@Url.Action("CreateAssignment", "Activity", new { id = item.Id })" class="btn btn-success btn-md CreateAssignment">Skapa Inlämning</a>
                 }
                 
 
             </td>
+}
         </tr>
     }
 }
 
 </table>
-<div class="modal fade" id="ModalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Skapa Aktivitet</h4>
-            </div>
-            <div class="modal-body">
 
-            </div>
-            <div @*class="modal-footer"*@>
-                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel1">Editera Aktivitet</h4>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div @*class="modal-footer"*@>
-                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
-
-            </div>
-        </div>
-    </div>
-</div>
 <div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -140,42 +214,103 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="ModalCreateAssignment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Skapa Inlämning</h4>
-            </div>
-            <div class="modal-body">
 
-            </div>
-            <div @*class="modal-footer"*@>
-                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
 
-            </div>
-        </div>
-    </div>
-</div>
+
+<script>
+    $(document).ready(
+        $(document).on('click', '.Create', function () {
+            if ($('.EditWindow').css('display') == 'none' && $('#CreateWindowAssignment').css('display') == 'none') {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+            }
+            else if ($('#CreateWindowAssignment').css('display') == 'none' ) {
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+
+            }
+            else {
+                $(this).closest('.container').find("#CreateWindowAssignment").toggle("fast", "swing");
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing"); 
+            }
+
+
+        }));
+
+</script>
+<script>
+    $(document).ready(
+        $(document).on('click', '.Edit', function () {
+            if ($('.EditWindow').css('display') != 'none') {
+                $('.panel a.selected').not(this).removeClass('selected');
+                $(this).toggleClass('selected');
+                if ($(this).hasClass('selected')) {
+                    //alert('Unselected');
+                }
+                else {
+                    //alert('Selected');
+                    $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+                }
+            }
+            else if ($('#CreateWindow').css('display') == 'none' && $('#CreateWindowAssignment').css('display') == 'none') {
+                $(this).toggleClass('selected');
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+            }
+            else if ($('#CreateWindowAssignment').css('display') == 'none') {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+
+            }
+            else {
+                $(this).closest('.container').find("#CreateWindowAssignment").toggle("fast", "swing");
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing"); 
+            }
+
+
+        }));
+
+</script>
+<script>
+    $(document).ready(
+        $(document).on('click', '.CreateAssignment', function () {
+            if ($('#CreateWindow').css('display') == 'none' && $('.EditWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#CreateWindowAssignment").toggle("fast", "swing");
+            }
+           else if ($('#CreateWindow').css('display') == 'none') {
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+                $(this).closest('.container').find("#CreateWindowAssignment").toggle("fast", "swing");
+
+            }
+            else {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+                $(this).closest('.container').find("#CreateWindowAssignment").toggle("fast", "swing"); 
+            }
+
+
+        }));
+
+</script>
+
 <script>
     $(document).ready(function () {
         $('.Create').click(function (event) {
             event.preventDefault();
             $.get(this.href, function (response) {
-                $('.modal-body').html(response);
+                $('#frmCreate').html(response);
             });
-            $('#ModalCreate').modal({
-                backdrop: 'static',
-            }, 'show');
+
         });
         $('.Edit').click(function (event) {
             event.preventDefault();
             $.get(this.href, function (response) {
-                $('.modal-body').html(response);
+                $('#frmEdit').html(response);
             });
-            $('#ModalEdit').modal({
-                backdrop: 'static',
-            }, 'show');
+
+        });
+        $('.CreateAssignment').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('#frmCreateAssignment').html(response);
+            });
         });
         $('.Delete').click(function (event) {
             event.preventDefault();
@@ -183,15 +318,6 @@
                 $('.modal-body').html(response);
             });
             $('#ModalDelete').modal({
-                backdrop: 'static',
-            }, 'show');
-        });
-        $('.CreateAssignment').click(function (event) {
-            event.preventDefault();
-            $.get(this.href, function (response) {
-                $('.modal-body').html(response);
-            });
-            $('#ModalCreateAssignment').modal({
                 backdrop: 'static',
             }, 'show');
         });

@@ -30,7 +30,8 @@ namespace LmsTool.Models.Viewmodels
         public DateTime EndDate { get; set; } = DateTime.Now.AddDays(1);
         [HiddenInput]
         public int ModulId { get; set; }
-        
+        [Display(Name = "Dokument")]
+        public string Document { get; set; }
         public List<AssignmentModel> Assignments { get; set; }
     }
 }

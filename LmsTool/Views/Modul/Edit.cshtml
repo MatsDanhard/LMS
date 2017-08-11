@@ -1,5 +1,7 @@
 ﻿@model LmsTool.Models.DbModels.ModulModel
 
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 @using (Ajax.BeginForm("Edit", "modul", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ModalEdit", OnSuccess = "$('close').click()" }, new { id = ViewBag.CurrentCourse }))
 {
@@ -60,6 +62,4 @@
 
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+

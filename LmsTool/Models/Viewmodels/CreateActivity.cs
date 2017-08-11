@@ -28,10 +28,11 @@ namespace LmsTool.Models.Viewmodels
         [Display(Name = "Beskrivning")]
         public string Description { get; set; }
         [Display(Name = "Startdatum")]
+        [DataType(DataType.Date, ErrorMessage = "Datumet är inte korrekt angivet")]
         //[Range(typeof(DateTime), ms, DisplayModulEnd, ErrorMessage ="Datumet måste vara mellan {1} {2}")]
         public DateTime ActivityStart { get; set; } = DateTime.Now;
         [Display(Name = "Slutdatum")]
-        public DateTime ActivityEnd { get; set; }= DateTime.Now.AddDays(1);
+        public DateTime ActivityEnd { get; set; }
         public DateTime ModulStart { get; set; } 
         public DateTime ModulEnd { get; set; } 
         public string DisplayModulStart { get; set; }

@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<link href='../fullcalendar.min.css' rel='stylesheet' />
+<link href='../fullcalendar.print.min.css' rel='stylesheet' media='print' />
+<script src='../lib/moment.min.js'></script>
+<script src='../lib/jquery.min.js'></script>
+<script src='../fullcalendar.min.js'></script>
+<script src="../locale/sv.js"></script>
+<script>
+
+	$(document).ready(function() {
+		
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+                right: 'month,basicWeek,basicDay,listWeek'
+            },
+            weekends: false,
+            businessHours: {
+                dow: [1, 2, 3, 4, 5],
+                start: '08:00',
+                end: '17:00'
+            },
+            buttonText: {
+                list: "Veckoschema"
+            },
+            height: 'auto', // Maximize height so everything is shown, no scrollbar
+            timezone: 'local',
+            weekNumbers: true,
+            allDay: true,
+            //minTime: '08:00:00', // Show schedule from only 8-17
+            //maxTime: '17:00:00',
+            //defaultTimedEventDuration: '09:00:00',
+            defaultView: 'basicWeek',
+            events: 'Student/GetActivities',
+             // Custom renderer to add icon functionality on events
+            eventRender: function (event, element) {},
+            monthNames: ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'October', 'November', 'December'], // Custom names to get Pascal casing on months
+			navLinks: true, // can click day/week names to navigate views
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+			
+		});
+		
+	});
+
+</script>
+<style>
+
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+</style>
+</head>
+<body>
+
+	<div id='calendar'></div>
+
+</body>
+</html>

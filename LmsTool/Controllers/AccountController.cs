@@ -63,8 +63,18 @@ namespace LmsTool.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Teacher"))
+                {
+                    return RedirectToAction("index", "Home");
+                }
+                return RedirectToAction("Index", "Student");
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
+
+            
         }
 
         //
@@ -209,7 +219,7 @@ namespace LmsTool.Controllers
 
                 ViewBag.Succes = "Lärare skapad";
 
-                return RedirectToAction("index", "Home");
+                return RedirectToAction("index", "Manage");
 
 
             }
