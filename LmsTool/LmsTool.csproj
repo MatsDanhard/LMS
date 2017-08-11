@@ -240,6 +240,7 @@
     <Content Include="Documents\Python.txt" />
     <Content Include="Documents\Intro.txt" />
     <Content Include="Dokumentation\Backlog 20170705.txt" />
+    <Content Include="Dokumentation\erdplus-diagram %281%29 20170721.png" />
     <Content Include="Dokumentation\erdplus-diagram20170714.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
