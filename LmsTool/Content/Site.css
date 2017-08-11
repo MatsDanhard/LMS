@@ -147,6 +147,7 @@ font-size:20px;
 .long-textbox {
     width:1000px;
 }
+
 .calendar {
     max-width: 900px;
     margin: 0 auto;
@@ -156,3 +157,4 @@ font-size:20px;
     background-color: #31708f;
     color: white;
 }
+

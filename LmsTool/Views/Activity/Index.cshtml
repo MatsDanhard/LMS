@@ -31,8 +31,8 @@
 
     <div>
         <div class="container row collapse" id="CreateWindow">
-            <div class="col-xs-4"></div>
-            <div class="col-xs-4">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-6">
 
                 <div id="frmCreate">
 
@@ -41,7 +41,7 @@
 
                 </div>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-3">
 
             </div>
 
@@ -63,8 +63,8 @@
 
     <div>
         <div class="container row collapse" id="CreateWindowAssignment">
-            <div class="col-xs-4"></div>
-            <div class="col-xs-4">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-6">
 
                 <div id="frmCreateAssignment">
 
@@ -73,7 +73,7 @@
 
                 </div>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-3">
 
             </div>
 
@@ -95,8 +95,8 @@
 
     <div>
         <div class="container row collapse EditWindow">
-            <div class="col-xs-4"></div>
-            <div class="col-xs-4">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-6">
 
                 <div id="frmEdit">
 
@@ -105,7 +105,7 @@
 
                 </div>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-3">
 
             </div>
 
@@ -145,6 +145,11 @@
         <th>
             @Html.DisplayNameFor(model => model.EndDate)
         </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Document)
+        </th>
+
         <th></th>
     </tr>
 
@@ -173,8 +178,17 @@
             <td>
                 @item.EndDate.ToShortDateString()  @item.EndDate.Hour:@item.EndDate.Minute
             </td>
+
+            <td>
+                @if (item.Document != null)
+                {
+                @Html.ActionLink(item.Document.ToString(), "Download", new { FileName = item.Document })
+                }
+            </td>
+
 @if (User.IsInRole("Teacher"))
 {
+
             <td>
 
                 <a href="@Url.Action("Edit", "Activity", new { id = item.Id })" class="btn btn-primary btn-md Edit">Redigera</a>
@@ -207,7 +221,7 @@
             <div class="modal-body">
 
             </div>
-            <div @*class="modal-footer"*@>
+            <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
 
             </div>

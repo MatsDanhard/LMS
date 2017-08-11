@@ -13,6 +13,7 @@ using LmsTool.Models;
 using LmsTool.Models.DbModels;
 using LmsTool.Models.Viewmodels;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.IO;
 
 namespace LmsTool.Controllers
 {
@@ -25,6 +26,8 @@ namespace LmsTool.Controllers
         // GET: Course
         public ActionResult Index(int? id) // För elevlistan
         {
+            ViewBag.CourseName = db.Courses.Find(id).Name;
+
             ViewBag.CurrentCourse = id;
             var Students = db.Users.Where(model => model.CourseId == id)
                 .OrderBy(n => n.FullName)
@@ -71,13 +74,21 @@ namespace LmsTool.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Create([Bind(Include = "Id,Name,Description,StartDate")] CourseModel courseModel)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,StartDate,file")] CourseModel courseModel, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                var startDate = courseModel.StartDate.Date;
 
+                if (file != null && file.ContentLength > 0)
+                {
+                    string path = Path.Combine(Server.MapPath("~/Documents"), Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                    courseModel.Document = file.FileName;
+                }
 
-                
+                courseModel.StartDate = startDate.AddHours(8);
+
                 db.Courses.Add(courseModel);
                 db.SaveChanges();
                 //TempData["postResult"] = "Saved!";
@@ -108,11 +119,22 @@ namespace LmsTool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,StartDate")] CourseModel courseModel)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,StartDate,Document")] CourseModel courseModel, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    string path = Path.Combine(Server.MapPath("~/Documents"), Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                    courseModel.Document = file.FileName;
+                }
+
+
+                var startDate = courseModel.StartDate.Date;
+                courseModel.StartDate = startDate.AddHours(8);
+
                 db.Entry(courseModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index","Home");
@@ -159,7 +181,11 @@ namespace LmsTool.Controllers
             return RedirectToAction("Index","Home");
         }
 
-       
+        public FileResult Download(string FileName)
+        {
+            var FileVirtualPath = "~/Documents/" + FileName;
+            return File(FileVirtualPath, "application/force-download", Path.GetFileName(FileVirtualPath));
+        }
 
         protected override void Dispose(bool disposing)
         {

@@ -22,7 +22,7 @@ För att visa elever i kursen
 @{
     ViewBag.Title = "Index";
 }
-<h2>Elevlista</h2>
+<h2>Elevlista för kursen - @ViewBag.CourseName</h2>
 @if (User.IsInRole("Teacher"))
 {
 <p>
@@ -115,7 +115,9 @@ För att visa elever i kursen
 @if (User.IsInRole("Teacher"))
 {
         <td>
+
             <a href="@Url.Action("Edit", "Account", new { id = item.Id })"  class="btn btn-primary Edit">Redigera</a>
+
 
             <a href="@Url.Action("Delete", "Account", new { id = item.Id })"  class="btn btn-danger Delete">Tabort</a>
             <a href="@Url.Action("AllAssignmentsForStudent", "Activity", new { id = item.Id })" class="btn btn-primary">Inlämningsuppgifter</a>

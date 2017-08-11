@@ -1,10 +1,12 @@
 ﻿@model IEnumerable<LmsTool.Models.DbModels.AssignmentModel>
 
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
 @{
     ViewBag.Title = "AllAssignmentsForStudent";
 }
 
-<h2>@ViewBag.StudentName</h2>
+<h1>@ViewBag.StudentName</h1>
 
 
 <table class="table">
@@ -45,7 +47,8 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            <span class="glyphicon glyphicon-info-sign" title="@Html.DisplayFor(modelItem => item.Description)">
+            </span>
         </td>
         @if (item.Submitted != null)
         {
@@ -64,7 +67,10 @@
             @Html.DisplayFor(modelItem => item.Deadline)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Document)
+            @if (item.Document != null)
+                {
+                @Html.ActionLink(item.Document.ToString(), "Download", new { FileName = item.Document })
+            }
         </td>
         @*<td>
             @Html.DisplayFor(modelItem => item.UserId)

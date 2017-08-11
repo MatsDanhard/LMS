@@ -30,7 +30,7 @@ https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css
 }
 @*<div class="panel-group">*@
     <div class="panel panel-info">
-        <div class="panel-heading"><a class="btn btn-primary pull-right" href="/Course/Index/@Model.Course.Id">Klasslista</a>
+        <div class="panel-heading"><a class="btn btn-primary pull-right" href="@Url.Action("StudentsInClass","Student")">Klasslista</a>
             <div class="panel-body">
                 <h2 class="CourseName">@Model.Course.Name</h2>
                 
@@ -112,7 +112,7 @@ https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css
                                     <td><a href="@Url.Action("InfoModul","Student", new {id = modul.Id})" class="Modul">@Html.DisplayFor(modelitem => modul.Name)</a></td>
                                     @*<td>@modul.StartDate.ToShortDateString()</td>
                         <td>@modul.EndDate.ToShortDateString()</td>*@
-                                    <td><a class="badge" style="background-color:#337ab7" href="@Url.Action("Index", "Activity", new { id = modul.Id })">@Html.DisplayFor(modelitem => modul.Activities.Count)</a></td>
+                                    <td><a class="badge" style="background-color:#337ab7" href="@Url.Action("ViewActivities", "Student", new { id = modul.Id })">@Html.DisplayFor(modelitem => modul.Activities.Count)</a></td>
                                 </tr>
                             }
                         </table>
