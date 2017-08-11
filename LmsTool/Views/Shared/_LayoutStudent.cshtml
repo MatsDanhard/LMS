@@ -18,11 +18,11 @@
 </head>
 <body>
 @RenderSection("Scripts", required: false)
-
+    
 
 
 <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
+    <div class="container">@*-fluid*@
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
@@ -32,7 +32,7 @@
                        
             <a href="@Url.Action("Login", "Account")"> <img src="~/Resources/logo-lexicon@2x.gif" longdesc="Lexicon LMS" height="50"></a>
         </div>
-        <div class="navbar-collapse collapse">
+        <div class="navbar-collapse collapse" style="padding-right:20px;">
             <ul class="nav navbar-nav">
 
             </ul>
@@ -41,7 +41,7 @@
     </div>
 </div>
 
-<div class="container-fluid body-content">
+<div class="container body-content" @*style="width: 100%"*@>
     @RenderBody()
     <hr />
     <footer>

@@ -9,22 +9,15 @@
     ViewBag.Title = "IndexAssignment";
 }
 
-<h1>@Model.FirstOrDefault().Name i @Model.FirstOrDefault().Activity.Name</h1>
-<dl>
-    <dt>
-        <label>Deadline</label>
-    </dt>
-    <dd>
-        @Model.FirstOrDefault().Deadline
-    </dd>
-    <dt>
-        <label>Typ av aktivitet</label>
-    </dt>
-    <dd>
-        @Model.FirstOrDefault().Activity.TypeOfActivity
-    </dd>
-</dl>
-<div @*class="text-center"*@>
+
+
+<h2>@Model.FirstOrDefault().Name i @Model.FirstOrDefault().Activity.Name</h2>
+<h3>Deadline @Model.FirstOrDefault().Deadline.ToShortDateString()
+    @Model.FirstOrDefault().Deadline.ToShortTimeString()</h3>
+
+
+<div class="text-center">
+
     <div>
         <label>Beskrivning för uppgiften</label>
         <section class="text-columns">

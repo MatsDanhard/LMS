@@ -7,10 +7,11 @@
 @using (Ajax.BeginForm("CreateAssignment", "activity", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "frmCreate", OnSuccess = "$('close').click()" }, new { id = Model.ActivityId, enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
-   
+
+
 
     <div class="form-horizontal">
+
         @if (Model.Activity != null)
         {
             <h4>Skapa inlämningsuppgift för @Model.Activity.Name</h4> @Model.Activity.StartDate.ToShortDateString() @*och slutar @Model.Activity.EndDate*@
@@ -18,28 +19,39 @@
         
         <hr/>
         @Html.ValidationSummary(true, "", new {@class = "text-danger"})
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label"})
-
-            @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
-            @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
-
-        </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new {@class = "control-label"})
+            @if (Model.Activity != null)
+            {
+                <h2>
+                    Skapa Inlämningsuppgift för @Model.Activity.Name
+                    <br /><br />@Model.Activity.StartDate.ToShortDateString() @*- @Model.Activity.EndDate.ToShortDateString()*@
+                </h2>
+            }
+            </div>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
 
-            @Html.TextAreaFor(model => model.Description, 6, 50, new {@class = "form-control"})
-            @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
 
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Deadline, htmlAttributes: new {@class = "control-label"})
+            </div>
 
-            @Html.EditorFor(model => model.Deadline, new {htmlAttributes = new {@id = "dt1", @class = "form-control"}})
-            @Html.ValidationMessageFor(model => model.Deadline, "", new {@class = "text-danger"})
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
 
-        </div>
+                @Html.TextAreaFor(model => model.Description, 6, 50, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Deadline, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.Deadline, new { htmlAttributes = new { @id = "dt1", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Deadline, "", new { @class = "text-danger" })
+
 
         <div class="form-group">
 
@@ -48,6 +60,9 @@
 
         </div>
         
+
+            </div>
+
 
             @Html.HiddenFor(model => model.ActivityId)
 

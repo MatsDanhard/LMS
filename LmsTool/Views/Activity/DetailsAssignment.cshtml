@@ -58,7 +58,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Godkänt", "DetailsAssignment", "Activity", new { id = Model.Id, approved = true }, new { @class = "btn btn-primary btn-success btn-block" })
+    <a class="btn btn-primary btn-success btn-block" href="@Url.Action("ApproveHandler", "Activity", new { id = Model.Id, approved = true } )">Godkänd</a> 
 
-    @Html.ActionLink("Underkänt", "DetailsAssignment", "Activity", new { id = Model.Id, approved = false }, new { @class = "btn btn-primary btn-danger btn-block" })
+    <a class="btn btn-primary btn-danger btn-block" href="@Url.Action("ApproveHandler", "Activity", new { id = Model.Id, approved = false } )">Ej Godkänd</a> 
 </p>

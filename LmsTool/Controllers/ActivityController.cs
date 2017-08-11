@@ -191,6 +191,9 @@ namespace LmsTool.Controllers
                 var activities = db.Activities.Find(assignmentModel.ActivityId);
                 var modul = db.Moduls.Find(activities.ModulId).CourseId;
                 var users = db.Users.Where(u => u.Course.Id == modul);
+                var endDate = assignmentModel.Deadline.Date;
+
+
 
                 if (file != null && file.ContentLength > 0)
                 {
@@ -198,13 +201,14 @@ namespace LmsTool.Controllers
                     file.SaveAs(path);
                 }
 
+
                 foreach (var user in users)
                 {
                     AssignmentModel model = new AssignmentModel
                     {
                         ActivityId = assignmentModel.ActivityId,
                         Activity = assignmentModel.Activity,
-                        Deadline = assignmentModel.Deadline,
+                        Deadline = endDate.AddHours(17),
                         Description = assignmentModel.Description,
                         Name = assignmentModel.Name,
                         UserId = user.Id,
@@ -277,9 +281,10 @@ namespace LmsTool.Controllers
             {
 
                 {
-                    if (createActivity.ActivityStart > createActivity.ModulStart && createActivity.ActivityEnd < createActivity.ModulEnd)
+                    if (createActivity.ActivityStart >= createActivity.ModulStart)
                     {
-
+                        var startDate = createActivity.ActivityStart.Date;
+                        var endDate = createActivity.ActivityEnd.Date;
                         if (file != null && file.ContentLength > 0)
                         {
                             string path = Path.Combine(Server.MapPath("~/Documents"), Path.GetFileName(file.FileName));
@@ -290,8 +295,8 @@ namespace LmsTool.Controllers
                         {
                             Name = createActivity.Name,
                             Description = createActivity.Description,
-                            StartDate = createActivity.ActivityStart,
-                            EndDate = createActivity.ActivityEnd,
+                            StartDate = startDate.AddHours(8),
+                            EndDate = endDate.AddHours(17),
                             ModulId = createActivity.ModulId,
                             TypeOfActivity = createActivity.TypeOfActivity,
                             Submission = createActivity.Submission,
@@ -342,12 +347,20 @@ namespace LmsTool.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 if (file != null && file.ContentLength > 0)
                 {
                     string path = Path.Combine(Server.MapPath("~/Documents"), Path.GetFileName(file.FileName));
                     file.SaveAs(path);
                     activityModel.Document = file.FileName;
                 }
+
+                var startDate = activityModel.StartDate.Date;
+                var endDate = activityModel.EndDate.Date;
+
+                activityModel.StartDate = startDate.AddHours(8);
+                activityModel.EndDate = endDate.AddHours(8);
+
 
                 db.Entry(activityModel).State = EntityState.Modified;
                 db.SaveChanges();

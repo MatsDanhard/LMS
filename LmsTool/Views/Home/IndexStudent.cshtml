@@ -12,276 +12,341 @@
 <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
+
+<link href="~/Scripts/fullcalendar-3.4.0/fullcalendar.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" media="print" rel="stylesheet" />
+@*<link href="~/Scripts/fullcalendar-3.4.0/fullcalendar.print.min.css" rel="stylesheet" />*@
+<script src="~/Scripts/fullcalendar-3.4.0/lib/jquery.min.js"></script>
+<script src="~/Scripts/fullcalendar-3.4.0/lib/moment.min.js"></script>
+<script src="~/Scripts/fullcalendar-3.4.0/fullcalendar.js"></script>
+<script src="~/Scripts/fullcalendar-3.4.0/locale/sv.js"></script>
+@*https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js
+https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css
+https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css*@
+
 @{
     ViewBag.Title = "IndexStudent";
     Layout = "~/Views/Shared/_LayoutStudent.cshtml";
 }
-<h2 class="CourseName">@Model.Course.Name</h2>
-
-@using (Ajax.BeginForm(null, null, null, new AjaxOptions
-{
-    HttpMethod = "POST",
-    UpdateTargetId = "frmCreate",
-    InsertionMode = InsertionMode.Replace
-}, new { @id = "frmID1" }))
-
-{
-
-    <div>
-        <div class="container row collapse" id="InfoModul">
-            <div class="col-xs-2"></div>
-            <div class="col-xs-8">
-
-                <div id="frmInfo">
-
-                    @*@Html.Partial("~/Views/Course/Create.cshtml", new CourseModel())*@
-
-
+@*<div class="panel-group">*@
+    <div class="panel panel-info">
+        <div class="panel-heading"><a class="btn btn-primary pull-right" href="@Url.Action("StudentsInClass","Student")">Klasslista</a>
+            <div class="panel-body">
+                <h2 class="CourseName">@Model.Course.Name</h2>
+                
+            </div>
+        </div>
+        @using (Ajax.BeginForm(null, null, null, new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "frmInfoModul",
+            InsertionMode = InsertionMode.Replace
+        }, new { @id = "frmID3" }))
+        {
+            <div>
+                <div class="container-fluid row collapse InfoModul" id="InfoModul">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-8">
+                        <div id="frmInfoModul">
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                    </div>
                 </div>
             </div>
-            <div class="col-xs-2">
-
-            </div>
-
-
-
-        </div>
-    </div>
-
-}
-
-@using (Ajax.BeginForm(null, null, null, new AjaxOptions
-{
-    HttpMethod = "POST",
-    UpdateTargetId = "frmCreate",
-    InsertionMode = InsertionMode.Replace
-}, new { @id = "frmID1" }))
-
-{
-
-    <div>
-        <div class="container row collapse" id="InfoActivity">
-            <div class="col-xs-2"></div>
-            <div class="col-xs-8">
-
-                <div id="frmInfo">
-
-                    @*@Html.Partial("~/Views/Course/Create.cshtml", new CourseModel())*@
-
-
+        }
+        @using (Ajax.BeginForm(null, null, null, new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "frmInfoActivity",
+            InsertionMode = InsertionMode.Replace
+        }, new { @id = "frmID2" }))
+        {
+            <div>
+                <div class="container-fluid row collapse InfoActivity" id="InfoActivity">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-8">
+                        <div id="frmInfoActivity">
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                    </div>
                 </div>
             </div>
-            <div class="col-xs-2">
-
-            </div>
-
-
-
-        </div>
-    </div>
-
-}
-
-@using (Ajax.BeginForm(null, null, null, new AjaxOptions
-{
-    HttpMethod = "POST",
-    UpdateTargetId = "frmCreate",
-    InsertionMode = InsertionMode.Replace
-}, new { @id = "frmID1" }))
-
-{
-
-    <div>
-        <div class="container row collapse" id="InfoAssignment">
-            <div class="col-xs-2"></div>
-            <div class="col-xs-8">
-
-                <div id="frmInfo">
-
-                    @*@Html.Partial("~/Views/Course/Create.cshtml", new CourseModel())*@
-
-
+        }
+        @using (Ajax.BeginForm(null, null, null, new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "frmInfoAssignment",
+            InsertionMode = InsertionMode.Replace
+        }, new { @id = "frmID1" }))
+        {
+            <div>
+                <div class="container-fluid row collapse InfoAssignment" id="InfoAssignment">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-8">
+                        <div id="frmInfoAssignment">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-xs-2">
+        }
+        <div class="container-fluid row">
+            <div class="col-lg-6">
 
-            </div>
 
 
+                <div style="border:1px solid #31708f">
+                        <table class="table">
+                           <caption class="Blue-box"><h2 class="text-center">Moduler</h2></caption>
 
-        </div>
-    </div>
-
-}
-
-<div class="container-fluid row">
-    <div class="col-lg-6">
-        <table class="table border">
-            <caption><h2 class="text-center">Moduler</h2></caption>
-            <tr>
-                <th>Modulnamn</th>
-                <th>Start datum</th>
-                <th>Slut datum</th>
-                <th>Aktiviteter</th>
-            </tr>
-            @foreach (ModulModel modul in Model.Moduls)
+                            <tr>
+                                <th>Modul</th>
+                                @*<th>Start datum</th>
+                    <th>Slut datum</th>*@
+                                <th>Aktiviteter</th>
+                            </tr>
+                            @foreach (ModulModel modul in Model.Moduls)
             {
-                <tr>
-                    <td>@Html.DisplayFor(modelitem => modul.Name)</td>
-                    <td>@modul.StartDate.ToShortDateString()</td>
-                    <td>@modul.EndDate.ToShortDateString()</td>
-                    <td><a href="@Url.Action("Index")">@Html.DisplayFor(modelitem => modul.Activities.Count)</a></td>
-                </tr>
-            }
-        </table>
-    </div>
-    <div class="col-lg-6">
-        <div>
-            <table class="table">
-                <caption><h2 class="text-center">Dagens Aktiviteter</h2></caption>
-                <tr>
-                    <th>Namn</th>
-                    <th>Aktivitetstyp</th>
-                    <th>Inlämning</th>
-                </tr>
-                @foreach (ActivityModel activity in Model.TodaysActivities)
-                {
-                    <tr>
-                        <td>@Html.DisplayFor(modelitem => activity.Name)</td>
-                        <td>@Html.DisplayFor(modelitem => activity.TypeOfActivity)</td>
-                        @if (activity.Submission != true)
-                        {
-                            <td><a>Nej</a></td>
-                        }
-                        else
-                        {
-                            <td>Ja</td>
-
-                        }
-                    </tr>
-                }
-            </table>
-        </div>
-        <div>
-            <table class="table">
-                <caption><h2 class="text-center">Inlämningsuppgifter</h2></caption>
-                <tr>
-                    <th>Namn</th>
-                    <th>Activitet</th>
-                    <th>Status</th>
-                    <th>Senast inlämning</th>
-                </tr>
-                @foreach (AssignmentModel assignment in Model.Assignments)
-                {
-                    <tr>
-                        <td>@Html.DisplayFor(modelitem => assignment.Name)</td>
-                        <td>@Html.DisplayFor(modelitem => assignment.Activity.TypeOfActivity)</td>
-                        @if (assignment.Submitted == null)
-                        {
-                            <td>Ej inlämnad</td>
-                        }
-                        else
-                        {
-                            if (assignment.Approved == false)
-                            {
-                                <td>Väntar på rättning</td>
+                                <tr>
+                                    <td><a href="@Url.Action("InfoModul","Student", new {id = modul.Id})" class="Modul">@Html.DisplayFor(modelitem => modul.Name)</a></td>
+                                    @*<td>@modul.StartDate.ToShortDateString()</td>
+                        <td>@modul.EndDate.ToShortDateString()</td>*@
+                                    <td><a class="badge" style="background-color:#337ab7" href="@Url.Action("ViewActivities", "Student", new { id = modul.Id })">@Html.DisplayFor(modelitem => modul.Activities.Count)</a></td>
+                                </tr>
                             }
-                            else
-                            {
-                                <td>Godkänd</td>
+                        </table>
+                    </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div style="border:1px solid #31708f">
+                            <table class="table table-bordered">
+                                <caption class="Blue-box"><h2 class="text-center">Dagens Aktiviteter</h2></caption>
+                                <tr>
+                                    <th>Aktivitet</th>
+                                    <th>Aktivitetstyp</th>
+                                    <th>Inlämning</th>
+                                </tr>
+                                @foreach (ActivityModel activity in Model.TodaysActivities)
+                                {
+                                    <tr>
+                                        <td><a href="@Url.Action("InfoActivity","Student", new {id = activity.Id})" class="Activity">@Html.DisplayFor(modelitem => activity.Name)</a></td>
+                                        <td>@Html.DisplayFor(modelitem => activity.TypeOfActivity)</td>
+                                        @if (activity.Submission != true)
+                                        {
+                                            <td>Nej</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Ja</td>
+                                        }
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                        <div style="border:1px solid #31708f">
+                            <table class="table" >
+                                <caption class="Blue-box"><h2 class="text-center">Inlämningsuppgifter</h2></caption>
+                                <tr>
+                                    <th>Uppgift</th>
+                                    <th>Aktivitet</th>
+                                    <th>Status</th>
+                                    <th>Senast inlämning</th>
+                                </tr>
+                                @foreach (AssignmentModel assignment in Model.Assignments)
+                                {
+                                    <tr>
+                                        <td><a href="@Url.Action("InfoAssignment","Student", new {id = assignment.Id})" class="Assignment">@Html.DisplayFor(modelitem => assignment.Name)</a></td>
+                                        <td>@Html.DisplayFor(modelitem => assignment.Activity.Name) @*TypeOfActivity)*@</td>
+                                        @if (assignment.Submitted == null)
+                                        {
+                                            <td>Ej inlämnad</td>
+                                        }
+                                        else
+                                        {
+                                            if (assignment.Approved == false)
+                                            {
+                                                <td><span class="badge" style="background-color:#f0ad4e;color:black;">Väntar på rättning</span></td>
+                                            }
+                                            else
+                                            {
+                                                <td><span class="badge" style="background-color:#5cb85c;color:black;">Godkänd</span></td>
+                                            }
+                                        }
+                                        <td>@Html.DisplayFor(modelitem => assignment.Deadline)</td>
+                                    </tr>
+                                }
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <h2 class="text-center bg-info" @*style="color:#777"*@>Schema</h2>
+                <div id='calendar' class="calendar"></div>
+            </div>
+
+                <script>
+                    $(document).ready(
+                        $(document).on('click', '.Modul', function () {
+                            if ($('#InfoAssignment').css('display') == 'none' && $('#InfoActivity').css('display') == 'none') {
+                                $(this).closest('.container').find("#InfoModul").toggle("fast", "swing");
                             }
-                        }
-                        <td>@Html.DisplayFor(modelitem => assignment.Deadline)</td>
-                    </tr>
-                }
-            </table>
+                            else if ($('#InfoAssignment').css('display') == 'none') {
+                                $(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
+                                $(this).closest('.container').find("#InfoModul").toggle("fast", "swing");
+                            }
+                            else if ($('#InfoAssignment').css('display') != 'none') {
+                                $(this).closest('.container').find("#InfoAssignment").toggle("fast", "swing");
+                                $(this).closest('.container').find("#InfoModul").toggle("fast", "swing");
+                            }
+                            else {
+                                //$(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
+                                //$(this).closest('.container').find("#InfoModul").toggle("fast", "swing");
+                            }
+                        }));
+                </script>
+                <script>
+                    $(document).ready(
+                        $(document).on('click', '.Activity', function () {
+                            if ($('#InfoAssignment').css('display') == 'none' && $('#InfoModul').css('display') == 'none') {
+                                $(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
+                            }
+                            else if ($('#InfoAssignment').css('display') == 'none') {
+                                $(this).closest('.container').find("#InfoModul").toggle("fast", "swing");
+                                $(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
 
-        </div>
-    </div>
-</div>
-<script>
-    $(document).ready(
-        $(document).on('click', '.infobtnModul', function () {
-            if ($('#InfoAssignment').css('display') == 'none' && $('#InfoActivity').css('display') == 'none') {
-                $(this).closest('.container').find("#InfoModul").toggle("fast", "swing");
-            }
-            else if ($('#InfoAssignment').css('display') == 'none') {
-                $(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
-                $(this).closest('.container').find("#InfoModul").toggle("fast", "swing");
-
-            }
-            else {
-                $(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
-                $(this).closest('.container').find("#InfoModul").toggle("fast", "swing");
-            }
-
-
-        }));
-
-</script>
-<script>
-    $(document).ready(
-        $(document).on('click', '.infobtnActivity', function () {
-            if ($('#InfoAssignment').css('display') == 'none' && $('#InfoModul').css('display') == 'none') {
-                $(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
-            }
-            else if ($('#InfoAssignment').css('display') == 'none') {
-                $(this).closest('.container').find("#InfoModul").toggle("fast", "swing");
-                $(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
-
-            }
-            else {
-                $(this).closest('.container').find("#InfoAssignment").toggle("fast", "swing");
-                $(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
-            }
+                            }
+                            else {
+                                $(this).closest('.container').find("#InfoAssignment").toggle("fast", "swing");
+                                $(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
+                            }
 
 
-        }));
+                        }));
 
-</script>
-<script>
-    $(document).ready(
-        $(document).on('click', '.infobtnAssignment', function () {
-            if ($('#InfoActivity').css('display') == 'none' && $('#InfoModul').css('display') == 'none') {
-                $(this).closest('.container').find("#InfoAssignment").toggle("fast", "swing");
-            }
-            else if ($('#InfoActivity').css('display') == 'none') {
-                $(this).closest('.container').find("#InfoModul").toggle("fast", "swing");
-                $(this).closest('.container').find("#InfoAssignment").toggle("fast", "swing");
+                </script>
+                <script>
+                    $(document).ready(
+                        $(document).on('click', '.Assignment', function () {
+                            if ($('#InfoActivity').css('display') == 'none' && $('#InfoModul').css('display') == 'none') {
+                                $(this).closest('.container').find("#InfoAssignment").toggle("fast", "swing");
+                            }
+                            else if ($('#InfoActivity').css('display') == 'none') {
+                                $(this).closest('.container').find("#InfoModul").toggle("fast", "swing");
+                                $(this).closest('.container').find("#InfoAssignment").toggle("fast", "swing");
+                            }
+                            else {
+                                $(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
+                                $(this).closest('.container').find("#InfoAssignment").toggle("fast", "swing");
+                            }
 
-            }
-            else {
-                $(this).closest('.container').find("#InfoActivity").toggle("fast", "swing");
-                $(this).closest('.container').find("#InfoAssignment").toggle("fast", "swing");
-            }
+
+                        }));
+
+                </script>
+ @*/////////////////////////////////////////////////////////////////// Toggle för 3 knappar ///////////////////////////////////////////////*@
+@*<script>
+                    $(document).ready(
+                        $(document).on('click', '.Edit', function () {
+                            if ($('.InfoActivity').css('display') != 'none') {
+                                $('.panel a.selected').not(this).removeClass('selected');
+                                $(this).toggleClass('selected');
+                                if ($(this).hasClass('selected')) {
+                                    //alert('Unselected');
+                                }
+                                else {
+                                    //alert('Selected');
+                                    $(this).closest('.container').find(".InfoActivity").toggle("fast", "swing");
+                                }
+                            }
+                            else if ($('#CreateWindow').css('display') == 'none' && $('#CreateWindowAssignment').css('display') == 'none') {
+                                $(this).toggleClass('selected');
+                                $(this).closest('.container').find(".InfoActivity").toggle("fast", "swing");
+                            }
+                            else if ($('#CreateWindowAssignment').css('display') == 'none') {
+                                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+                                $(this).closest('.container').find(".InfoActivity").toggle("fast", "swing");
+
+                            }
+                            else {
+                                $(this).closest('.container').find("#CreateWindowAssignment").toggle("fast", "swing");
+                                $(this).closest('.container').find(".InfoActivity").toggle("fast", "swing");
+                            }
 
 
-        }));
+                        }));
 
-</script>
+</script>*@
 
-<script>
+                <script>
+                    $(document).ready(function () {
+                        $('.Modul').click(function (event) {
+                            event.preventDefault();
+                            $.get(this.href, function (response) {
+                                $('#frmInfoModul').html(response);
+                            });
+
+                        });
+                        $('.Activity').click(function (event) {
+                            event.preventDefault();
+                            $.get(this.href, function (response) {
+                                $('#frmInfoActivity').html(response);
+                            });
+
+                        });
+                        $('.Assignment').click(function (event) {
+                            event.preventDefault();
+                            $.get(this.href, function (response) {
+                                $('#frmInfoAssignment').html(response);
+                            });
+
+                        });
+                    });
+                </script>
+
+
+                <script>
+
+
     $(document).ready(function () {
-        $('.infoBtnModul').click(function (event) {
-            event.preventDefault();
-            $.get(this.href, function (response) {
-                $('#frmInfoModul').html(response);
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,basicWeek,basicDay,listWeek'
+            },
+            weekends: false,
+            businessHours: {
+                dow: [1, 2, 3, 4, 5],
+                start: '08:00',
+                end: '17:00'
+            },
+            buttonText: {
+                list: "Veckoschema"
+            },
+            titleFormat: 'D MMMM YYYY',
+            columnFormat: 'dddd',
+            timeFormat: 'H: mm',
+            height: 'auto', // Maximize height so everything is shown, no scrollbar
+            timezone: 'local',
+            weekNumbers: true,
+            //allDay: true,
+            minTime: '07:00:00', // Show schedule from only 8-17
+            maxTime: '18:00:00',
+            defaultTimedEventDuration: '09:00:00',
+            defaultView: 'basicWeek',
+
+            events: "@Url.Action("GetActivities","Student")",
+            // Custom renderer to add icon functionality on events
+
+            monthNames: ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'October', 'November', 'December'], // Custom names to get Pascal casing on months
+            navLinks: true, // can click day/week names to navigate views
+            editable: false,
+            eventLimit: true, // allow "more" link when too many events
+
             });
 
-        });
-        $('.infoBtnActivity').click(function (event) {
-            event.preventDefault();
-            $.get(this.href, function (response) {
-                $('#frmInfoActivity').html(response);
-            });
-
-        });
-        $('.infoBtnActivity').click(function (event) {
-            event.preventDefault();
-            $.get(this.href, function (response) {
-                $('#frmInfoAssignment').html(response);
-            });
-           
-        });
     });
-</script>
+
+                </script>
