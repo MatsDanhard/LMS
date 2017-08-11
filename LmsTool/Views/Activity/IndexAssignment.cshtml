@@ -16,13 +16,17 @@
     @Model.FirstOrDefault().Deadline.ToShortTimeString()</h3>
 
 
-<div class="text-center">
+<div >
 
-    <div>
-        <label>Beskrivning för uppgiften</label>
-        <section class="text-columns">
-            @Model.FirstOrDefault().Description
-        </section>
+    <div class="panel panel-primary">
+        <div class=" panel-heading">
+            <label>Beskrivning</label>
+        </div>
+        <div class="panel panel-content">
+    <section class="text-columns">
+        @Model.FirstOrDefault().Description
+    </section>
+</div>
     </div>
     <br />
 
