@@ -39,8 +39,8 @@
 
     <div>
         <div class="container row collapse" id="CreateWindow">
-            <div class="col-xs-4"></div>
-            <div class="col-xs-4">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-6">
 
                 <div id="frmCreate">
 
@@ -50,7 +50,7 @@
 
                 </div>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-3">
 
             </div>
 
@@ -72,8 +72,8 @@
 
     <div>
         <div class="container row collapse EditWindow">
-            <div class="col-xs-4"></div>
-            <div class="col-xs-4">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-6">
 
                 <div id="frmEdit">
 
@@ -82,7 +82,7 @@
 
                 </div>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-3">
 
             </div>
 
@@ -100,19 +100,23 @@
 
         <div class="panel-heading Icon-Fontsize">
             <div class="pull-left">
-                <p class="glyphicon glyphicon-menu-down pull-left">&nbsp;</p>
+                <p class="glyphicon glyphicon-menu-down pull-left" title="Beskrivning">&nbsp;</p>
                 <a class="inactiveLink">@modul.Name</a> <a class="DateOnDiv inactiveLink">(@modul.StartDate.ToShortDateString()) &nbsp - &nbsp (@modul.EndDate.ToShortDateString())</a>
-                <p class="glyphicon glyphicon-pencil  Icon_toggle">&nbsp;</p>
             </div>
-            <div class="btn-group Settings collapse">
-                @*btn-group-lg*@
-                <a href="@Url.Action("Edit","Modul", new {id = modul.Id})" class="btn btn-primary Edit">Redigera</a> @*btn-lg*@
-                <a href="@Url.Action("Delete","Modul", new {id = modul.Id})" class="btn btn-danger Delete">Ta bort</a> @*btn-lg*@
-            </div>&nbsp;
+
             <span class="pull-right">
                 @Html.ActionLink("Aktiviter" + " (" + modul.NrOfActivitys + ")", "Index", "Activity", new { id = modul.Id }, new { @class = "btn btn-primary btn-lg" })
             </span>
 
+            <div class="pull-right">
+                <p class="glyphicon glyphicon-pencil  Icon_toggle" title="Redigera">&nbsp;</p>
+            </div>
+
+            <div class="btn-group Settings collapse pull-right">
+                @*btn-group-lg*@
+                <a href="@Url.Action("Edit","Modul", new {id = modul.Id})" class="btn btn-primary Edit">Redigera</a> @*btn-lg*@
+                <a href="@Url.Action("Delete","Modul", new {id = modul.Id})" class="btn btn-danger Delete">Ta bort</a> @*btn-lg*@
+            </div>&nbsp;
         </div>
 
 
@@ -149,7 +153,7 @@
             <div class="modal-body">
 
             </div>
-            <div class="">
+            <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
 
             </div>
@@ -163,7 +167,7 @@
 
         $(document).on('click', '.glyphicon-pencil', function () {
             $(this).closest('.panel').find(".Settings").toggle(0, "swing");
-            $(this).closest('p.glyphicon-pencil').toggleClass('Icon_toggle glyphicon-menu-left');
+            $(this).closest('p.glyphicon-pencil').toggleClass('Icon_toggle glyphicon-menu-right');
         }));
 </script>
 <script>

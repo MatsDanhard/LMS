@@ -180,7 +180,7 @@ namespace LmsTool.Controllers
 
         // POST: Activity/CreateAssignment
         [HttpPost]
-        public ActionResult CreateAssignment([Bind(Include = "Name,Description,Deadline,ActivityId,Activity,file")] AssignmentModel assignmentModel)
+        public ActionResult CreateAssignment([Bind(Include = "Name,Description,Deadline,ActivityId,Activity,file")] AssignmentModel assignmentModel, HttpPostedFileBase file)
         {
 
 
@@ -195,6 +195,13 @@ namespace LmsTool.Controllers
 
 
 
+                if (file != null && file.ContentLength > 0)
+                {
+                    string path = Path.Combine(Server.MapPath("~/Documents"), Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                }
+
+
                 foreach (var user in users)
                 {
                     AssignmentModel model = new AssignmentModel
@@ -205,8 +212,8 @@ namespace LmsTool.Controllers
                         Description = assignmentModel.Description,
                         Name = assignmentModel.Name,
                         UserId = user.Id,
-                        StudentName = user.FullName
-
+                        StudentName = user.FullName,
+                        Document = file?.FileName
                     };
                     db.Assignments.Add(model);
 
@@ -336,15 +343,24 @@ namespace LmsTool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,TypeOfActivity,Name,Description,Submission,StartDate,EndDate,ModulId")] ActivityModel activityModel)
+        public ActionResult Edit([Bind(Include = "Id,TypeOfActivity,Name,Description,Submission,StartDate,EndDate,ModulId,Document")] ActivityModel activityModel, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    string path = Path.Combine(Server.MapPath("~/Documents"), Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                    activityModel.Document = file.FileName;
+                }
+
                 var startDate = activityModel.StartDate.Date;
                 var endDate = activityModel.EndDate.Date;
 
                 activityModel.StartDate = startDate.AddHours(8);
                 activityModel.EndDate = endDate.AddHours(8);
+
 
                 db.Entry(activityModel).State = EntityState.Modified;
                 db.SaveChanges();

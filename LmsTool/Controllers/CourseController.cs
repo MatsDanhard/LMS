@@ -119,12 +119,22 @@ namespace LmsTool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,StartDate")] CourseModel courseModel)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,StartDate,Document")] CourseModel courseModel, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    string path = Path.Combine(Server.MapPath("~/Documents"), Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                    courseModel.Document = file.FileName;
+                }
+
+
                 var startDate = courseModel.StartDate.Date;
                 courseModel.StartDate = startDate.AddHours(8);
+
                 db.Entry(courseModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index","Home");
