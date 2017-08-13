@@ -30,6 +30,9 @@ namespace LmsTool.Models.DbModels
         [StringLength(5000, MinimumLength = 30, ErrorMessage = "Dokumentet behöver vara minst trettio tecken långt")]
         
         public string Document { get; set; }
+        
+        [Display(Name = "Återkoppling")]
+        public string Feedback { get; set; }
         public int ActivityId { get; set; }
         [Display(Name = "ElevId")]
         public string UserId { get; set; }

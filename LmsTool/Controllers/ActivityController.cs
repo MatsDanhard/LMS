@@ -14,6 +14,7 @@ using LmsTool.Models;
 using LmsTool.Models.DbModels;
 using LmsTool.Models.Viewmodels;
 using System.IO;
+using Microsoft.Ajax.Utilities;
 
 namespace LmsTool.Controllers
 {
@@ -130,21 +131,31 @@ namespace LmsTool.Controllers
 
 
         
-        public ActionResult ApproveHandler(int id, bool approved)  // To approve assignments for teacher
+        public ActionResult ApproveHandler(int id, bool approved, string feedback)  // To approve assignments for teacher
         {
 
             AssignmentModel model = db.Assignments.Find(id);
 
+            if (feedback.IsNullOrWhiteSpace())
+            {
+                feedback = "Ingen återkoppling";
+            }
+
             if (approved)
             {
+               
+
                 model.Approved = true;
+                model.Feedback = feedback;
 
                 db.Assignments.AddOrUpdate(model);
                 db.SaveChanges();
             }
             if (!approved)
             {
+                model.Redo = true;
                 model.Approved = false;
+                model.Feedback = feedback;
 
                 db.Assignments.AddOrUpdate(model);
                 db.SaveChanges();
@@ -180,7 +191,7 @@ namespace LmsTool.Controllers
 
         // POST: Activity/CreateAssignment
         [HttpPost]
-        public ActionResult CreateAssignment([Bind(Include = "Name,Description,Deadline,ActivityId,Activity,file")] AssignmentModel assignmentModel, HttpPostedFileBase file)
+        public ActionResult CreateAssignment([Bind(Include = "Name,Description,Deadline,ActivityId,Activity")] AssignmentModel assignmentModel, HttpPostedFileBase file)
         {
 
 
@@ -195,11 +206,7 @@ namespace LmsTool.Controllers
 
 
 
-                if (file != null && file.ContentLength > 0)
-                {
-                    string path = Path.Combine(Server.MapPath("~/Documents"), Path.GetFileName(file.FileName));
-                    file.SaveAs(path);
-                }
+                
 
 
                 foreach (var user in users)
@@ -213,7 +220,7 @@ namespace LmsTool.Controllers
                         Name = assignmentModel.Name,
                         UserId = user.Id,
                         StudentName = user.FullName,
-                        Document = file?.FileName
+                        Document = "",
                     };
                     db.Assignments.Add(model);
 
@@ -305,7 +312,7 @@ namespace LmsTool.Controllers
 
                         db.Activities.Add(model);
                         db.SaveChanges();
-                        return model.Submission ? RedirectToAction("CreateAssignment", new { id = model.Id }) : RedirectToAction("Index", "Home");
+                        return model.Submission ? RedirectToAction("CreateAssignment", new { id = model.Id }) : RedirectToAction("Index", "Activity",new {id = createActivity.ModulId});
                     }
 
                 }
