@@ -18,6 +18,7 @@ using Microsoft.Ajax.Utilities;
 
 namespace LmsTool.Controllers
 {
+    [Authorize(Roles = "Teacher")]
     public class ActivityController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

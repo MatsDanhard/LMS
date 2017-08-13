@@ -12,7 +12,7 @@ using System.IO;
 
 namespace LmsTool.Controllers
 {
-
+    [Authorize(Roles = "Teacher")]
     public class HomeController : Controller
     {
         ApplicationDbContext _db = new ApplicationDbContext();

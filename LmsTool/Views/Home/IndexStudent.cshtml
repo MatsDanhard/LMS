@@ -91,7 +91,7 @@ https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css
                 </div>
             </div>
         }
-        <div class="container-fluid row" style="padding: 0px; padding-top: 25px;">
+        <div class="container-fluid row" style="padding:0px">
             <div class="col-lg-6">
 
 
@@ -121,10 +121,10 @@ https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css
                     <div class="col-lg-6">
                         <div style="border:1px solid #31708f">
                             <table class="table">
-                                <caption class="Blue-box"><h2 class="text-center">Dagens Aktiviteter</h2></caption>
+                                <caption class="Blue-box"><h2 class="text-center">Idag</h2></caption>
                                 <tr>
                                     <th>Aktivitet</th>
-                                    <th>Aktivitetstyp</th>
+                                    <th>Typ</th>
                                     <th>Inlämning</th>
                                 </tr>
                                 @foreach (ActivityModel activity in Model.TodaysActivities)
@@ -173,7 +173,14 @@ https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css
                                                 <td><span class="badge" style="background-color:#5cb85c;color:black;">Godkänd</span></td>
                                             }
                                         }
-                                        <td>@Html.DisplayFor(modelitem => assignment.Deadline)</td>
+                                        @if (assignment.Deadline < DateTime.Now)
+                                        {
+                                        <td><span class="badge" style="background-color:indianred">@Html.DisplayFor(modelitem => assignment.Deadline)</span></td>
+                                        }
+                                        else
+                                        {
+                                        <td>@Html.DisplayFor(modelitem => assignment.Deadline)</td> 
+                                        }
                                     </tr>
                                 }
                             </table>
