@@ -18,7 +18,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LmsTool.Controllers
 {
-    
+    [Authorize(Roles = "Teacher")]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -63,8 +63,18 @@ namespace LmsTool.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Teacher"))
+                {
+                    return RedirectToAction("index", "Home");
+                }
+                return RedirectToAction("Index", "Student");
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
+
+            
         }
 
         //
@@ -147,7 +157,7 @@ namespace LmsTool.Controllers
         {
             RegisterViewModel model = new RegisterViewModel{CourseId = id};
 
-            return View(model);
+            return PartialView(model);
         }
 
         //
@@ -170,9 +180,48 @@ namespace LmsTool.Controllers
 
                 ViewBag.Succes = "Elev skapad";
 
-                return RedirectToAction("Register");
+                return RedirectToAction("index","Course", new {id = model.CourseId});
                 
                
+            }
+            ViewBag.EmailExist = "Eposten du försöker lägga till existerar redan";
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        //
+        // GET: /Account/Register
+
+        public ActionResult RegisterTeacher()
+        {
+            RegisterViewModelTeacher model = new RegisterViewModelTeacher();
+
+            return PartialView(model);
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+
+        [ValidateAntiForgeryToken]
+        public /*async Task<*/ActionResult/*>*/ RegisterTeacher(RegisterViewModelTeacher model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var store = new UserStore<ApplicationUser>(db);
+                var manager = new ApplicationUserManager(store);
+                var user = new ApplicationUser() { Email = model.Email, UserName = model.Email, FullName = model.FullName };
+                manager.Create(user, model.Password);
+
+                ApplicationUser studenUser = manager.FindByName(model.Email);
+                manager.AddToRole(studenUser.Id, "Teacher");
+
+                ViewBag.Succes = "Lärare skapad";
+
+                return RedirectToAction("index", "Manage");
+
+
             }
             ViewBag.EmailExist = "Eposten du försöker lägga till existerar redan";
             // If we got this far, something failed, redisplay form
@@ -395,6 +444,7 @@ namespace LmsTool.Controllers
         //
         // POST: /Account/LogOff
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
@@ -441,7 +491,7 @@ namespace LmsTool.Controllers
 
                 //db.SaveChanges();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Course", new {id =user.CourseId});
             }
             return PartialView(model);
         }
@@ -452,7 +502,7 @@ namespace LmsTool.Controllers
         {
 
             var student = db.Users.Find(id);
-            ViewStudents model = new ViewStudents{Id = student.Id, Email = student.Email, FullName = student.FullName, Assignments = student.Assignments.ToList()};
+            ViewStudents model = new ViewStudents{Id = student.Id, Email = student.Email, FullName = student.FullName};
 
             return PartialView(model);
         }
@@ -467,11 +517,13 @@ namespace LmsTool.Controllers
             {
                 var store = new UserStore<ApplicationUser>(db);
                 var manager = new ApplicationUserManager(store);
-
                 
                 var user = manager.FindById(id);
 
                 var rolesForUser =  manager.GetRoles(id);
+
+                //if (rolesForUser.First() == "Teacher" && db.Users.Where(g => g.Roles.Select(r => r.RoleId).Contains("Teacher")).ToList().Count() == 1)
+                //                                         db.Users.Where(g => g.CourseId == null).Count() == 1
 
                 using (var transaction = db.Database.BeginTransaction())
                 {
@@ -489,7 +541,7 @@ namespace LmsTool.Controllers
                     transaction.Commit();
                 }
 
-                return RedirectToAction("Index", "home");
+                return RedirectToAction("Index", "Course", new {id = user.CourseId});
             }
             else
             {

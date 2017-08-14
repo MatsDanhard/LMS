@@ -15,7 +15,7 @@ namespace LmsTool.Models
         public string FullName { get; set; }
         public int? CourseId { get; set; }
         public virtual CourseModel Course{ get; set; }
-        public virtual ICollection<AssignmentModel> Assignments { get; set; }
+        
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -41,6 +41,12 @@ namespace LmsTool.Models
         }
 
         public System.Data.Entity.DbSet<LmsTool.Models.Viewmodels.ViewStudents> ViewStudents { get; set; }
+
+        public System.Data.Entity.DbSet<LmsTool.Models.RegisterViewModel> RegisterViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<LmsTool.Models.Viewmodels.ViewModuls> ViewModuls { get; set; }
+
+        public System.Data.Entity.DbSet<LmsTool.Models.RegisterViewModelTeacher> RegisterViewModelTeachers { get; set; }
 
 
         //public System.Data.Entity.DbSet<LmsTool.Models.ApplicationUser> ApplicationUsers { get; set; }

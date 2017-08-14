@@ -18,6 +18,8 @@ namespace LmsTool.Models.Viewmodels
         //private string ms = "";
 
         [Display(Name = "Aktivitetens namn")]
+        [Required]
+        [StringLength(30, MinimumLength = 3, ErrorMessage = "Namnet behöver vara minst tre tecken långt")]
         public string Name { get; set; }
         [Display(Name = "Modulens namn")]
         public string ModulName { get; set; }
@@ -26,12 +28,13 @@ namespace LmsTool.Models.Viewmodels
         [Display(Name = "Beskrivning")]
         public string Description { get; set; }
         [Display(Name = "Startdatum")]
+        [DataType(DataType.Date, ErrorMessage = "Datumet är inte korrekt angivet")]
         //[Range(typeof(DateTime), ms, DisplayModulEnd, ErrorMessage ="Datumet måste vara mellan {1} {2}")]
-        public DateTime ActivityStart { get; set; } 
+        public DateTime ActivityStart { get; set; } = DateTime.Now;
         [Display(Name = "Slutdatum")]
         public DateTime ActivityEnd { get; set; }
-        public DateTime ModulStart { get; set; }
-        public DateTime ModulEnd { get; set; }  
+        public DateTime ModulStart { get; set; } 
+        public DateTime ModulEnd { get; set; } 
         public string DisplayModulStart { get; set; }
         public string DisplayModulEnd { get; set; }
         public int ModulId { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
@@ -53,10 +54,11 @@ namespace LmsTool.Controllers
 
         //
         // GET: /Manage/Index
+        [Authorize(Roles = "Teacher, Student")]
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                message == ManageMessageId.ChangePasswordSuccess ? "Lösenordet har ändrats."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
@@ -78,6 +80,7 @@ namespace LmsTool.Controllers
 
         //
         // POST: /Manage/RemoveLogin
+        [Authorize(Roles = "Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
@@ -102,6 +105,7 @@ namespace LmsTool.Controllers
 
         //
         // GET: /Manage/AddPhoneNumber
+        [Authorize(Roles = "Teacher")]
         public ActionResult AddPhoneNumber()
         {
             return View();
@@ -109,6 +113,7 @@ namespace LmsTool.Controllers
 
         //
         // POST: /Manage/AddPhoneNumber
+        [Authorize(Roles = "Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
@@ -133,6 +138,7 @@ namespace LmsTool.Controllers
 
         //
         // POST: /Manage/EnableTwoFactorAuthentication
+        [Authorize(Roles = "Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EnableTwoFactorAuthentication()
@@ -148,6 +154,7 @@ namespace LmsTool.Controllers
 
         //
         // POST: /Manage/DisableTwoFactorAuthentication
+        [Authorize(Roles = "Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DisableTwoFactorAuthentication()
@@ -163,6 +170,7 @@ namespace LmsTool.Controllers
 
         //
         // GET: /Manage/VerifyPhoneNumber
+        [Authorize(Roles = "Teacher")]
         public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
         {
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
@@ -172,6 +180,7 @@ namespace LmsTool.Controllers
 
         //
         // POST: /Manage/VerifyPhoneNumber
+        [Authorize(Roles = "Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
@@ -197,6 +206,7 @@ namespace LmsTool.Controllers
 
         //
         // POST: /Manage/RemovePhoneNumber
+        [Authorize(Roles = "Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemovePhoneNumber()
@@ -216,20 +226,22 @@ namespace LmsTool.Controllers
 
         //
         // GET: /Manage/ChangePassword
+        [Authorize(Roles = "Teacher, Student")]
         public ActionResult ChangePassword()
         {
-            return View();
+            return PartialView();
         }
 
         //
         // POST: /Manage/ChangePassword
+        [Authorize(Roles = "Teacher, Student")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return PartialView(model);
             }
             var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
             if (result.Succeeded)
@@ -241,6 +253,11 @@ namespace LmsTool.Controllers
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
+
+            
+            
+            
+
             AddErrors(result);
             return View(model);
         }
@@ -279,6 +296,7 @@ namespace LmsTool.Controllers
 
         //
         // GET: /Manage/ManageLogins
+        [Authorize(Roles = "Teacher")]
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -302,6 +320,7 @@ namespace LmsTool.Controllers
 
         //
         // POST: /Manage/LinkLogin
+        [Authorize(Roles = "Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LinkLogin(string provider)
@@ -312,6 +331,7 @@ namespace LmsTool.Controllers
 
         //
         // GET: /Manage/LinkLoginCallback
+        [Authorize(Roles = "Teacher")]
         public async Task<ActionResult> LinkLoginCallback()
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());

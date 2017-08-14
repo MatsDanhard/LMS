@@ -1,14 +1,98 @@
-﻿@model IEnumerable<LmsTool.Models.Viewmodels.ViewStudents>
+﻿@using LmsTool.Models
+@using LmsTool.Models.Viewmodels
+@model IEnumerable<LmsTool.Models.Viewmodels.ViewStudents>
 
+
+
+@***************************************************************
+
+För att visa elever i kursen
+
+
+***************************************************************@
+
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
-
+<h2>@ViewBag.CourseName</h2>
+@if (User.IsInRole("Teacher"))
+{
 <p>
-    @Html.ActionLink("Lägg till elev", "Register", "Account", new {id = ViewBag.CurrentModul},null)
+    <a href="@Url.Action("register", "Account", new { id = ViewBag.CurrentCourse })"  class = "btn btn-success Create btn-md" >Skapa elev</a>
 </p>
+}
+@using (Ajax.BeginForm(null, null, null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "frmCreate",
+    InsertionMode = InsertionMode.Replace
+}, new { @id = "frmID1" }))
+
+{
+
+    <div>
+        <div class="container row collapse" id="CreateWindow">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4">
+
+                <div id="frmCreate">
+
+                    @Html.Partial("~/Views/Account/Register.cshtml", new RegisterViewModel())
+
+
+                </div>
+            </div>
+            <div class="col-xs-4">
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+}
+
+@using (Ajax.BeginForm(null, null, null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "frmEdit",
+    InsertionMode = InsertionMode.Replace
+}, new { @id = "frmID2" }))
+
+{
+
+    <div>
+        <div class="container row collapse" id="EditWindow">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4">
+
+                <div id="frmEdit">
+
+                    @Html.Partial("~/Views/Account/Edit.cshtml", new ViewStudents())
+
+
+                </div>
+            </div>
+            <div class="col-xs-4">
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+}
+
 <table class="table">
     <tr>
         <th>
@@ -26,14 +110,102 @@
             @Html.DisplayFor(modelItem => item.FullName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Email)
+            <a href="mailto:@item.Email" class="glyphicon glyphicon-envelope"></a>&nbsp;@Html.DisplayFor(modelItem => item.Email)
         </td>
+@if (User.IsInRole("Teacher"))
+{
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+
+            <a href="@Url.Action("Edit", "Account", new { id = item.Id })"  class="btn btn-primary Edit">Redigera</a>
+
+
+            <a href="@Url.Action("Delete", "Account", new { id = item.Id })"  class="btn btn-danger Delete">Tabort</a>
+            <a href="@Url.Action("AllAssignmentsForStudent", "Activity", new { id = item.Id })" class="btn btn-primary">Inlämningsuppgifter</a>
+            
+            
         </td>
+}
     </tr>
 }
 
 </table>
+
+<div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">Ta bort Elev</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(
+        $(document).on('click', '.Create', function () {
+            if ($('#EditWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+            }
+            else {
+                $(this).closest('.container').find("#EditWindow").toggle("fast", "swing");
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+
+            }
+        }));
+
+</script>
+<script>
+    $(document).ready(
+        $(document).on('click', '.Edit', function () {
+            if ($('#CreateWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#EditWindow").toggle("fast", "swing");
+            }
+            else {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+                $(this).closest('.container').find("#EditWindow").toggle("fast", "swing");
+
+            }
+
+
+        }));
+
+</script>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.Create').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('#frmCreate').html(response);
+            });
+
+        });
+        $('.Edit').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('#frmEdit').html(response);
+            });
+
+        });
+        $('.Delete').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('.modal-body').html(response);
+            });
+            $('#ModalDelete').modal({
+                backdrop: 'static',
+            }, 'show');
+        });
+    });
+</script>

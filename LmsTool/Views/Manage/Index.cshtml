@@ -1,42 +1,71 @@
-﻿@model LmsTool.Models.IndexViewModel
+﻿@using LmsTool.Models.DbModels
+@using LmsTool.Models
+@model LmsTool.Models.IndexViewModel
 @{
-    ViewBag.Title = "Manage";
+    ViewBag.Title = "Användarinställningar";
 }
 
-<h2>@ViewBag.Title.</h2>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<h1>@ViewBag.Title.</h1>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
+<hr />
+
+
+<div @*class="col-md-2"*@>
+    <div>
+        @*<h4>Ändra ditt lösenord</h4>*@
+
+
+
+
+
+
+        @*<div>
+                <p>
+                    <a href="@Url.Action("ChangePassword", "Manage")" class="btn btn-primary Password">Byt lösenord</a>
+                </p>
+            </div>*@
+
+        <a href="/Manage/ChangePassword" class="btn btn-primary Password">Byt lösenord</a>
+
+
+        @*<dl class="dl-horizontal">
+            <dt>Lösenord:</dt>
+            <dd>
+                [
+                @if (Model.HasPassword)
+                {
+                    @Html.ActionLink("Byt lösenord", "ChangePassword")
+                }
+                else
+                {
+                    @Html.ActionLink("Create", "SetPassword")
+                }
+                ]
+            </dd>*@
+        @*<dt>External Logins:</dt>
+            <dd>
+                @Model.Logins.Count [
+                @Html.ActionLink("Manage", "ManageLogins") ]
+            </dd>*@
         @*
             Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
+
              See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
                 for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
+
              Uncomment the following block after you have set up two-factor authentication
         *@
-        @*  
+        @*
             <dt>Phone Number:</dt>
             <dd>
                 @(Model.PhoneNumber ?? "None")
@@ -56,32 +85,197 @@
                 }
             </dd>
         *@
-        <dt>Two-Factor Authentication:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
-            @*@if (Model.TwoFactor)
+        @*<dt>Two-Factor Authentication:</dt>
+            <dd>
+                <p>
+                    There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                    for details on setting up this ASP.NET application to support two-factor authentication.
+                </p>*@
+        @*@if (Model.TwoFactor)
+            {
+                using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
-                        </text>
-                    }
+                    @Html.AntiForgeryToken()
+                    <text>Enabled
+                    <input type="submit" value="Disable" class="btn btn-link" />
+                    </text>
                 }
-                else
+            }
+            else
+            {
+                using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        </dd>
-    </dl>
+                    @Html.AntiForgeryToken()
+                    <text>Disabled
+                    <input type="submit" value="Enable" class="btn btn-link" />
+                    </text>
+                }
+            }*@
+        @*</dd>*@
+        @*</dl>*@
+
+    </div>
+    <div>
+        @if (User.IsInRole("Teacher"))
+        {
+            <br />
+            <div>
+                <p>
+                    <a href="@Url.Action("RegisterTeacher", "Account")" class="btn btn-primary Create">Registrera lärare</a>
+                </p>
+            </div>
+        }
+    </div>
 </div>
+<div>
+    @using (Ajax.BeginForm(null, null, null, new AjaxOptions
+            {
+                HttpMethod = "POST",
+                UpdateTargetId = "frmCreate",
+                InsertionMode = InsertionMode.Replace
+            }, new { @id = "frmID1" }))
+
+            {
+        <div class="container row collapse" id="CreateWindow">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4">
+
+                <h3>Registrera en lärare</h3>
+                <div id="frmCreate">
+
+                </div>
+            </div>
+            <div class="col-xs-4"></div>
+
+        </div>
+    }
+
+    @using (Ajax.BeginForm(null, null, null, new AjaxOptions
+            {
+                HttpMethod = "POST",
+                UpdateTargetId = "frmPassword",
+                InsertionMode = InsertionMode.Replace
+            }, new { @id = "frmID2" }))
+
+            {
+        <div class="container row collapse" id="PasswordWindow">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4">
+
+                <h3>Nytt lösenord</h3>
+                <div id="frmPassword">
+
+                </div>
+            </div>
+            <div class="col-xs-4"></div>
+
+        </div>
+    }
+</div>
+
+@*<div class="modal fade" id="ModalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Registrera Lärare</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalPassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel1">Byt lösenord</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
+
+                </div>
+            </div>
+        </div>
+    </div>*@
+@*<script>
+        $(document).ready(function () {
+            $('.Create').click(function (event) {
+                event.preventDefault();
+                $.get(this.href, function (response) {
+                    $('.modal-body').html(response);
+                });
+                $('#ModalCreate').modal({
+                    backdrop: 'static',
+                }, 'show');
+            });
+            $('.Password').click(function (event) {
+                event.preventDefault();
+                $.get(this.href, function (response) {
+                    $('.modal-body').html(response);
+                });
+                $('#ModalPassword').modal({
+                    backdrop: 'static',
+                }, 'show');
+            });
+        });
+    </script>*@
+
+<script>
+    $(document).ready(function () {
+        $('.Create').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('#frmCreate').html(response);
+            });
+
+        });
+        $('.Password').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('#frmPassword').html(response);
+            });
+
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(
+        $(document).on('click', '.Create', function () {
+            if ($('#PasswordWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+            }
+            else {
+                $(this).closest('.container').find("#PasswordWindow").toggle("fast", "swing");
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+
+            }
+        }));
+
+</script>
+<script>
+    $(document).ready(
+        $(document).on('click', '.Password', function () {
+            if ($('#CreateWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#PasswordWindow").toggle("fast", "swing");
+            }
+            else {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+                $(this).closest('.container').find("#PasswordWindow").toggle("fast", "swing");
+
+            }
+
+
+        }));
+
+</script>

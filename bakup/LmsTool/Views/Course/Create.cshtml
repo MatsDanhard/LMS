@@ -1,0 +1,72 @@
+﻿@using Action = Antlr.Runtime.Misc.Action
+@model LmsTool.Models.DbModels.CourseModel
+
+
+
+@using (Ajax.BeginForm("Create", "course", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ModalCreate", OnSuccess = "$('close').click()" }, new { id = Model.Id }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+       
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+           
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+          
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+           
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+           
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label" })
+           
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @id = "dt1", @class = "form-control" }  })
+                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+           
+        </div>
+
+        <div class="form-group">
+            <div @*class="col-md-offset-2 col-md-10"*@>
+                <input type="submit" value="Skapa" class="btn btn-success btn-block" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    $('.modal').on('hidden.bs.modal', function () {
+        $(this).removeData('bs.modal').children('.modal-content').html('');
+        });
+
+</script>
+<script>
+    $(document).ready(function () {
+
+        $("#dt1").datepicker({
+            dateFormat: "dd-mm-yy",
+            minDate: 0,
+            onSelect: function () {
+                var date2 = $('#dt1').datepicker('getDate');
+                date2.setDate(date2.getDate() + 1);
+                $('#dt2').datepicker('setDate', date2);
+                //sets minDate to dt1 date + 1
+                $('#dt2').datepicker('option', 'minDate', date2);
+            }
+        });
+    });
+</script>

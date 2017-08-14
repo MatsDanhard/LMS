@@ -1,0 +1,53 @@
+﻿body {
+ 
+}
+
+.navbar {
+    display: none;
+}
+
+.avatar {
+    align-content:center;
+    max-width: 280px;
+    border-radius: 50%;
+}
+
+h1 {
+    display: none;
+}
+
+.imgContainer {
+    text-align: center;
+}
+
+#loginForm {
+    text-align: center;
+}
+
+.form-control {
+    text-align: center;
+}
+
+.col-centered {
+    margin: 0 auto;
+    float: none;
+}
+
+.submit-button {
+    margin: 0 auto;
+    float: none;
+}
+
+footer {
+    display: none;
+}
+
+hr {
+    display: none;
+}
+
+input,
+select,
+textarea {
+    max-width: 280px;
+}

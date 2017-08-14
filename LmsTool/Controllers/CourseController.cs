@@ -13,9 +13,11 @@ using LmsTool.Models;
 using LmsTool.Models.DbModels;
 using LmsTool.Models.Viewmodels;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.IO;
 
 namespace LmsTool.Controllers
 {
+    [Authorize(Roles = "Teacher")]
     public class CourseController : Controller
     {
        
@@ -23,20 +25,66 @@ namespace LmsTool.Controllers
        
 
         // GET: Course
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? id) // För elevlistan
         {
-            ViewBag.currentModul = id;
-            var Students = db.Users.Include(model => model.Assignments).Where(model => model.CourseId == id).ToList();
+
+            if (id == null)
+            {
+                ViewBag.CourseName = "Lärarlista";
+
+                var Teachers = db.Users.Where(model => model.CourseId == null)
+                    .OrderBy(n => n.FullName)
+                    .ToList();
+
+
+                List<ViewStudents> ListTeachers = new List<ViewStudents>();
+
+                foreach (var user in Teachers)
+                {
+                    ListTeachers.Add(new ViewStudents { Id = user.Id, Email = user.Email, FullName = user.FullName, Assignments = db.Assignments.Where(a => a.UserId == user.Email).ToList() });
+                }
+
+                return View("IndexTeacherView", ListTeachers);
+
+            }
+
+
+            ViewBag.CourseName = "Elevlista för - " + db.Courses.Find(id).Name;
+
+            ViewBag.CurrentCourse = id;
+            var Students = db.Users.Where(model => model.CourseId == id)
+                .OrderBy(n => n.FullName)
+                .ToList();
 
             List<ViewStudents> listStudents = new List<ViewStudents>();
 
             foreach (var user in Students)
             {
-                listStudents.Add( new ViewStudents{Id = user.Id,Email = user.Email, FullName = user.FullName, Assignments = user.Assignments.ToList()});
+                listStudents.Add( new ViewStudents{Id = user.Id,Email = user.Email, FullName = user.FullName, Assignments = db.Assignments.Where(a => a.UserId == user.Email).ToList()});
             }
 
             return View(listStudents);
         }
+
+        //public ActionResult TeacherList(int? id) // För elevlistan
+        //{
+            
+
+        //    ViewBag.CurrentCourse = id;
+        //    var Students = db.Users.Where(model => model.CourseId == id)
+        //        .OrderBy(n => n.FullName)
+        //        .ToList();
+
+        //    List<ViewStudents> listTeachers = new List<ViewStudents>();
+
+        //    foreach (var user in Students)
+        //    {
+        //        listTeachers.Add(new ViewStudents { Id = user.Id, Email = user.Email, FullName = user.FullName, Assignments = db.Assignments.Where(a => a.UserId == user.Email).ToList() });
+        //    }
+
+        //    return View(listTeachers);
+        //}
+
 
         // GET: Course/Details/5
         public ActionResult Details(int? id)
@@ -68,24 +116,32 @@ namespace LmsTool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,StartDate")] CourseModel courseModel)
+
+        public ActionResult Create([Bind(Include = "Id,Name,Description,StartDate,file")] CourseModel courseModel, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                CourseModel course = new CourseModel
-                {
-                    Id = courseModel.Id, Description = courseModel.Description, Name = courseModel.Name, StartDate = Convert.ToDateTime(courseModel.StartDate)
-                };
+                var startDate = courseModel.StartDate.Date;
 
+                if (file != null && file.ContentLength > 0)
+                {
+                    string path = Path.Combine(Server.MapPath("~/Documents"), Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                    courseModel.Document = file.FileName;
+                }
+
+                courseModel.StartDate = startDate.AddHours(8);
 
                 db.Courses.Add(courseModel);
                 db.SaveChanges();
-                return RedirectToAction("Index","Home");
+                //TempData["postResult"] = "Saved!";
+                return RedirectToAction("Index", "Home");
             }
-
-             return PartialView(courseModel); 
+            ModelState.AddModelError("",@"Kunde ej spara kursen");
+            
+             return PartialView("Create",courseModel); 
         }
-
+       
         // GET: Course/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -106,10 +162,22 @@ namespace LmsTool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,StartDate")] CourseModel courseModel)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,StartDate,Document")] CourseModel courseModel, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    string path = Path.Combine(Server.MapPath("~/Documents"), Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                    courseModel.Document = file.FileName;
+                }
+
+
+                var startDate = courseModel.StartDate.Date;
+                courseModel.StartDate = startDate.AddHours(8);
+
                 db.Entry(courseModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index","Home");
@@ -156,35 +224,11 @@ namespace LmsTool.Controllers
             return RedirectToAction("Index","Home");
         }
 
-        //public ActionResult AddStudent(int id)
-        //{
-
-
-
-        //    AddStudent model = new AddStudent{CourseId = id};
-
-
-        //    return PartialView(model);
-
-
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult AddStudent([Bind(Include = "CourseId,FullName,Email")] AddStudent model)
-        //{
-        //    UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(db);
-        //    UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(userStore);
-
-        //    var query = db.ApplicationUsers.ToList().FirstOrDefault(u => u.Email == model.Email);
-
-        //    if (query != null)
-        //    {
-        //        return RedirectToAction("AddStudent", model);
-        //    }
-
-            
-        //    return View("");
-        //}
+        public FileResult Download(string FileName)
+        {
+            var FileVirtualPath = "~/Documents/" + FileName;
+            return File(FileVirtualPath, "application/force-download", Path.GetFileName(FileVirtualPath));
+        }
 
         protected override void Dispose(bool disposing)
         {

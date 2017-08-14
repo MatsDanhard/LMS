@@ -1,82 +1,255 @@
-﻿@model IEnumerable<LmsTool.Models.DbModels.ModulModel>
+﻿@using LmsTool.Models.DbModels
+@using LmsTool.Models.Viewmodels
+@model IEnumerable<LmsTool.Models.Viewmodels.ViewModuls>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>@Html.DisplayFor(model => model.First().Course.Name)</h2>
+<h1>@ViewBag.CourseName</h1>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
 
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <p>
-    
-    
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalContainer" href="@Url.Action("Create","Modul", new {id = ViewBag.CurrentCourse})">
-        Skapa ny modul
-    </button>
+
     @if (ViewBag.Infomodul != null)
     {
         <h3 class="alert alert-success">@ViewBag.InfoModul</h3>
     }
     @if (ViewBag.ErrorModul != null)
     {
-        <h2 class="alert alert-warning">@ViewBag.ErrorModul</h2>
+        <h3 class="alert alert-warning">@ViewBag.ErrorModul</h3>
     }
+    <a href="@Url.Action("Create","Modul", new {id = ViewBag.CurrentCourse})" class="btn btn-success Create">Skapa modul</a>
 </p>
-<table class="table">
-    <tr>
-        
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model) {
-        <tr>
-           
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-            </td>
-        </tr>
-    }
+@using (Ajax.BeginForm(null, null, null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "frmCreate",
+    InsertionMode = InsertionMode.Replace
+}, new { @id = "frmID1" }))
 
-</table>
-<div class="modal fade" id="ModalContainer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+{
+
+    <div>
+        <div class="container row collapse" id="CreateWindow">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-6">
+
+                <div id="frmCreate">
+
+                    @Html.Partial("~/Views/Modul/Create.cshtml", new ModulModel())
+
+
+
+                </div>
+            </div>
+            <div class="col-xs-3">
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+}
+
+@using (Ajax.BeginForm(null, null, null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "frmEdit",
+    InsertionMode = InsertionMode.Replace
+}, new { @id = "frmID2" }))
+
+{
+
+    <div>
+        <div class="container row collapse EditWindow">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-6">
+
+                <div id="frmEdit">
+
+                    @Html.Partial("~/Views/Modul/Edit.cshtml", new ModulModel())
+
+
+                </div>
+            </div>
+            <div class="col-xs-3">
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+}
+
+@foreach (ViewModuls modul in Model)
+{
+    <div class="panel panel-info">
+
+
+        <div class="panel-heading Icon-Fontsize">
+            <div class="pull-left">
+                <p class="glyphicon glyphicon-menu-down pull-left" title="Beskrivning">&nbsp;</p>
+                <a class="inactiveLink">@modul.Name</a> <a class="DateOnDiv inactiveLink">(@modul.StartDate.ToShortDateString()) &nbsp - &nbsp (@modul.EndDate.ToShortDateString())</a>
+            </div>
+
+            <span class="pull-right">
+                @Html.ActionLink("Aktiviter" + " (" + modul.NrOfActivitys + ")", "Index", "Activity", new { id = modul.Id }, new { @class = "btn btn-primary btn-lg" })
+            </span>
+
+            <div class="pull-right">
+                <p class="glyphicon glyphicon-pencil  Icon_toggle" title="Redigera">&nbsp;</p>
+            </div>
+
+            <div class="btn-group Settings collapse pull-right">
+                @*btn-group-lg*@
+                <a href="@Url.Action("Edit","Modul", new {id = modul.Id})" class="btn btn-primary Edit">Redigera</a> @*btn-lg*@
+                <a href="@Url.Action("Delete","Modul", new {id = modul.Id})" class="btn btn-danger Delete">Ta bort</a> @*btn-lg*@
+            </div>&nbsp;
+        </div>
+
+
+        <div class=" panel-body Expandable collapse">
+            <div>
+                <h4>Beskrivning</h4>
+                <section class="text-columns">
+                    @modul.Description
+                </section>
+                @if (modul.Document != null)
+                {
+                    <section>
+                        <h4>Dokument</h4>
+                        @Html.ActionLink(modul.Document.ToString(), "Download", new { FileName = modul.Document })
+                    </section>
+                }
+            </div>
+
+        </div>
+
+    </div>
+
+}
+
+
+
+<div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title" id="myModalLabel2">Ta bort modul</h4>
             </div>
             <div class="modal-body">
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
 
             </div>
         </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(
+
+        $(document).on('click', '.glyphicon-pencil', function () {
+            $(this).closest('.panel').find(".Settings").toggle(0, "swing");
+            $(this).closest('p.glyphicon-pencil').toggleClass('Icon_toggle glyphicon-menu-right');
+        }));
+</script>
+<script>
+    $(document).ready(
+        $(document).on('click', '.glyphicon-menu-down', function () {
+            $(this).closest('.panel').find(".Expandable").toggle("fast", "swing");
+        }));
+</script>
+<script>
+    $(document).ready(
+        $(document).on('click', '.Create', function () {
+            if ($('.EditWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+            }
+            else {
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+
+            }
+        }));
+
+</script>
+<script>
+    $(document).ready(
+        $(document).on('click', '.Edit', function () {
+            if ($('.EditWindow').css('display') != 'none') {
+                $('.panel a.selected').not(this).removeClass('selected');
+                $(this).toggleClass('selected');
+                if ($(this).hasClass('selected')) {
+                    //alert('Unselected');
+                }
+                else {
+                    //alert('Selected');
+                    $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+                }
+            }
+            else if ($('#CreateWindow').css('display') == 'none' && $('.EditWindow').css('display') == 'none') {
+                $(this).toggleClass('selected');
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+            }
+            else if ($('#CreateWindow').css('display') != 'none' && $('.EditWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
+                $(this).toggleClass('selected');
+            }
+        }));
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.Create').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('#frmCreate').html(response);
+            });
+
+        });
+        $('.Edit').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('#frmEdit').html(response);
+            });
+
+        });
+        $('.Delete').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('.modal-body').html(response);
+            });
+            $('#ModalDelete').modal({
+                backdrop: 'static',
+            }, 'show');
+        });
+    });
+</script>

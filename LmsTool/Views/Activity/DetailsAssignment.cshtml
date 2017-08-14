@@ -1,0 +1,65 @@
+﻿@model LmsTool.Models.DbModels.AssignmentModel
+
+<div>
+    <dl @*class="dl-horizontal"*@>
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.TypeOfActivity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity.TypeOfActivity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Submitted)
+        </dt>
+        @if (Model.Submitted == null)
+        {
+            <dd>
+                Nej
+            </dd>
+        }
+
+        @if (Model.Submitted != null)
+        {
+            @Html.DisplayFor(model => model.Submitted)
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Deadline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Deadline)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Document)
+        </dt>
+
+        <dd>
+            @Html.TextAreaFor(model => model.Document, new { @readonly = true })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentName)
+        </dd>
+       
+
+    </dl>
+</div>
+<p>
+    <a class="btn btn-primary btn-success btn-block" href="@Url.Action("ApproveHandler", "Activity", new { id = Model.Id, approved = true } )">Godkänd</a> 
+
+    <a class="btn btn-primary btn-danger btn-block" href="@Url.Action("ApproveHandler", "Activity", new { id = Model.Id, approved = false } )">Ej Godkänd</a> 
+</p>

@@ -1,0 +1,124 @@
+﻿@model IEnumerable<LmsTool.Models.DbModels.AssignmentModel>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "IndexAssignment";
+}
+
+
+<div class="panel panel-info">
+    <div class=" panel-heading">
+        <h2>@Model.FirstOrDefault().Name i aktiviteten @Model.FirstOrDefault().Activity.Name</h2>
+        <h3>
+            Deadline @Model.FirstOrDefault().Deadline.ToShortDateString()
+            @Model.FirstOrDefault().Deadline.ToShortTimeString()
+        </h3>
+
+    </div>
+        <div>
+            <div class="panel panel-body">
+                <div class="panel panel-primary">
+                    <div class=" panel-heading">
+                        <label>Beskrivning</label>
+                    </div>
+                    <div class="panel panel-content">
+                        <section class="text-columns">
+                            @Model.FirstOrDefault().Description
+                        </section>
+                    </div>
+                </div>
+                <br />
+
+
+
+            </div>
+
+            <table class="table">
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.StudentName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Submitted)
+                    </th>
+
+
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+            {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentName)
+                        </td>
+                        @if (item.Submitted == null)
+                        {
+                            <td><span class="label label-warning" style="color:black;">Nej</span></td>
+                        }
+                        @if (item.Submitted != null)
+                        {
+                            <td>
+                                <span class="label label-success">@Html.DisplayFor(modelItem => item.Submitted)</span>
+                            </td>
+                        }
+
+
+
+                        <td>
+                            @if (item.Submitted != null && item.Approved == false)
+                {
+                                <a href="@Url.Action("DetailsAssignment", "Activity", new {id = item.Id})" class="btn btn-primary btn-lg Details">Granska</a>
+                            }
+                            else if (item.Submitted != null && item.Approved == true)
+                            {
+                                <a href="@Url.Action("DetailsAssignment", "Activity", new {id = item.Id})" class="btn btn-success btn-lg Details">Godkänd</a>
+                            }
+                           
+                            
+
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div></div>
+        <div class="modal fade" id="ModalDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel1">Granska</h4>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div @*class="modal-footer"*@>
+                        <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Avbryt</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $('.Details').click(function (event) {
+                    event.preventDefault();
+                    $.get(this.href, function (response) {
+                        $('.modal-body').html(response);
+                    });
+                    $('#ModalDetails').modal({
+                        backdrop: 'static',
+                    }, 'show');
+                });
+            });
+        </script>
