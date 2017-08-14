@@ -206,7 +206,7 @@
                         <a href="@Url.Action("Delete", "Activity", new { id = item.Id })" class="btn btn-danger btn-md Delete">Ta bort</a>
                         @if (item.Assignments != null && item.Assignments.Count > 0 && item.Assignments.First().Deadline < DateTime.Now)
                         {
-                            @Html.ActionLink("Inlämningsuppgifter (" + nrDelayed + ")", "IndexAssignment", "Activity", new { id = item.Id }, new { @class = "btn btn-primary btn-md alert-warning" })
+                            @Html.ActionLink("Inlämningsuppgifter (" + nrDelayed + ")", "IndexAssignment", "Activity", new { id = item.Id }, new { @class = "btn btn-primary btn-md alert-danger" })
 
                         }
                         else if (item.Assignments != null && item.Assignments.Count > 0)
