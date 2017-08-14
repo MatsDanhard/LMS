@@ -31,8 +31,7 @@ namespace LmsTool.Models.DbModels
         
         public string Document { get; set; }
         
-        [Display(Name = "Återkoppling")]
-        public string Feedback { get; set; }
+       
         public int ActivityId { get; set; }
         [Display(Name = "ElevId")]
         public string UserId { get; set; }

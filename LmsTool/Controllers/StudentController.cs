@@ -106,7 +106,7 @@ namespace LmsTool.Controllers
             AssignmentModel assignment = db.Assignments.Find(id);
             assignment.Document = null;
             assignment.Submitted = null;
-            assignment.Feedback = null;
+            
             assignment.Redo = false;
             db.Entry(assignment).State = EntityState.Modified;
             db.SaveChanges();
