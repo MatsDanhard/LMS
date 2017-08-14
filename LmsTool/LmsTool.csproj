@@ -202,9 +202,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708111105040_init44.cs" />
-    <Compile Include="Migrations\201708111105040_init44.Designer.cs">
-      <DependentUpon>201708111105040_init44.cs</DependentUpon>
+    <Compile Include="Migrations\201708131700083_inita.cs" />
+    <Compile Include="Migrations\201708131700083_inita.Designer.cs">
+      <DependentUpon>201708131700083_inita.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -240,18 +240,7 @@
     <Content Include="Documents\Python.txt" />
     <Content Include="Documents\Intro.txt" />
     <Content Include="Dokumentation\Backlog 20170705.txt" />
-    <Content Include="Dokumentation\erdplus-diagram %281%29 20170721.png" />
     <Content Include="Dokumentation\erdplus-diagram20170714.png" />
-    <Content Include="Dokumentation\Screenshots\Elevvy\Elev index.png" />
-    <Content Include="Dokumentation\Screenshots\Elevvy\elev inlämning.png" />
-    <Content Include="Dokumentation\Screenshots\Lärarvy\Aktivitets index.png" />
-    <Content Include="Dokumentation\Screenshots\Lärarvy\Index Modul.png" />
-    <Content Include="Dokumentation\Screenshots\Lärarvy\Kursöversikt.png" />
-    <Content Include="Dokumentation\Screenshots\Lärarvy\Redigera kurs.png" />
-    <Content Include="Dokumentation\Screenshots\Lärarvy\Skapa inlämning.png" />
-    <Content Include="Dokumentation\Screenshots\Lärarvy\Skapa kurs.png" />
-    <Content Include="Dokumentation\Screenshots\Lärarvy\Ta bort kurs.png" />
-    <Content Include="Dokumentation\Screenshots\Lärarvy\visa inlämning.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -369,8 +358,8 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708111105040_init44.resx">
-      <DependentUpon>201708111105040_init44.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708131700083_inita.resx">
+      <DependentUpon>201708131700083_inita.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
