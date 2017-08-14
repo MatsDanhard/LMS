@@ -784,9 +784,12 @@ namespace LmsTool.Migrations
                     FullName = "Erlang student",
                     CourseId = course.Id
                 };
-                var result = userManager.Create(student, "password");
-                userManager.AddToRole(student.Id, "Student");
-                course.Students.Add(student);
+                if (!context.Users.Any(u => u.UserName == student.Email))
+                {
+                    var result = userManager.Create(student, "password");
+                    userManager.AddToRole(student.Id, "Student");
+                    course.Students.Add(student);
+                }
             }
 
             //adminUser = userManager.FindByName("admin@Gymbokning.se");

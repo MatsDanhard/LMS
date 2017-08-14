@@ -17,6 +17,7 @@ using System.IO;
 
 namespace LmsTool.Controllers
 {
+    [Authorize(Roles = "Teacher")]
     public class CourseController : Controller
     {
        

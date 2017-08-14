@@ -66,12 +66,21 @@
                     }
 
                     <dt>@Html.LabelFor(model => model.Deadline, htmlAttributes: new { @class = "" })</dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Deadline, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Deadline, "", new { @class = "text-danger" })
+                    @if (Model.Deadline < DateTime.Now)
+                    {
+                    <dd><span class="badge" style="background-color:indianred;">
+    @Html.DisplayFor(model => model.Deadline, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.Deadline, "", new { @class = "text-danger label-danger" })
+</span>
                     </dd>
-
+                    }
+                    else
+                    {
+                        <dd>
+                            @Html.DisplayFor(model => model.Deadline, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Deadline, "", new { @class = "text-danger" })
+                        </dd>
+                    }
 
                     @if (Model.Document.IsNullOrWhiteSpace())
                     {
@@ -107,6 +116,7 @@
                         <a class="btn btn-danger" href="@Url.Action("RedoAssignment", "Student", new {id = Model.Id})">Ta bort Inlämning</a>
                         </dd>
                         }      
+                  
                 </dl>
 
                 <h4>@Html.DisplayNameFor(model => model.Description)</h4>

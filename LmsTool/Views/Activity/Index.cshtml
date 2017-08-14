@@ -1,4 +1,5 @@
-﻿@using LmsTool.Models.DbModels
+﻿@using System.Diagnostics.Eventing.Reader
+@using LmsTool.Models.DbModels
 @using LmsTool.Models.Viewmodels
 @model IEnumerable<LmsTool.Models.Viewmodels.ViewActivitys>
 
@@ -15,17 +16,18 @@
     ViewBag.Title = "Index";
 }
 <h2>@Model.FirstOrDefault().ModulName</h2>
-@if (User.IsInRole("Teacher")){ 
-<p>
-    <a href="@Url.Action("Create","Activity", new {id = ViewBag.CurrentModul})" class="btn btn-success Create">Skapa aktivitet</a>
-</p>
+@if (User.IsInRole("Teacher"))
+{
+    <p>
+        <a href="@Url.Action("Create","Activity", new {id = ViewBag.CurrentModul})" class="btn btn-success Create">Skapa aktivitet</a>
+    </p>
 }
 @using (Ajax.BeginForm(null, null, null, new AjaxOptions
 {
     HttpMethod = "POST",
     UpdateTargetId = "frmCreate",
     InsertionMode = InsertionMode.Replace
-    }, new { @id = "frmID1" }))
+}, new { @id = "frmID1" }))
 
 {
 
@@ -118,17 +120,17 @@
 
 
 <div class="panel panel-info">
-        <div class="panel-heading">
-            
-            <h3 class="text-center">@Model.FirstOrDefault().ModulStartStr  &nbsp - &nbsp  @Model.FirstOrDefault().ModulEndStr</h3>
-        </div>
+    <div class="panel-heading">
+
+        <h3 class="text-center">@Model.FirstOrDefault().ModulStartStr  &nbsp - &nbsp  @Model.FirstOrDefault().ModulEndStr</h3>
     </div>
-    
+</div>
+
 
 
 <table class="table">
     <tr>
-        
+
         <th>
             @Html.DisplayNameFor(model => model.TypeOfActivity)
         </th>
@@ -136,9 +138,9 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         @*<th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>*@
-        
+                @Html.DisplayNameFor(model => model.Description)
+            </th>*@
+
         <th>
             @Html.DisplayNameFor(model => model.StartDate)
         </th>
@@ -153,61 +155,75 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model)
-{
-    if (item.Name != null)
+    @foreach (var item in Model)
     {
+        if (item.Name != null)
+        {
 
 
-        <tr>
+            <tr>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.TypeOfActivity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeOfActivity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>*@
 
-            <td>
-                @item.StartDate.ToShortDateString()  @item.StartDate.Hour:@item.StartDate.Minute
-                
-            </td>
-            <td>
-                @item.EndDate.ToShortDateString()  @item.EndDate.Hour:@item.EndDate.Minute
-            </td>
+                <td>
+                    @item.StartDate.ToShortDateString()  @item.StartDate.Hour:@item.StartDate.Minute
 
-            <td>
-                @if (item.Document != null)
+                </td>
+                <td>
+                    @item.EndDate.ToShortDateString()  @item.EndDate.Hour:@item.EndDate.Minute
+                </td>
+
+                <td>
+                    @if (item.Document != null)
+                    {
+                        @Html.ActionLink(item.Document.ToString(), "Download", new { FileName = item.Document })
+                    }
+                </td>
+
+                @if (User.IsInRole("Teacher"))
                 {
-                @Html.ActionLink(item.Document.ToString(), "Download", new { FileName = item.Document })
+                    int nrDelayed = 0;
+
+                    foreach (var delayed in item.Assignments)
+                    {
+                        if (delayed.Submitted == null && delayed.Deadline < DateTime.Now)
+                        {
+                            nrDelayed++;
+                        }
+                    }
+
+                    <td>
+
+                        <a href="@Url.Action("Edit", "Activity", new { id = item.Id })" class="btn btn-primary btn-md Edit">Redigera</a>
+                        <a href="@Url.Action("Delete", "Activity", new { id = item.Id })" class="btn btn-danger btn-md Delete">Ta bort</a>
+                        @if (item.Assignments != null && item.Assignments.Count > 0 && item.Assignments.First().Deadline < DateTime.Now)
+                        {
+                            @Html.ActionLink("Inlämningsuppgifter (" + nrDelayed + ")", "IndexAssignment", "Activity", new { id = item.Id }, new { @class = "btn btn-primary btn-md alert-warning" })
+
+                        }
+                        else if (item.Assignments != null && item.Assignments.Count > 0)
+                        {
+                            @Html.ActionLink("Inlämningsuppgifter", "IndexAssignment", "Activity", new { id = item.Id }, new { @class = "btn btn-primary btn-md" })
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("CreateAssignment", "Activity", new { id = item.Id })" class="btn btn-success btn-md CreateAssignment">Skapa Inlämning</a>
+                        }
+
+
+                    </td>
                 }
-            </td>
-
-@if (User.IsInRole("Teacher"))
-{
-
-            <td>
-
-                <a href="@Url.Action("Edit", "Activity", new { id = item.Id })" class="btn btn-primary btn-md Edit">Redigera</a>
-                <a href="@Url.Action("Delete", "Activity", new { id = item.Id })" class="btn btn-danger btn-md Delete">Ta bort</a>
-                @if (item.Assignments != null && item.Assignments.Count > 0)
-                {
-                    @Html.ActionLink("Inlämningsuppgifter", "IndexAssignment", "Activity", new { id = item.Id }, new { @class = "btn btn-primary btn-md" })
-                }
-                @if (item.Assignments != null && item.Assignments.Count < 1)
-                {
-                    <a href="@Url.Action("CreateAssignment", "Activity", new { id = item.Id })" class="btn btn-success btn-md CreateAssignment">Skapa Inlämning</a>
-                }
-                
-
-            </td>
-}
-        </tr>
+            </tr>
+        }
     }
-}
 
 </table>
 
@@ -237,14 +253,14 @@
             if ($('.EditWindow').css('display') == 'none' && $('#CreateWindowAssignment').css('display') == 'none') {
                 $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
             }
-            else if ($('#CreateWindowAssignment').css('display') == 'none' ) {
+            else if ($('#CreateWindowAssignment').css('display') == 'none') {
                 $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
                 $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
 
             }
             else {
                 $(this).closest('.container').find("#CreateWindowAssignment").toggle("fast", "swing");
-                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing"); 
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
             }
 
 
@@ -276,7 +292,7 @@
             }
             else {
                 $(this).closest('.container').find("#CreateWindowAssignment").toggle("fast", "swing");
-                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing"); 
+                $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
             }
 
 
@@ -289,14 +305,14 @@
             if ($('#CreateWindow').css('display') == 'none' && $('.EditWindow').css('display') == 'none') {
                 $(this).closest('.container').find("#CreateWindowAssignment").toggle("fast", "swing");
             }
-           else if ($('#CreateWindow').css('display') == 'none') {
+            else if ($('#CreateWindow').css('display') == 'none') {
                 $(this).closest('.container').find(".EditWindow").toggle("fast", "swing");
                 $(this).closest('.container').find("#CreateWindowAssignment").toggle("fast", "swing");
 
             }
             else {
                 $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
-                $(this).closest('.container').find("#CreateWindowAssignment").toggle("fast", "swing"); 
+                $(this).closest('.container').find("#CreateWindowAssignment").toggle("fast", "swing");
             }
 
 

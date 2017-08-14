@@ -13,9 +13,11 @@ using LmsTool.Models.StudentViewmodels;
 using LmsTool.Models.Viewmodels;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
+using System.IO;
 
 namespace LmsTool.Controllers
 {
+    [Authorize(Roles="Student")]
     public class StudentController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -30,7 +32,7 @@ namespace LmsTool.Controllers
             var student = db.Users.Find(User.Identity.GetUserId());
             var course = db.Courses.Find(student.CourseId);
             var activities = db.Activities.Where(a => a.Modul.Course.Id == course.Id && a.StartDate > start && a.StartDate < end).ToList();
-            var assignments = db.Assignments.Include(a => a.Activity).Where(u => u.UserId == student.Id).OrderByDescending(o => o.Deadline).ToList();
+            var assignments = db.Assignments.Include(a => a.Activity).Where(u => u.UserId == student.Id).OrderBy(o => o.Deadline).ToList();
             var modul = db.Moduls.Include(a => a.Activities).Where(m => m.CourseId == course.Id).OrderBy(o => o.StartDate).ToList();
 
          
@@ -104,6 +106,7 @@ namespace LmsTool.Controllers
             AssignmentModel assignment = db.Assignments.Find(id);
             assignment.Document = null;
             assignment.Submitted = null;
+            assignment.Feedback = null;
             assignment.Redo = false;
             db.Entry(assignment).State = EntityState.Modified;
             db.SaveChanges();
@@ -199,7 +202,11 @@ namespace LmsTool.Controllers
 
             
         }
-
+        public FileResult Download(string FileName)
+        {
+            var FileVirtualPath = "~/Documents/" + FileName;
+            return File(FileVirtualPath, "application/force-download", Path.GetFileName(FileVirtualPath));
+        }
 
         protected override void Dispose(bool disposing)
         {
