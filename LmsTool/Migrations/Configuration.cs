@@ -483,7 +483,7 @@ namespace LmsTool.Migrations
                                 {
                                     Description = "Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok",
                                     Submission = false,
-                                    Name = "Intro till Erlang",
+                                    Name = "Intro till Python",
                                     TypeOfActivity = "E-Learning",
                                     StartDate = new DateTime(2017,8,9,8,0,0),
                                     EndDate = new DateTime(2017,8,9,17,0,0),
@@ -493,7 +493,7 @@ namespace LmsTool.Migrations
                                 {
                                     Description = "Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok",
                                     Submission = false,
-                                    Name = "Intro till Erlang2",
+                                    Name = "Intro till Python2",
                                     TypeOfActivity = "E-Learning",
                                     StartDate = new DateTime(2017,8,10,8,0,0),
                                     EndDate = new DateTime(2017,8,10,17,0,0),
@@ -503,7 +503,7 @@ namespace LmsTool.Migrations
                                 {
                                     Description = "Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok",
                                     Submission = false,
-                                    Name = "Intro till Erlang3",
+                                    Name = "Intro till Python3",
                                     TypeOfActivity = "E-Learning",
                                     StartDate = new DateTime(2017,8,11,8,0,0),
                                     EndDate = new DateTime(2017,8,11,17,0,0),
@@ -513,7 +513,7 @@ namespace LmsTool.Migrations
                                 {
                                     Description = "Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok",
                                     Submission = false,
-                                    Name = "Intro till Erlang4",
+                                    Name = "Intro till Python4",
                                     TypeOfActivity = "E-Learning",
                                     StartDate = new DateTime(2017,8,12,8,0,0),
                                     EndDate = new DateTime(2017,8,12,17,0,0),
@@ -523,7 +523,7 @@ namespace LmsTool.Migrations
                                 {
                                     Description = "Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok",
                                     Submission = false,
-                                    Name = "Intro till Erlang5",
+                                    Name = "Intro till Pythong5",
                                     TypeOfActivity = "E-Learning",
                                     StartDate = new DateTime(2017,8,14,8,0,0),
                                     EndDate = new DateTime(2017,8,14,17,0,0),
@@ -533,7 +533,7 @@ namespace LmsTool.Migrations
                                 {
                                     Description = "Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok",
                                     Submission = false,
-                                    Name = "Intro till Erlang6",
+                                    Name = "Intro till Python6",
                                     TypeOfActivity = "E-Learning",
                                     StartDate = new DateTime(2017,8,15,8,0,0),
                                     EndDate = new DateTime(2017,8,15,17,0,0),
@@ -543,7 +543,7 @@ namespace LmsTool.Migrations
                                 {
                                     Description = "Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok",
                                     Submission = false,
-                                    Name = "Intro till Erlang7",
+                                    Name = "Intro till Python7",
                                     TypeOfActivity = "E-Learning",
                                     StartDate = new DateTime(2017,8,16,8,0,0),
                                     EndDate = new DateTime(2017,8,16,17,0,0),
@@ -553,7 +553,7 @@ namespace LmsTool.Migrations
                                 {
                                     Description = "Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok",
                                     Submission = false,
-                                    Name = "Intro till Erlang8",
+                                    Name = "Intro till Python8",
                                     TypeOfActivity = "E-Learning",
                                     StartDate = new DateTime(2017,8,17,8,0,0),
                                     EndDate = new DateTime(2017,8,17,17,0,0),
@@ -563,7 +563,7 @@ namespace LmsTool.Migrations
                                 {
                                     Description = "Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok",
                                     Submission = false,
-                                    Name = "Intro till Erlang9",
+                                    Name = "Intro till Python9",
                                     TypeOfActivity = "E-Learning",
                                     StartDate = new DateTime(2017,8,18,8,0,0),
                                     EndDate = new DateTime(2017,8,18,17,0,0),
@@ -573,7 +573,7 @@ namespace LmsTool.Migrations
                                 {
                                     Description = "Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok",
                                     Submission = false,
-                                    Name = "Intro till Erlang10",
+                                    Name = "Intro till Python10",
                                     TypeOfActivity = "E-Learning",
                                     StartDate = new DateTime(2017,8,21,8,0,0),
                                     EndDate = new DateTime(2017,8,21,17,0,0),
@@ -583,7 +583,7 @@ namespace LmsTool.Migrations
                                 {
                                     Description = "Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok",
                                     Submission = false,
-                                    Name = "Intro till Erlang11",
+                                    Name = "Intro till Python11",
                                     TypeOfActivity = "E-Learning",
                                     StartDate = new DateTime(2017,8,22,8,0,0),
                                     EndDate = new DateTime(2017,8,22,17,0,0),
@@ -593,7 +593,7 @@ namespace LmsTool.Migrations
                                 {
                                     Description = "Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok",
                                     Submission = false,
-                                    Name = "Intro till Erlang12",
+                                    Name = "Intro till Python12",
                                     TypeOfActivity = "E-Learning",
                                     StartDate = new DateTime(2017,8,23,8,0,0),
                                     EndDate = new DateTime(2017,8,23,17,0,0),
@@ -603,7 +603,7 @@ namespace LmsTool.Migrations
                                 {
                                     Description = "Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok",
                                     Submission = false,
-                                    Name = "Intro till Erlang13",
+                                    Name = "Intro till Python13",
                                     TypeOfActivity = "E-Learning",
                                     StartDate = new DateTime(2017,8,24,8,0,0),
                                     EndDate = new DateTime(2017,8,24,17,0,0),
@@ -613,7 +613,7 @@ namespace LmsTool.Migrations
                                 {
                                     Description = "Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok",
                                     Submission = false,
-                                    Name = "Intro till Erlang14",
+                                    Name = "Intro till Python14",
                                     TypeOfActivity = "E-Learning",
                                     StartDate = new DateTime(2017,8,25,8,0,0),
                                     EndDate = new DateTime(2017,8,25,17,0,0),
@@ -623,7 +623,7 @@ namespace LmsTool.Migrations
                                 {
                                     Description = "Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok. Python har ett antal enkla datatyper som numeriska (int, float, long, complex). Förutom de numeriska datatyperna finns boolean, sträng, lista, tuple och ordbok",
                                     Submission = false,
-                                    Name = "Intro till Erlang15",
+                                    Name = "Intro till Python15",
                                     TypeOfActivity = "E-Learning",
                                     StartDate = new DateTime(2017,8,26,8,0,0),
                                     EndDate = new DateTime(2017,8,26,17,0,0),

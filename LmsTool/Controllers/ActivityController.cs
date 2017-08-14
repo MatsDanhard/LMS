@@ -141,8 +141,8 @@ namespace LmsTool.Controllers
 
             if (approved)
             {
-               
 
+                model.Redo = false;
                 model.Approved = true;
                 
 

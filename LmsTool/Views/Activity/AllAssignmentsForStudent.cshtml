@@ -67,10 +67,11 @@
             @Html.DisplayFor(modelItem => item.Deadline)
         </td>
         <td>
-            @if (item.Document != null)
+            @Html.TextAreaFor(modelItem => item.Document, new { @readonly = true })
+            @*@if (item.Document != null)
                 {
                 @Html.ActionLink(item.Document.ToString(), "Download", new { FileName = item.Document })
-            }
+            }*@
         </td>
         @*<td>
             @Html.DisplayFor(modelItem => item.UserId)
