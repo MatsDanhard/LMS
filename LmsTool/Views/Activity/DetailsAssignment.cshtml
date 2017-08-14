@@ -54,18 +54,12 @@
         <dd>
             @Html.DisplayFor(model => model.StudentName)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Feedback)
-        </dt>
-
-        <dd>
-            @Html.TextAreaFor(model => model.Feedback)
-        </dd>
+       
 
     </dl>
 </div>
 <p>
-    <a class="btn btn-primary btn-success btn-block" href="@Url.Action("ApproveHandler", "Activity", new { id = Model.Id, approved = true, feedback = Model.Feedback } )">Godkänd</a> 
+    <a class="btn btn-primary btn-success btn-block" href="@Url.Action("ApproveHandler", "Activity", new { id = Model.Id, approved = true } )">Godkänd</a> 
 
-    <a class="btn btn-primary btn-danger btn-block" href="@Url.Action("ApproveHandler", "Activity", new { id = Model.Id, approved = false, feedback = Model.Feedback } )">Ej Godkänd</a> 
+    <a class="btn btn-primary btn-danger btn-block" href="@Url.Action("ApproveHandler", "Activity", new { id = Model.Id, approved = false } )">Ej Godkänd</a> 
 </p>

@@ -132,22 +132,19 @@ namespace LmsTool.Controllers
 
 
         
-        public ActionResult ApproveHandler(int id, bool approved, string feedback)  // To approve assignments for teacher
+        public ActionResult ApproveHandler(int id, bool approved)  // To approve assignments for teacher
         {
 
             AssignmentModel model = db.Assignments.Find(id);
 
-            if (feedback.IsNullOrWhiteSpace())
-            {
-                feedback = "Ingen återkoppling";
-            }
+          
 
             if (approved)
             {
                
 
                 model.Approved = true;
-                model.Feedback = feedback;
+                
 
                 db.Assignments.AddOrUpdate(model);
                 db.SaveChanges();
@@ -156,7 +153,7 @@ namespace LmsTool.Controllers
             {
                 model.Redo = true;
                 model.Approved = false;
-                model.Feedback = feedback;
+                
 
                 db.Assignments.AddOrUpdate(model);
                 db.SaveChanges();
@@ -206,7 +203,7 @@ namespace LmsTool.Controllers
                 var endDate = assignmentModel.Deadline.Date;
 
 
-
+                
                 
 
 
@@ -221,7 +218,7 @@ namespace LmsTool.Controllers
                         Name = assignmentModel.Name,
                         UserId = user.Id,
                         StudentName = user.FullName,
-                        Document = "",
+                        Document = null,
                     };
                     db.Assignments.Add(model);
 
