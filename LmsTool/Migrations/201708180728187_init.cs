@@ -37,7 +37,6 @@ namespace LmsTool.Migrations
                         Redo = c.Boolean(nullable: false),
                         Deadline = c.DateTime(nullable: false),
                         Document = c.String(),
-                        Feedback = c.String(),
                         ActivityId = c.Int(nullable: false),
                         UserId = c.String(),
                         StudentName = c.String(),

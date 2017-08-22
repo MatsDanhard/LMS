@@ -13,7 +13,7 @@ namespace LmsTool.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201708140707459_init"; }
+            get { return "201708180728187_init"; }
         }
         
         string IMigrationMetadata.Source

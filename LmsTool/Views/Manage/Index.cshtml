@@ -15,6 +15,7 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
 <h1>@ViewBag.Title.</h1>
+<p>@ViewBag.ErrorMessage</p>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <hr />
@@ -35,7 +36,7 @@
                 </p>
             </div>*@
 
-        <a href="/Manage/ChangePassword" class="btn btn-primary Password">Byt lösenord</a>
+        @*<a href="/Manage/ChangePassword" class="btn btn-primary Password">Byt lösenord</a>*@
 
 
         @*<dl class="dl-horizontal">
@@ -115,18 +116,21 @@
         @*</dl>*@
 
     </div>
-    <div>
-        @if (User.IsInRole("Teacher"))
-        {
-            <br />
-            <div>
-                <p>
-                    <a href="@Url.Action("RegisterTeacher", "Account")" class="btn btn-primary Create">Registrera lärare</a>
-                </p>
-            </div>
-        }
+
+    <div style="display:inline-block;">
+        <a href="/Manage/ChangePassword" class="btn btn-primary Password">Byt lösenord</a>
     </div>
+    @if (User.IsInRole("Teacher"))
+    {
+        <div style="display:inline-block;">
+            <a href="@Url.Action("RegisterTeacher", "Account")" class="btn btn-success Create">Registrera lärare</a>
+        </div>
+        <div style="display:inline-block;">
+            <a href="@Url.Action("ListTeachers", "Manage")" class="btn btn-primary ListTeachers">Lista lärare</a>
+        </div>
+    }
 </div>
+
 <div>
     @using (Ajax.BeginForm(null, null, null, new AjaxOptions
             {
@@ -168,6 +172,28 @@
                 </div>
             </div>
             <div class="col-xs-4"></div>
+
+        </div>
+    }
+
+    @using (Ajax.BeginForm(null, null, null, new AjaxOptions
+            {
+                HttpMethod = "POST",
+                UpdateTargetId = "frmListTeachers",
+                InsertionMode = InsertionMode.Replace
+            }, new { @id = "frmID3" }))
+
+            {
+        <div class="container row collapse" id="ListTeachersWindow">
+            <div class="col-xs-2"></div>
+            <div class="col-xs-8">
+
+                <h3>Lärare</h3>
+                <div id="frmListTeachers">
+
+                </div>
+            </div>
+            <div class="col-xs-2"></div>
 
         </div>
     }
@@ -246,17 +272,28 @@
             });
 
         });
+        $('.ListTeachers').click(function (event) {
+            event.preventDefault();
+            $.get(this.href, function (response) {
+                $('#frmListTeachers').html(response);
+            });
+
+        });
     });
 </script>
 
 <script>
     $(document).ready(
         $(document).on('click', '.Create', function () {
-            if ($('#PasswordWindow').css('display') == 'none') {
+            if ($('#PasswordWindow').css('display') == 'none' && $('#ListTeachersWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+            }
+            else if ($('#ListTeachersWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#PasswordWindow").toggle("fast", "swing");
                 $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
             }
             else {
-                $(this).closest('.container').find("#PasswordWindow").toggle("fast", "swing");
+                $(this).closest('.container').find("#ListTeachersWindow").toggle("fast", "swing");
                 $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
 
             }
@@ -266,16 +303,37 @@
 <script>
     $(document).ready(
         $(document).on('click', '.Password', function () {
-            if ($('#CreateWindow').css('display') == 'none') {
+            if ($('#CreateWindow').css('display') == 'none' && $('#ListTeachersWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#PasswordWindow").toggle("fast", "swing");
+            }
+            else if ($('#ListTeachersWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
                 $(this).closest('.container').find("#PasswordWindow").toggle("fast", "swing");
             }
             else {
-                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+                $(this).closest('.container').find("#ListTeachersWindow").toggle("fast", "swing");
                 $(this).closest('.container').find("#PasswordWindow").toggle("fast", "swing");
 
             }
-
-
         }));
 
 </script>
+<script>
+    $(document).ready(
+        $(document).on('click', '.ListTeachers', function () {
+            if ($('#CreateWindow').css('display') == 'none' && $('#PasswordWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#ListTeachersWindow").toggle("fast", "swing");
+            }
+            else if ($('#PasswordWindow').css('display') == 'none') {
+                $(this).closest('.container').find("#CreateWindow").toggle("fast", "swing");
+                $(this).closest('.container').find("#ListTeachersWindow").toggle("fast", "swing");
+            }
+            else {
+                $(this).closest('.container').find("#PasswordWindow").toggle("fast", "swing");
+                $(this).closest('.container').find("#ListTeachersWindow").toggle("fast", "swing");
+
+            }
+        }));
+
+</script>
+

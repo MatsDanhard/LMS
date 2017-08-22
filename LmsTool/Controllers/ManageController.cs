@@ -9,12 +9,15 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LmsTool.Models;
+using LmsTool.Models.Viewmodels;
+using System.Collections.Generic;
 
 namespace LmsTool.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -222,6 +225,18 @@ namespace LmsTool.Controllers
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
+        }
+
+        [Authorize(Roles = "Teacher")]
+        public ActionResult ListTeachers()
+        {
+            var teachers = db.Users.Where(a => a.CourseId == null).ToList();
+            var listTeachers = new List<ViewTeachers>();
+            foreach (var item in teachers)
+            {
+                listTeachers.Add(new ViewTeachers { Email = item.Email, FullName = item.FullName, Id = item.Id });
+            }
+            return PartialView(listTeachers);
         }
 
         //

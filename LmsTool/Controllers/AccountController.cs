@@ -519,11 +519,16 @@ namespace LmsTool.Controllers
                 var manager = new ApplicationUserManager(store);
                 
                 var user = manager.FindById(id);
-
+                var userID = user.CourseId;
                 var rolesForUser =  manager.GetRoles(id);
 
                 //if (rolesForUser.First() == "Teacher" && db.Users.Where(g => g.Roles.Select(r => r.RoleId).Contains("Teacher")).ToList().Count() == 1)
                 //                                         db.Users.Where(g => g.CourseId == null).Count() == 1
+                // Hide delete button instead
+                //if (rolesForUser.First() == "Teacher" && db.Users.Where(i => i.CourseId == null).Count() == 1)
+                //{
+                //    return RedirectToAction("Index", "Manage");
+                //}
 
                 using (var transaction = db.Database.BeginTransaction())
                 {
@@ -540,8 +545,11 @@ namespace LmsTool.Controllers
                     manager.Delete(user);
                     transaction.Commit();
                 }
-
-                return RedirectToAction("Index", "Course", new {id = user.CourseId});
+                if (rolesForUser.First() == "Teacher")
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
+                return RedirectToAction("Index", "Course", new {id = userID}); //, new { id = user.CourseId }
             }
             else
             {
